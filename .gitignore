@@ -1,0 +1,27 @@
+# Dependencies
+/node_modules/
+/website/node_modules/
+
+# Build output
+/build/
+/dist/
+/website/build/
+/website/dist/
+/website/.docusaurus/
+/website/.cache/
+/website/.eslintcache
+
+# Local environment and logs
+.env
+.env.*
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Common OS and editor clutter
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
