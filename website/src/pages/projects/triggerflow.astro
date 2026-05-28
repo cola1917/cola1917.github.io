@@ -2,54 +2,46 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 ---
 
-<MainLayout title="TriggerFlow | Jiangtao Wang">
+<MainLayout title="Trigger Engine | 王江涛">
   <main class="pt-14 min-h-screen">
     <div class="max-w-4xl mx-auto px-6 py-16">
       <a href="/#projects" class="text-sm font-mono text-muted hover:text-black transition-colors">
-        ← Back to Projects
+        ← 返回项目列表
       </a>
 
-      <h1 class="mt-8 text-3xl font-sans font-bold">TriggerFlow</h1>
-      <p class="mt-4 text-lg text-muted leading-relaxed">
-        Replay-first risk scenario discovery platform for autonomous driving data closed-loop workflows.
-      </p>
+      <h1 class="mt-8 text-3xl font-sans font-bold">自动驾驶触发式场景挖掘引擎 (Trigger Engine)</h1>
+      <p class="mt-2 text-xs font-mono text-muted">核心技术：Python, Waymo Open Dataset, Rule-based Scenario Mining, Temporal Rule Engine, JSON Visualization, Parallel Batch Processing</p>
 
       <div class="mt-8 space-y-6">
         <section>
-          <h2 class="text-lg font-sans font-semibold">Overview</h2>
+          <h2 class="text-lg font-sans font-semibold">项目定位</h2>
           <p class="mt-2 text-muted leading-relaxed">
-            TriggerFlow is a rule-based trigger mining engine designed for processing large-scale road test data.
-            It abstracts long-tail risk scenarios into configurable rule chains, enabling automated discovery
-            and extraction of high-value driving segments.
+            面向 Waymo Open Dataset 中的 TFRecord 场景数据，设计并实现轻量级 Trigger Engine，将自动驾驶长尾风险场景抽象为可配置规则链，支持低 TTC 跟驰风险、Cut-in 切入、红灯通行、频繁变道等高价值场景的自动识别、事件输出与人工复核。
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-sans font-semibold">Key Features</h2>
-          <ul class="mt-2 space-y-2 text-muted">
-            <li class="flex items-start gap-2">
-              <span class="text-border">•</span>
-              <span>Temporal constraint-based scenario detection</span>
+          <h2 class="text-lg font-sans font-semibold">核心功能</h2>
+          <ul class="mt-3 space-y-3 text-muted leading-relaxed">
+            <li>
+              <strong>规则 DSL 与 Operator 体系建设：</strong>构建基于规则 DSL 的场景配置机制，将场景判断拆解为可复用 Operator，包括相对纵横向距离、closing speed、heading diff、TTC、车道匹配、红绿灯停止线穿越、时序连续帧约束等，使不同高价值场景能够通过组合规则快速扩展
             </li>
-            <li class="flex items-start gap-2">
-              <span class="text-border">•</span>
-              <span>Scene-level false positive filtering</span>
+            <li>
+              <strong>复杂交互场景误检治理：</strong>针对自动驾驶场景中常见误报问题进行规则迭代，例如 Cut-in 在自车转弯、目标车静止时的伪触发，红灯检测中自车右转被误判为闯红灯，频繁变道在路口转弯场景中的误报等；通过未来航向变化、目标车速度、自车转向抑制、车道几何一致性等过滤条件提升场景筛选精度
             </li>
-            <li class="flex items-start gap-2">
-              <span class="text-border">•</span>
-              <span>Versioned rule coverage mechanism (v1 ~ v8)</span>
+            <li>
+              <strong>批量扫描与性能优化：</strong>支持对多 TFRecord 分片进行批量扫描与统计汇总，输出 review scenario、trigger 分布、payload 路径等结构化结果；通过并行 shard 处理、车道匹配缓存、车道空间索引、payload 内联输出等优化，降低大规模规则扫描耗时
             </li>
-            <li class="flex items-start gap-2">
-              <span class="text-border">•</span>
-              <span>PNG/GIF visualization output</span>
+            <li>
+              <strong>可解释复核闭环：</strong>构建基于 JSON payload 的本地可视化 viewer，支持按文件、scenario、trigger 类型查看挖掘结果，并展示 ego、target、轨迹、地图元素、红绿灯和事件 metadata，形成"规则挖掘 - 批量筛选 - 可视化复核 - 规则修正"的闭环迭代流程
             </li>
           </ul>
         </section>
 
         <section>
-          <h2 class="text-lg font-sans font-semibold">Technology Stack</h2>
+          <h2 class="text-lg font-sans font-semibold">技术栈</h2>
           <div class="mt-2 flex flex-wrap gap-2">
-            {['Python', 'TFRecord', 'Rule-based Mining', 'Docker', 'CSV/JSON Pipeline'].map((tag) => (
+            {['Python', 'Waymo Open Dataset', 'Rule-based Mining', 'Temporal Rule Engine', 'JSON Visualization', 'Parallel Batch Processing'].map((tag) => (
               <span class="text-xs font-mono px-2 py-1 bg-surface border border-border rounded text-muted">
                 {tag}
               </span>

@@ -19,7 +19,7 @@ import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
             {site.name}
           </h1>
           <p class="mt-2 text-lg font-mono text-muted">
-            {site.title}
+            求职意向：{site.title}
           </p>
         </div>
 
@@ -28,9 +28,11 @@ import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
         </p>
 
         <div class="flex items-center gap-4 text-sm font-mono text-muted">
-          <span>{site.location}</span>
-          <span class="text-border">|</span>
           <span>{site.university}</span>
+          <span class="text-border">|</span>
+          <span>{site.degree}</span>
+          <span class="text-border">|</span>
+          <span>{site.phone}</span>
         </div>
       </div>
 
