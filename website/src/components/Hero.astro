@@ -3,36 +3,38 @@ import { site } from '../content/site';
 import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
 ---
 
-<section class="pt-14 min-h-screen flex items-center">
-  <div class="max-w-6xl mx-auto px-6 py-16 w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+<section class="pt-14">
+  <div class="max-w-6xl mx-auto px-6 py-10 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
       <!-- Left: Profile -->
-      <div class="space-y-6">
-        <div class="w-20 h-20 rounded-full bg-surface border border-border overflow-hidden">
-          <div class="w-full h-full bg-gradient-to-br from-surface to-border flex items-center justify-center text-2xl font-mono font-medium text-muted">
+      <div class="space-y-4">
+        <div class="w-16 h-16 rounded-full bg-surface border border-border overflow-hidden">
+          <div class="w-full h-full bg-gradient-to-br from-surface to-border flex items-center justify-center text-xl font-mono font-medium text-muted">
             JW
           </div>
         </div>
 
         <div>
-          <h1 class="text-3xl sm:text-4xl font-sans font-bold tracking-tight">
+          <h1 class="text-2xl sm:text-3xl font-sans font-bold tracking-tight">
             {site.name}
           </h1>
-          <p class="mt-2 text-lg font-mono text-muted">
+          <p class="mt-1.5 text-base font-mono text-muted">
             求职意向：{site.title}
           </p>
         </div>
 
-        <p class="text-base text-muted leading-relaxed max-w-lg">
+        <p class="text-sm text-muted leading-relaxed max-w-lg">
           {site.description}
         </p>
 
-        <div class="flex items-center gap-4 text-sm font-mono text-muted">
+        <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-muted">
           <span>{site.university}</span>
           <span class="text-border">|</span>
           <span>{site.degree}</span>
           <span class="text-border">|</span>
           <span>{site.phone}</span>
+          <span class="text-border">|</span>
+          <span>{site.email}</span>
         </div>
       </div>
 
