@@ -3,14 +3,13 @@ interface Props {
   title: string;
   description: string;
   tags: string[];
-  cta: string;
   link: string;
 }
 
-const { title, description, tags, cta, link } = Astro.props;
+const { title, description, tags, link } = Astro.props;
 ---
 
-<article class="border border-border rounded p-5 hover:border-black transition-colors group">
+<a href={link} class="block border border-border rounded p-5 hover:border-black transition-colors group">
   <h3 class="font-sans font-semibold text-base">{title}</h3>
 
   <p class="mt-2 text-sm text-muted leading-relaxed">
@@ -24,11 +23,4 @@ const { title, description, tags, cta, link } = Astro.props;
       </span>
     ))}
   </div>
-
-  <a
-    href={link}
-    class="inline-block mt-4 text-sm font-mono text-black group-hover:underline"
-  >
-    {cta}
-  </a>
-</article>
+</a>
