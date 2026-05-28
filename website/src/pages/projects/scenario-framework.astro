@@ -1,0 +1,80 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Scenario Generalization Framework | Jiangtao Wang">
+  <main class="pt-14 min-h-screen">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a href="/#projects" class="text-sm font-mono text-muted hover:text-black transition-colors">
+        ← Back to Projects
+      </a>
+
+      <h1 class="mt-8 text-3xl font-sans font-bold">Scenario Generalization Framework</h1>
+      <p class="mt-4 text-lg text-muted leading-relaxed">
+        Simulation replay and parameterized scenario generation infrastructure for robustness validation.
+      </p>
+
+      <div class="mt-8 space-y-6">
+        <section>
+          <h2 class="text-lg font-sans font-semibold">Overview</h2>
+          <p class="mt-2 text-muted leading-relaxed">
+            The Scenario Generalization Framework is a high-performance BEV fusion and visualization
+            evaluation engine. It enables multi-sensor geometric pipeline stability, visualization,
+            and benchmarking through advanced optimization techniques.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-sans font-semibold">Key Features</h2>
+          <ul class="mt-2 space-y-2 text-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-border">•</span>
+              <span>LUT pre-computation for BEV transformation</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-border">•</span>
+              <span>Shared Memory multi-process parallel processing</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-border">•</span>
+              <span>Numba JIT compilation for performance</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-border">•</span>
+              <span>TurboJPEG optimized image processing</span>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-sans font-semibold">Performance</h2>
+          <div class="mt-2 grid grid-cols-3 gap-4">
+            <div class="p-3 bg-surface border border-border rounded text-center">
+              <p class="text-2xl font-mono font-bold">0.85</p>
+              <p class="text-xs text-muted">FPS Before</p>
+            </div>
+            <div class="p-3 bg-surface border border-border rounded text-center">
+              <p class="text-2xl font-mono font-bold">2.1</p>
+              <p class="text-xs text-muted">FPS After</p>
+            </div>
+            <div class="p-3 bg-black text-white rounded text-center">
+              <p class="text-2xl font-mono font-bold">+144%</p>
+              <p class="text-xs opacity-80">Improvement</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-sans font-semibold">Technology Stack</h2>
+          <div class="mt-2 flex flex-wrap gap-2">
+            {['BEV', 'Shared Memory', 'Numba', 'TurboJPEG', 'Multi-process'].map((tag) => (
+              <span class="text-xs font-mono px-2 py-1 bg-surface border border-border rounded text-muted">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</MainLayout>

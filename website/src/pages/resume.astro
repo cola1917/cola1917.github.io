@@ -1,0 +1,95 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { site } from '../content/site';
+---
+
+<MainLayout title="Resume | Jiangtao Wang">
+  <main class="pt-14 min-h-screen">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <h1 class="text-3xl font-sans font-bold">Resume</h1>
+
+      <div class="mt-8 space-y-8">
+        <!-- Contact -->
+        <section>
+          <h2 class="text-lg font-sans font-semibold border-b border-border pb-2">Contact</h2>
+          <div class="mt-4 space-y-2 text-muted">
+            <p class="font-mono text-sm">{site.email}</p>
+            <p class="font-mono text-sm">{site.location}</p>
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section>
+          <h2 class="text-lg font-sans font-semibold border-b border-border pb-2">Education</h2>
+          <div class="mt-4 space-y-4">
+            <div>
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-sans font-medium">{site.university}</h3>
+                  <p class="text-sm text-muted">{site.degree}</p>
+                </div>
+                <span class="text-xs font-mono text-muted">2024 – 2026</span>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-sans font-medium">North University of China</h3>
+                  <p class="text-sm text-muted">Bachelor of Inorganic Non-metallic Materials Engineering</p>
+                </div>
+                <span class="text-xs font-mono text-muted">2015 – 2019</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Experience -->
+        <section>
+          <h2 class="text-lg font-sans font-semibold border-b border-border pb-2">Experience</h2>
+          <div class="mt-4 space-y-6">
+            <div>
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-sans font-medium">Beijing Geshang Wealth Co., Ltd.</h3>
+                  <p class="text-sm text-muted">Automation Test Engineer</p>
+                </div>
+                <span class="text-xs font-mono text-muted">2020.10 – 2023.06</span>
+              </div>
+              <ul class="mt-2 space-y-1 text-sm text-muted">
+                <li>• Built backend API and scenario-level automated regression framework with Jenkins CI/CD integration</li>
+                <li>• Reduced system regression cycle from 3 days to 4 hours</li>
+                <li>• Developed "Data Factory" platform for one-click test data generation with 80%+ efficiency improvement</li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-sans font-medium">Beijing Huayuan Green Technology Co., Ltd.</h3>
+                  <p class="text-sm text-muted">Test Engineer</p>
+                </div>
+                <span class="text-xs font-mono text-muted">2019.07 – 2020.09</span>
+              </div>
+              <ul class="mt-2 space-y-1 text-sm text-muted">
+                <li>• Managed complex big data test environment deployment and resource scheduling</li>
+                <li>• Ensured simulation data platform link reliability and functional verification</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Skills -->
+        <section>
+          <h2 class="text-lg font-sans font-semibold border-b border-border pb-2">Focus Areas</h2>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {['Data Closed-loop', 'Evaluation Algorithms', 'Autonomous Driving Perception', 'Long-tail Scenario Mining', 'Automation Testing', 'Engineering Implementation', 'Performance Optimization', 'CI/CD'].map((skill) => (
+              <span class="text-xs font-mono px-3 py-1.5 bg-surface border border-border rounded text-muted">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</MainLayout>

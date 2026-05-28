@@ -1,0 +1,18 @@
+---
+import { site } from '../content/site';
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
+  <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+    <a href="/" class="font-mono text-sm font-medium tracking-tight">
+      JW <span class="text-muted hidden sm:inline">| {site.name}</span>
+    </a>
+
+    <div class="flex items-center gap-6">
+      <a href="/#projects" class="text-sm text-muted hover:text-black transition-colors">Projects</a>
+      <a href="/resume" class="text-sm text-muted hover:text-black transition-colors">Resume</a>
+      <a href={site.github} target="_blank" rel="noopener" class="text-sm text-muted hover:text-black transition-colors">GitHub</a>
+      <a href={`mailto:${site.email}`} class="text-sm text-muted hover:text-black transition-colors">Email</a>
+    </div>
+  </div>
+</nav>

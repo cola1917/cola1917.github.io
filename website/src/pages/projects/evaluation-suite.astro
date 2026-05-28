@@ -1,0 +1,62 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+---
+
+<MainLayout title="AD Evaluation Suite | Jiangtao Wang">
+  <main class="pt-14 min-h-screen">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a href="/#projects" class="text-sm font-mono text-muted hover:text-black transition-colors">
+        ← Back to Projects
+      </a>
+
+      <h1 class="mt-8 text-3xl font-sans font-bold">AD Evaluation Suite</h1>
+      <p class="mt-4 text-lg text-muted leading-relaxed">
+        Industrial-style evaluation framework for scalable KPI and regression analysis.
+      </p>
+
+      <div class="mt-8 space-y-6">
+        <section>
+          <h2 class="text-lg font-sans font-semibold">Overview</h2>
+          <p class="mt-2 text-muted leading-relaxed">
+            The AD Evaluation Suite is an automated perception evaluation and long-tail mining toolkit
+            for autonomous driving. It connects metric computation, failure scenario mining, replay
+            visualization, and simulation scenario export into a complete closed-loop workflow.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-sans font-semibold">Key Features</h2>
+          <ul class="mt-2 space-y-2 text-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-border">•</span>
+              <span>Unified YAML policy configuration</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-border">•</span>
+              <span>Bad Case mining and replay</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-border">•</span>
+              <span>nuScenes map overlay visualization</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-border">•</span>
+              <span>OpenSCENARIO export with headless smoke verification</span>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-sans font-semibold">Technology Stack</h2>
+          <div class="mt-2 flex flex-wrap gap-2">
+            {['Python', 'nuScenes', 'Object Detection', 'MOTA/IDF1', 'OpenSCENARIO'].map((tag) => (
+              <span class="text-xs font-mono px-2 py-1 bg-surface border border-border rounded text-muted">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</MainLayout>

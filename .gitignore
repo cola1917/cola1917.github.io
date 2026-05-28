@@ -1,27 +1,29 @@
 # Dependencies
-/node_modules/
-/website/node_modules/
+node_modules/
 
 # Build output
-/build/
-/dist/
-/website/build/
-/website/dist/
-/website/.docusaurus/
-/website/.cache/
-/website/.eslintcache
+dist/
+build/
+.cache/
 
-# Local environment and logs
+# Environment
 .env
 .env.*
+!.env.example
+
+# Logs
 *.log
-*.tmp
-*.bak
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
 *.swp
 *.swo
 
-# Common OS and editor clutter
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
+# Astro
+.astro/

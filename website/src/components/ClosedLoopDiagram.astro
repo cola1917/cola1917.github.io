@@ -1,0 +1,45 @@
+---
+const nodes = [
+  { id: 'vehicle-logs', label: 'Vehicle Logs', active: false },
+  { id: 'trigger-mining', label: 'Trigger Mining', active: true },
+  { id: 'scenario-replay', label: 'Scenario Replay', active: true },
+  { id: 'kpi-evaluation', label: 'KPI Evaluation', active: true },
+  { id: 'regression', label: 'Regression Validation', active: true },
+  { id: 'scenario-library', label: 'Scenario Asset Library', active: false },
+];
+---
+
+<div class="w-full max-w-md">
+  <div class="relative">
+    <!-- Pipeline Flow -->
+    <div class="flex flex-col gap-3">
+      {nodes.map((node, index) => (
+        <div class="flex items-center gap-3">
+          <!-- Node -->
+          <div
+            class:list={[
+              'flex-1 px-4 py-2.5 border rounded text-sm font-mono transition-colors',
+              node.active
+                ? 'border-black bg-black text-white'
+                : 'border-border bg-surface text-muted',
+            ]}
+          >
+            {node.label}
+          </div>
+
+          <!-- Arrow -->
+          {index < nodes.length - 1 && (
+            <div class="text-muted text-xs">→</div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- Highlight Label -->
+    <div class="mt-4 pt-4 border-t border-border">
+      <p class="text-xs font-mono text-muted text-center">
+        Focused on replay, evaluation, and simulation-driven validation systems.
+      </p>
+    </div>
+  </div>
+</div>
