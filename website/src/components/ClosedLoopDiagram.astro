@@ -2,9 +2,10 @@
 /**
  * ClosedLoopDiagram — Autonomous Driving Data Loop
  *
- * - Ring radius: 140 (scaled up ~17%)
- * - All nodes: consistent 100×26, outside the ring
- * - Center: title only, no subtitle
+ * - Ring radius: 150 (enlarged)
+ * - No background/decorative rings
+ * - All nodes: 100×26, outside the ring
+ * - Center: title only
  * - Subtle data pulse
  */
 ---
@@ -34,38 +35,38 @@
         </filter>
       </defs>
 
-      <!-- ═══ Ring ═══ -->
-      <circle cx="200" cy="200" r="140" fill="none" stroke="#E5E5E3" stroke-width="1" />
+      <!-- ═══ Main ring ═══ -->
+      <circle cx="200" cy="200" r="150" fill="none" stroke="#E5E5E3" stroke-width="1" />
 
       <!-- ═══ Focus arcs (solid black) ═══ -->
 
       <!-- Vehicle Logs → Trigger Mining -->
-      <path d="M 226 64 A 140 140 0 0 1 336 158" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
+      <path d="M 224 54 A 150 150 0 0 1 345 146" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
 
       <!-- Trigger Mining → Scenario Replay -->
-      <path d="M 340 176 A 140 140 0 0 1 340 224" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
+      <path d="M 350 174 A 150 150 0 0 1 350 226" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
 
       <!-- Scenario Replay → KPI Evaluation -->
-      <path d="M 336 242 A 140 140 0 0 1 226 336" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
+      <path d="M 345 254 A 150 150 0 0 1 224 346" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
 
       <!-- KPI Evaluation → Regression Validation -->
-      <path d="M 214 340 A 140 140 0 0 1 186 340" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
+      <path d="M 212 350 A 150 150 0 0 1 188 350" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
 
       <!-- ═══ Context arcs (dashed gray) ═══ -->
 
       <!-- Regression Validation → Scenario Library -->
-      <path d="M 174 336 A 140 140 0 0 1 64 242" fill="none" stroke="#8A8A88" stroke-width="1" stroke-dasharray="5 4" marker-end="url(#ag)" />
+      <path d="M 176 346 A 150 150 0 0 1 55 254" fill="none" stroke="#8A8A88" stroke-width="1" stroke-dasharray="5 4" marker-end="url(#ag)" />
 
       <!-- Scenario Library → Vehicle Logs -->
-      <path d="M 60 158 A 140 140 0 0 1 174 64" fill="none" stroke="#8A8A88" stroke-width="1" stroke-dasharray="5 4" marker-end="url(#ag)" />
+      <path d="M 50 146 A 150 150 0 0 1 176 54" fill="none" stroke="#8A8A88" stroke-width="1" stroke-dasharray="5 4" marker-end="url(#ag)" />
 
       <!-- ═══ Data pulse ═══ -->
       <circle r="2.5" fill="#000" filter="url(#pg)" opacity="0">
-        <animateMotion dur="8s" repeatCount="indefinite" path="M 200 60 A 140 140 0 1 1 199.99 60" />
+        <animateMotion dur="8s" repeatCount="indefinite" path="M 200 50 A 150 150 0 1 1 199.99 50" />
         <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.06;0.5;0.88;1" dur="8s" repeatCount="indefinite" />
       </circle>
       <circle r="2" fill="#000" filter="url(#pg)" opacity="0">
-        <animateMotion dur="8s" begin="4s" repeatCount="indefinite" path="M 200 60 A 140 140 0 1 1 199.99 60" />
+        <animateMotion dur="8s" begin="4s" repeatCount="indefinite" path="M 200 50 A 150 150 0 1 1 199.99 50" />
         <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.06;0.5;0.88;1" dur="8s" begin="4s" repeatCount="indefinite" />
       </circle>
 
@@ -79,30 +80,30 @@
       <!-- ═══ Focus nodes (black, 100×26) ═══ -->
 
       <!-- Trigger Mining (top-right) -->
-      <rect x="256" y="125" width="100" height="26" rx="3" fill="#000" />
-      <text x="306" y="142" text-anchor="middle" class="nl" fill="#FFF">Trigger Mining</text>
+      <rect x="262" y="115" width="100" height="26" rx="3" fill="#000" />
+      <text x="312" y="132" text-anchor="middle" class="nl" fill="#FFF">Trigger Mining</text>
 
       <!-- Scenario Replay (right) -->
-      <rect x="260" y="210" width="100" height="26" rx="3" fill="#000" />
-      <text x="310" y="227" text-anchor="middle" class="nl" fill="#FFF">Scenario Replay</text>
+      <rect x="268" y="210" width="100" height="26" rx="3" fill="#000" />
+      <text x="318" y="227" text-anchor="middle" class="nl" fill="#FFF">Scenario Replay</text>
 
       <!-- KPI Evaluation (bottom-right) -->
-      <rect x="236" y="315" width="100" height="26" rx="3" fill="#000" />
-      <text x="286" y="332" text-anchor="middle" class="nl" fill="#FFF">KPI Evaluation</text>
+      <rect x="240" y="325" width="100" height="26" rx="3" fill="#000" />
+      <text x="290" y="342" text-anchor="middle" class="nl" fill="#FFF">KPI Evaluation</text>
 
       <!-- Regression Validation (bottom-left) -->
-      <rect x="64" y="315" width="100" height="26" rx="3" fill="#000" />
-      <text x="114" y="332" text-anchor="middle" class="nl" fill="#FFF">Regression Validation</text>
+      <rect x="60" y="325" width="100" height="26" rx="3" fill="#000" />
+      <text x="110" y="342" text-anchor="middle" class="nl" fill="#FFF">Regression Validation</text>
 
       <!-- ═══ Context nodes (white/gray, 100×26) ═══ -->
 
       <!-- Vehicle Logs (top-left) -->
-      <rect x="44" y="125" width="100" height="26" rx="3" fill="#FAFAF8" stroke="#8A8A88" stroke-width="1" />
-      <text x="94" y="142" text-anchor="middle" class="nl" fill="#666">Vehicle Logs</text>
+      <rect x="38" y="115" width="100" height="26" rx="3" fill="#FAFAF8" stroke="#8A8A88" stroke-width="1" />
+      <text x="88" y="132" text-anchor="middle" class="nl" fill="#666">Vehicle Logs</text>
 
       <!-- Scenario Library (left) -->
-      <rect x="40" y="210" width="100" height="26" rx="3" fill="#FAFAF8" stroke="#8A8A88" stroke-width="1" />
-      <text x="90" y="227" text-anchor="middle" class="nl" fill="#666">Scenario Library</text>
+      <rect x="32" y="210" width="100" height="26" rx="3" fill="#FAFAF8" stroke="#8A8A88" stroke-width="1" />
+      <text x="82" y="227" text-anchor="middle" class="nl" fill="#666">Scenario Library</text>
 
     </svg>
   </div>

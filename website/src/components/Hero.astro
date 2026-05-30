@@ -5,10 +5,10 @@ import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
 
 <section class="pt-14">
   <div class="max-w-6xl mx-auto px-6 py-12 w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-8 lg:gap-12 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-8 lg:gap-10 items-center">
 
       <!-- Left: Profile -->
-      <div class="space-y-5">
+      <div class="space-y-6">
         <!-- Avatar -->
         <div class="w-14 h-14 rounded-full bg-surface border border-border overflow-hidden">
           <img src="/Hero.astro.png" alt="Jiangtao Wang" class="w-full h-full object-cover" />
@@ -18,17 +18,17 @@ import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
         <div class="space-y-0.5">
           <h1 class="text-3xl font-sans font-bold tracking-tight">{site.name}</h1>
           <p class="text-sm font-mono text-muted">{site.nameEn}</p>
-          <p class="text-xs font-mono text-muted/50 mt-1">Monash University · Master of Data Science</p>
         </div>
 
         <!-- Positioning -->
-        <p class="text-sm font-mono text-muted leading-relaxed max-w-sm">
-          Autonomous Driving Data Loop / Evaluation Infrastructure
+        <p class="text-sm font-mono text-muted/70 leading-relaxed">
+          Autonomous Driving<br />
+          Evaluation & Data Loop Infrastructure
         </p>
 
         <!-- Description -->
         <p class="text-sm text-muted/80 leading-relaxed max-w-sm">
-          Focused on scenario mining, replay systems, evaluation infrastructure, and regression workflows for autonomous driving closed-loop systems.
+          Building trigger mining, replay, evaluation, and regression workflows for autonomous driving closed-loop systems.
         </p>
 
         <!-- Current Focus -->
@@ -42,14 +42,16 @@ import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
         <!-- Direction -->
         <div class="space-y-1.5">
           <p class="text-[10px] font-mono text-muted uppercase tracking-[0.15em]">Direction</p>
-          <p class="text-sm font-mono text-muted">
-            Data Loop Platform · Evaluation Infrastructure · Simulation Workflow · Scenario Assets
-          </p>
+          <div class="text-sm font-mono text-muted space-y-0.5">
+            <p>Evaluation Infrastructure</p>
+            <p>Data Loop Platform</p>
+            <p>Scenario Asset Workflow</p>
+          </div>
         </div>
       </div>
 
       <!-- Right: Closed Loop Diagram -->
-      <div class="flex justify-center lg:justify-end -lg:mr-4">
+      <div class="flex justify-center lg:justify-end">
         <ClosedLoopDiagram />
       </div>
 
