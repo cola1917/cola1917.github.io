@@ -5,38 +5,34 @@ import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
 
 <section class="pt-14">
   <div class="max-w-6xl mx-auto px-6 py-12 w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-8 lg:gap-12 items-center">
 
       <!-- Left: Profile -->
-      <div class="space-y-6">
-        <!-- Avatar + Name -->
-        <div class="flex items-center gap-4">
-          <div class="w-16 h-16 rounded-full bg-surface border border-border overflow-hidden flex-shrink-0">
-            <img src="/Hero.astro.png" alt="Jiangtao Wang" class="w-full h-full object-cover" />
-          </div>
-          <div>
-            <h1 class="text-2xl font-sans font-bold tracking-tight">{site.name}</h1>
-            <p class="text-sm font-mono text-muted">{site.nameEn}</p>
-          </div>
+      <div class="space-y-5">
+        <!-- Avatar -->
+        <div class="w-14 h-14 rounded-full bg-surface border border-border overflow-hidden">
+          <img src="/Hero.astro.png" alt="Jiangtao Wang" class="w-full h-full object-cover" />
+        </div>
+
+        <!-- Name -->
+        <div class="space-y-0.5">
+          <h1 class="text-3xl font-sans font-bold tracking-tight">{site.name}</h1>
+          <p class="text-sm font-mono text-muted">{site.nameEn}</p>
+          <p class="text-xs font-mono text-muted/50 mt-1">Monash University · Master of Data Science</p>
         </div>
 
         <!-- Positioning -->
-        <div class="space-y-1">
-          <p class="text-lg font-sans font-semibold tracking-tight">
-            Autonomous Driving
-          </p>
-          <p class="text-lg font-sans font-semibold tracking-tight">
-            Data Loop / Evaluation Infrastructure
-          </p>
-        </div>
+        <p class="text-sm font-mono text-muted leading-relaxed max-w-sm">
+          Autonomous Driving Data Loop / Evaluation Infrastructure
+        </p>
 
         <!-- Description -->
-        <p class="text-sm text-muted leading-relaxed max-w-md">
+        <p class="text-sm text-muted/80 leading-relaxed max-w-sm">
           Focused on scenario mining, replay systems, evaluation infrastructure, and regression workflows for autonomous driving closed-loop systems.
         </p>
 
         <!-- Current Focus -->
-        <div class="space-y-2">
+        <div class="space-y-1.5">
           <p class="text-[10px] font-mono text-muted uppercase tracking-[0.15em]">Current Focus</p>
           <p class="text-sm font-mono text-black">
             Trigger Mining · Scenario Replay · KPI Evaluation · Regression Validation
@@ -44,21 +40,16 @@ import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
         </div>
 
         <!-- Direction -->
-        <div class="space-y-2">
+        <div class="space-y-1.5">
           <p class="text-[10px] font-mono text-muted uppercase tracking-[0.15em]">Direction</p>
           <p class="text-sm font-mono text-muted">
             Data Loop Platform · Evaluation Infrastructure · Simulation Workflow · Scenario Assets
           </p>
         </div>
-
-        <!-- Education -->
-        <p class="text-xs font-mono text-muted/60">
-          Monash University · Master of Data Science
-        </p>
       </div>
 
       <!-- Right: Closed Loop Diagram -->
-      <div class="flex justify-center lg:justify-end">
+      <div class="flex justify-center lg:justify-end -lg:mr-4">
         <ClosedLoopDiagram />
       </div>
 
