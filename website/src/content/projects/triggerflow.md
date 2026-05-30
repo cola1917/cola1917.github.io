@@ -1,7 +1,7 @@
 ---
 title: "自动驾驶触发式场景挖掘引擎 (Trigger Engine)"
 titleEn: "TriggerFlow"
-description: "面向 Waymo Open Dataset 的轻量级 Trigger Engine，将长尾风险场景抽象为可配置规则链，支持低 TTC 跟驰、Cut-in、红灯通行等高价值场景自动识别。"
+description: "面向 Waymo Open Dataset 构建轻量级 Trigger Engine，将长尾风险场景抽象为可配置规则链，支持高价值场景自动挖掘、结构化导出与批量统计；在前 100 个 validation shard 上扫描 29,023 个 scenario，筛选出 162 个高价值场景。"
 descriptionEn: "Replay-first risk scenario discovery platform for autonomous driving data closed-loop workflows."
 techStack: ["Python", "Waymo Open Dataset", "Rule-based Mining", "Temporal Rule Engine", "JSON Visualization", "Parallel Batch Processing"]
 order: 2

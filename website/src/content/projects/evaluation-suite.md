@@ -1,7 +1,7 @@
 ---
 title: "ad-eval-suite：面向自动驾驶的感知评测与 Bad Case 分析"
 titleEn: "AD Evaluation Suite"
-description: "独立开发面向自动驾驶感知算法的离线评测与错误分析工具链，覆盖\"指标统计 - Bad Case 挖掘 - 场景回放 - 仿真复现\"全流程。"
+description: "独立开发面向自动驾驶感知算法的离线评测与错误分析工具链，覆盖指标统计、Bad Case 挖掘、场景回放与仿真复现，用于辅助感知模型 Failure Analysis 与回归验证。"
 descriptionEn: "Industrial-style evaluation framework for scalable KPI and regression analysis."
 techStack: ["Python", "nuScenes", "目标检测/多目标跟踪评测", "HD Map 可视化", "OpenSCENARIO"]
 order: 1

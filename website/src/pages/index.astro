@@ -25,7 +25,6 @@ const projects = (await getCollection('projects')).sort(
           <ProjectCard
             title={project.data.title}
             description={project.data.description}
-            tags={project.data.techStack}
             link={`/projects/${project.slug}`}
           />
         ))}

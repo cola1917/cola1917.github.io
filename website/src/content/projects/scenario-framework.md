@@ -1,7 +1,7 @@
 ---
 title: "自动驾驶仿真场景泛化与标准化生成"
 titleEn: "Scenario Generalization Framework"
-description: "设计统一 JSON Schema，构建 JSON → OpenSCENARIO 转换链路，支持场景参数泛化与回归评测，实现真实 Bad Case 的结构化表达与场景资产化。"
+description: "面向自动驾驶 Bad Case 回归测试，构建 ScenarioAsset 中间层与场景生成链路，将真实高风险场景转化为可复现、可泛化、可回归的标准化仿真资产。"
 descriptionEn: "Simulation replay and parameterized scenario generation infrastructure for robustness validation."
 techStack: ["Python", "esmini", "OpenSCENARIO", "JSON Schema", "Scenario Generation", "Simulation Replay", "Rule-based Parameterization"]
 order: 3
