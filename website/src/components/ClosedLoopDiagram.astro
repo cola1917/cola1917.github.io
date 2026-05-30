@@ -1,12 +1,13 @@
 ---
 /**
- * ClosedLoopDiagram — Orbital Track (Hero Edition)
+ * ClosedLoopDiagram — Orbital Track (Hero Edition v2)
  *
- * Refined circular closed-loop visualization for AD data pipeline.
- * - Larger center with layered typography
- * - Stronger focus nodes with glow + border accent
- * - Animated data pulse traveling the ring
- * - Clean monochrome engineering aesthetic
+ * Minimal circular closed-loop for AD data pipeline.
+ * - Center: "Autonomous Driving / Data Loop" + stage keywords
+ * - 4 focus nodes on the ring: solid black
+ * - 2 context nodes on the ring: light outline
+ * - Single data pulse orbiting
+ * - No upstream/downstream labels
  */
 ---
 
@@ -18,352 +19,99 @@
       xmlns="http://www.w3.org/2000/svg"
     >
       <style>
-        /* ── Typography ── */
-        .node-label {
-          font-family: 'IBM Plex Mono', monospace;
-          font-size: 10px;
-          font-weight: 500;
-          letter-spacing: 0.03em;
-        }
-        .node-tag {
-          font-family: 'IBM Plex Mono', monospace;
-          font-size: 7px;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-        }
-        .center-title {
-          font-family: 'Inter Tight', sans-serif;
-          font-weight: 700;
-          font-size: 15px;
-          letter-spacing: -0.01em;
-        }
-        .center-sub {
-          font-family: 'IBM Plex Mono', monospace;
-          font-weight: 400;
-          font-size: 9px;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-        }
-        .center-micro {
-          font-family: 'IBM Plex Mono', monospace;
-          font-weight: 400;
-          font-size: 7px;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-        }
-
-        /* ── Animations ── */
-        .track-ring {
-          animation: track-spin 90s linear infinite;
-          transform-origin: 200px 200px;
-        }
-        @keyframes track-spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-
-        /* Data pulse: travels along the main ring path */
-        .data-pulse {
-          animation: pulse-move 8s linear infinite;
-          transform-origin: 200px 200px;
-        }
-        @keyframes pulse-move {
-          0%   { offset-distance: 0%;   opacity: 0; }
-          5%   { opacity: 1; }
-          90%  { opacity: 1; }
-          100% { offset-distance: 100%; opacity: 0; }
-        }
-
-        /* Subtle breathe on focus nodes */
-        .focus-node {
-          animation: node-breathe 4s ease-in-out infinite;
-        }
-        @keyframes node-breathe {
-          0%, 100% { opacity: 0.85; }
-          50%      { opacity: 1; }
-        }
-
-        /* Arrow marker fills */
-        .marker-black { fill: #000000; }
-        .marker-gray  { fill: #8A8A88; }
+        .n  { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.02em; }
+        .t1 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: -0.01em; }
+        .t2 { font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 8.5px; letter-spacing: 0.06em; }
+        .mk-b { fill: #000; }
+        .mk-g { fill: #8A8A88; }
       </style>
 
       <defs>
-        <!-- Focus arrow marker -->
-        <marker
-          id="arr-b"
-          viewBox="0 0 8 8"
-          refX="7"
-          refY="4"
-          markerWidth="7"
-          markerHeight="7"
-          orient="auto-start-reverse"
-        >
-          <path d="M 0 0.5 L 7.5 4 L 0 7.5 z" class="marker-black" />
+        <marker id="ab" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0.5 L 7.5 4 L 0 7.5 z" class="mk-b" />
         </marker>
-
-        <!-- Context arrow marker -->
-        <marker
-          id="arr-g"
-          viewBox="0 0 8 8"
-          refX="7"
-          refY="4"
-          markerWidth="6"
-          markerHeight="6"
-          orient="auto-start-reverse"
-        >
-          <path d="M 0 0.5 L 7.5 4 L 0 7.5 z" class="marker-gray" />
+        <marker id="ag" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0.5 L 7.5 4 L 0 7.5 z" class="mk-g" />
         </marker>
-
-        <!-- Focus node glow -->
-        <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+        <filter id="pg" x="-100%" y="-100%" width="300%" height="300%">
           <feGaussianBlur stdDeviation="3" result="b" />
           <feComposite in="SourceGraphic" in2="b" operator="over" />
         </filter>
-
-        <!-- Pulse glow -->
-        <filter id="pulse-glow" x="-100%" y="-100%" width="300%" height="300%">
-          <feGaussianBlur stdDeviation="4" result="b" />
-          <feComposite in="SourceGraphic" in2="b" operator="over" />
-        </filter>
-
-        <!-- Ring path for pulse animation (full circle, clockwise) -->
-        <path
-          id="ring-path"
-          d="M 200 60 A 140 140 0 1 1 199.99 60"
-          fill="none"
-        />
       </defs>
 
-      <!-- ═══════════════════════════════════════════
-           LAYER 1 — Background rings (rotating)
-           ═══════════════════════════════════════════ -->
-      <g class="track-ring">
-        <circle
-          cx="200" cy="200" r="152"
-          fill="none"
-          stroke="#E5E5E3"
-          stroke-width="0.75"
-          stroke-dasharray="3 4"
-          opacity="0.4"
-        />
-        <circle
-          cx="200" cy="200" r="128"
-          fill="none"
-          stroke="#E5E5E3"
-          stroke-width="0.75"
-          stroke-dasharray="3 4"
-          opacity="0.3"
-        />
-        <circle
-          cx="200" cy="200" r="104"
-          fill="none"
-          stroke="#E5E5E3"
-          stroke-width="0.5"
-          stroke-dasharray="2 4"
-          opacity="0.2"
-        />
-      </g>
+      <!-- ═══ Track ring ═══ -->
+      <circle cx="200" cy="200" r="134" fill="none" stroke="#E5E5E3" stroke-width="1" />
 
-      <!-- ═══════════════════════════════════════════
-           LAYER 2 — Main track ring (static)
-           ═══════════════════════════════════════════ -->
-      <circle
-        cx="200" cy="200" r="140"
-        fill="none"
-        stroke="#E5E5E3"
-        stroke-width="1.5"
-      />
-
-      <!-- ═══════════════════════════════════════════
-           LAYER 3 — Connection arcs
-           ═══════════════════════════════════════════ -->
-
-      <!-- ── Focus arcs (solid black, thicker) ── -->
+      <!-- ═══ Focus arcs (solid black) ═══ -->
 
       <!-- Vehicle Logs → Trigger Mining -->
-      <path
-        d="M 230 72 A 140 140 0 0 1 328 170"
-        fill="none" stroke="#000" stroke-width="2.5"
-        marker-end="url(#arr-b)"
-      />
+      <path d="M 228 76 A 134 134 0 0 1 316 168" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
 
       <!-- Trigger Mining → Scenario Replay -->
-      <path
-        d="M 334 184 A 140 140 0 0 1 334 216"
-        fill="none" stroke="#000" stroke-width="2.5"
-        marker-end="url(#arr-b)"
-      />
+      <path d="M 322 186 A 134 134 0 0 1 322 214" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
 
       <!-- Scenario Replay → KPI Evaluation -->
-      <path
-        d="M 328 230 A 140 140 0 0 1 230 328"
-        fill="none" stroke="#000" stroke-width="2.5"
-        marker-end="url(#arr-b)"
-      />
+      <path d="M 316 232 A 134 134 0 0 1 228 324" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
 
       <!-- KPI Evaluation → Regression Validation -->
-      <path
-        d="M 216 334 A 140 140 0 0 1 184 334"
-        fill="none" stroke="#000" stroke-width="2.5"
-        marker-end="url(#arr-b)"
-      />
+      <path d="M 214 330 A 134 134 0 0 1 186 330" fill="none" stroke="#000" stroke-width="2" marker-end="url(#ab)" />
 
-      <!-- ── Context arcs (dashed gray) ── -->
+      <!-- ═══ Context arcs (dashed gray) ═══ -->
 
       <!-- Regression Validation → Scenario Library -->
-      <path
-        d="M 170 328 A 140 140 0 0 1 72 230"
-        fill="none" stroke="#8A8A88" stroke-width="1.5"
-        stroke-dasharray="6 4"
-        marker-end="url(#arr-g)"
-      />
+      <path d="M 172 324 A 134 134 0 0 1 84 232" fill="none" stroke="#8A8A88" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#ag)" />
 
       <!-- Scenario Library → Vehicle Logs -->
-      <path
-        d="M 72 170 A 140 140 0 0 1 170 72"
-        fill="none" stroke="#8A8A88" stroke-width="1.5"
-        stroke-dasharray="6 4"
-        marker-end="url(#arr-g)"
-      />
+      <path d="M 78 168 A 134 134 0 0 1 172 76" fill="none" stroke="#8A8A88" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#ag)" />
 
-      <!-- ═══════════════════════════════════════════
-           LAYER 4 — Animated data pulse
-           ═══════════════════════════════════════════ -->
-      <circle r="4" fill="#000" filter="url(#pulse-glow)" opacity="0">
-        <animateMotion
-          dur="8s"
-          repeatCount="indefinite"
-          path="M 200 60 A 140 140 0 1 1 199.99 60"
-        />
-        <animate
-          attributeName="opacity"
-          values="0;1;1;1;0"
-          keyTimes="0;0.05;0.5;0.9;1"
-          dur="8s"
-          repeatCount="indefinite"
-        />
+      <!-- ═══ Data pulse ═══ -->
+      <circle r="3.5" fill="#000" filter="url(#pg)" opacity="0">
+        <animateMotion dur="8s" repeatCount="indefinite" path="M 200 66 A 134 134 0 1 1 199.99 66" />
+        <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.06;0.5;0.88;1" dur="8s" repeatCount="indefinite" />
+      </circle>
+      <circle r="2.5" fill="#000" filter="url(#pg)" opacity="0">
+        <animateMotion dur="8s" begin="4s" repeatCount="indefinite" path="M 200 66 A 134 134 0 1 1 199.99 66" />
+        <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.06;0.5;0.88;1" dur="8s" begin="4s" repeatCount="indefinite" />
       </circle>
 
-      <!-- Second pulse, offset timing for visual richness -->
-      <circle r="3" fill="#000" filter="url(#pulse-glow)" opacity="0">
-        <animateMotion
-          dur="8s"
-          begin="4s"
-          repeatCount="indefinite"
-          path="M 200 60 A 140 140 0 1 1 199.99 60"
-        />
-        <animate
-          attributeName="opacity"
-          values="0;1;1;1;0"
-          keyTimes="0;0.05;0.5;0.9;1"
-          dur="8s"
-          begin="4s"
-          repeatCount="indefinite"
-        />
-      </circle>
+      <!-- ═══ Center ═══ -->
+      <circle cx="200" cy="200" r="62" fill="#FAFAF8" />
+      <circle cx="200" cy="200" r="62" fill="none" stroke="#E5E5E3" stroke-width="0.75" />
 
-      <!-- ═══════════════════════════════════════════
-           LAYER 5 — Center circle
-           ═══════════════════════════════════════════ -->
-      <circle cx="200" cy="200" r="72" fill="#FAFAF8" />
-      <circle cx="200" cy="200" r="72" fill="none" stroke="#E5E5E3" stroke-width="1" />
-      <circle cx="200" cy="200" r="56" fill="none" stroke="#E5E5E3" stroke-width="0.5" opacity="0.5" />
+      <text x="200" y="189" text-anchor="middle" class="t1" fill="#000">Autonomous Driving</text>
+      <text x="200" y="206" text-anchor="middle" class="t1" fill="#000">Data Loop</text>
+      <line x1="168" y1="215" x2="232" y2="215" stroke="#E5E5E3" stroke-width="0.5" />
+      <text x="200" y="229" text-anchor="middle" class="t2" fill="#8A8A88">Mining · Replay · Evaluation · Regression</text>
 
-      <!-- Center text -->
-      <text x="200" y="188" text-anchor="middle" class="center-title" fill="#000">
-        Continuous
-      </text>
-      <text x="200" y="206" text-anchor="middle" class="center-title" fill="#000">
-        Data Loop
-      </text>
-      <line x1="174" y1="216" x2="226" y2="216" stroke="#E5E5E3" stroke-width="0.75" />
-      <text x="200" y="230" text-anchor="middle" class="center-sub" fill="#8A8A88">
-        AD Infrastructure
-      </text>
-      <text x="200" y="244" text-anchor="middle" class="center-micro" fill="#AAAAAA">
-        Closed-Loop System
-      </text>
-
-      <!-- ═══════════════════════════════════════════
-           LAYER 6 — Focus nodes
-           ═══════════════════════════════════════════ -->
+      <!-- ═══ Focus nodes ═══ -->
 
       <!-- Trigger Mining (top-right) -->
-      <g class="focus-node">
-        <rect x="290" y="152" width="92" height="28" rx="4"
-              fill="#000" filter="url(#glow)" />
-        <rect x="290" y="152" width="92" height="28" rx="4"
-              fill="none" stroke="#333" stroke-width="0.5" />
-        <text x="336" y="170" text-anchor="middle" class="node-label" fill="#FFF">
-          Trigger Mining
-        </text>
-      </g>
+      <rect x="280" y="148" width="88" height="26" rx="3" fill="#000" />
+      <text x="324" y="165" text-anchor="middle" class="n" fill="#FFF">Trigger Mining</text>
 
       <!-- Scenario Replay (right) -->
-      <g class="focus-node">
-        <rect x="294" y="210" width="92" height="28" rx="4"
-              fill="#000" filter="url(#glow)" />
-        <rect x="294" y="210" width="92" height="28" rx="4"
-              fill="none" stroke="#333" stroke-width="0.5" />
-        <text x="340" y="228" text-anchor="middle" class="node-label" fill="#FFF">
-          Scenario Replay
-        </text>
-      </g>
+      <rect x="284" y="202" width="88" height="26" rx="3" fill="#000" />
+      <text x="328" y="219" text-anchor="middle" class="n" fill="#FFF">Scenario Replay</text>
 
       <!-- KPI Evaluation (bottom-right) -->
-      <g class="focus-node">
-        <rect x="262" y="318" width="92" height="28" rx="4"
-              fill="#000" filter="url(#glow)" />
-        <rect x="262" y="318" width="92" height="28" rx="4"
-              fill="none" stroke="#333" stroke-width="0.5" />
-        <text x="308" y="336" text-anchor="middle" class="node-label" fill="#FFF">
-          KPI Evaluation
-        </text>
-      </g>
+      <rect x="256" y="310" width="88" height="26" rx="3" fill="#000" />
+      <text x="300" y="327" text-anchor="middle" class="n" fill="#FFF">KPI Evaluation</text>
 
       <!-- Regression Validation (bottom-left) -->
-      <g class="focus-node">
-        <rect x="46" y="318" width="108" height="28" rx="4"
-              fill="#000" filter="url(#glow)" />
-        <rect x="46" y="318" width="108" height="28" rx="4"
-              fill="none" stroke="#333" stroke-width="0.5" />
-        <text x="100" y="336" text-anchor="middle" class="node-label" fill="#FFF">
-          Regression Validation
-        </text>
-      </g>
+      <rect x="56" y="310" width="104" height="26" rx="3" fill="#000" />
+      <text x="108" y="327" text-anchor="middle" class="n" fill="#FFF">Regression Validation</text>
 
-      <!-- ═══════════════════════════════════════════
-           LAYER 7 — Context nodes
-           ═══════════════════════════════════════════ -->
+      <!-- ═══ Context nodes ═══ -->
 
-      <!-- Vehicle Logs (top-left, upstream) -->
-      <g>
-        <rect x="84" y="104" width="82" height="26" rx="4"
-              fill="none" stroke="#8A8A88" stroke-width="1" />
-        <rect x="84" y="104" width="82" height="26" rx="4"
-              fill="#FAFAF8" opacity="0.6" />
-        <text x="125" y="121" text-anchor="middle" class="node-label" fill="#666">
-          Vehicle Logs
-        </text>
-        <text x="125" y="98" text-anchor="middle" class="node-tag" fill="#AAAAAA">
-          Upstream
-        </text>
-      </g>
+      <!-- Vehicle Logs (top-left) -->
+      <rect x="104" y="80" width="76" height="24" rx="3" fill="none" stroke="#8A8A88" stroke-width="1" />
+      <rect x="104" y="80" width="76" height="24" rx="3" fill="#FAFAF8" opacity="0.7" />
+      <text x="142" y="96" text-anchor="middle" class="n" fill="#666">Vehicle Logs</text>
 
-      <!-- Scenario Library (left, downstream) -->
-      <g>
-        <rect x="72" y="210" width="92" height="26" rx="4"
-              fill="none" stroke="#8A8A88" stroke-width="1" />
-        <rect x="72" y="210" width="92" height="26" rx="4"
-              fill="#FAFAF8" opacity="0.6" />
-        <text x="118" y="227" text-anchor="middle" class="node-label" fill="#666">
-          Scenario Library
-        </text>
-        <text x="118" y="204" text-anchor="middle" class="node-tag" fill="#AAAAAA">
-          Downstream
-        </text>
-      </g>
+      <!-- Scenario Library (left) -->
+      <rect x="68" y="202" width="88" height="24" rx="3" fill="none" stroke="#8A8A88" stroke-width="1" />
+      <rect x="68" y="202" width="88" height="24" rx="3" fill="#FAFAF8" opacity="0.7" />
+      <text x="112" y="218" text-anchor="middle" class="n" fill="#666">Scenario Library</text>
 
     </svg>
   </div>

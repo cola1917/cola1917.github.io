@@ -5,31 +5,35 @@ import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
 
 <section class="pt-14">
   <div class="max-w-6xl mx-auto px-6 py-10 w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
       <!-- Left: Profile -->
-      <div class="space-y-4">
-        <div class="w-32 h-32 rounded-full bg-surface border border-border overflow-hidden">
-          <img src="/Hero.astro.png" alt="Jiangtao Wang" class="w-full h-full object-cover" />
+      <div class="space-y-5">
+        <div class="flex items-center gap-4">
+          <div class="w-20 h-20 rounded-full bg-surface border border-border overflow-hidden flex-shrink-0">
+            <img src="/Hero.astro.png" alt="Jiangtao Wang" class="w-full h-full object-cover" />
+          </div>
+          <div>
+            <div class="flex items-center gap-2.5">
+              <span class="text-[10px] font-mono font-medium tracking-widest text-muted uppercase border border-border rounded px-1.5 py-0.5">
+                Monash
+              </span>
+              <h1 class="text-2xl sm:text-3xl font-sans font-bold tracking-tight">
+                {site.name}
+              </h1>
+            </div>
+            <p class="mt-1 text-sm font-mono text-muted">
+              {site.nameEn}
+            </p>
+          </div>
         </div>
 
-        <div>
-          <p class="text-base font-mono text-muted">
-            求职意向：{site.title}
+        <div class="space-y-1.5">
+          <p class="text-sm font-mono text-muted">
+            {site.universityEn} · {site.degreeEn}
           </p>
-        </div>
-
-        <p class="text-sm text-muted leading-relaxed max-w-lg">
-          {site.description}
-        </p>
-
-        <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-muted">
-          <span>{site.university}</span>
-          <span class="text-border">|</span>
-          <span>{site.degree}</span>
-          <span class="text-border">|</span>
-          <span>{site.phone}</span>
-          <span class="text-border">|</span>
-          <span>{site.email}</span>
+          <p class="text-base font-sans font-medium text-black">
+            {site.title}
+          </p>
         </div>
       </div>
 
