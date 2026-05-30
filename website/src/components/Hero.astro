@@ -4,8 +4,8 @@ import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
 ---
 
 <section class="pt-14">
-  <div class="max-w-6xl mx-auto px-6 py-12 w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-8 lg:gap-10 items-center">
+  <div class="max-w-6xl mx-auto px-6 pt-8 pb-6 w-full min-h-[calc(100vh-10rem)] flex items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6 lg:gap-6 items-center w-full">
 
       <!-- Left: Profile -->
       <div class="space-y-6">
@@ -51,7 +51,7 @@ import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
       </div>
 
       <!-- Right: Closed Loop Diagram -->
-      <div class="flex justify-center lg:justify-end">
+      <div class="flex justify-center">
         <ClosedLoopDiagram />
       </div>
 
