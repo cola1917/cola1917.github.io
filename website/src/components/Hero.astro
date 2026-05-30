@@ -9,15 +9,15 @@ import ClosedLoopDiagram from './ClosedLoopDiagram.astro';
 
       <!-- Left: Profile -->
       <div class="space-y-6">
-        <!-- Avatar -->
-        <div class="w-14 h-14 rounded-full bg-surface border border-border overflow-hidden">
-          <img src="/Hero.astro.png" alt="Jiangtao Wang" class="w-full h-full object-cover" />
-        </div>
-
-        <!-- Name -->
-        <div class="space-y-0.5">
-          <h1 class="text-3xl font-sans font-bold tracking-tight">{site.name}</h1>
-          <p class="text-sm font-mono text-muted">{site.nameEn}</p>
+        <!-- Identity -->
+        <div class="flex items-center gap-5">
+          <div class="w-20 h-20 rounded-full bg-surface border border-border overflow-hidden flex-shrink-0">
+            <img src="/Hero.astro.png" alt="Jiangtao Wang" class="w-full h-full object-cover" />
+          </div>
+          <div class="space-y-0.5">
+            <h1 class="text-3xl font-sans font-bold tracking-tight">{site.name}</h1>
+            <p class="text-sm font-mono text-muted">{site.nameEn}</p>
+          </div>
         </div>
 
         <!-- Positioning -->
