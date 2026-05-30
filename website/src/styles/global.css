@@ -13,4 +13,46 @@
       linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
     background-size: 40px 40px;
   }
+
+  details summary {
+    list-style: none;
+  }
+
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer components {
+  .prose-arch h2 {
+    @apply text-lg font-sans font-semibold border-b border-border pb-2 mt-8 first:mt-0;
+  }
+
+  .prose-arch h3 {
+    @apply text-base font-sans font-semibold mt-6;
+  }
+
+  .prose-arch p {
+    @apply text-sm text-muted leading-relaxed mt-3;
+  }
+
+  .prose-arch ul {
+    @apply mt-3 space-y-3 text-muted leading-relaxed;
+  }
+
+  .prose-arch li {
+    @apply text-sm;
+  }
+
+  .prose-arch li strong {
+    @apply text-black font-medium;
+  }
+
+  .prose-arch ol {
+    @apply mt-3 space-y-2 text-muted leading-relaxed list-decimal list-inside;
+  }
+
+  .prose-arch ol li {
+    @apply text-sm;
+  }
 }

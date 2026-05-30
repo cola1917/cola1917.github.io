@@ -1,0 +1,37 @@
+---
+interface Node {
+  id: string;
+  label: string;
+  active?: boolean;
+}
+
+interface Props {
+  nodes: Node[];
+  direction?: 'vertical' | 'horizontal';
+}
+
+const { nodes, direction = 'vertical' } = Astro.props;
+---
+
+<div class:list={['flex', { 'flex-col': direction === 'vertical', 'flex-row items-center': direction === 'horizontal' }]}>
+  {nodes.map((node, index) => (
+    <div class:list={['flex', { 'items-center gap-3': direction === 'vertical', 'flex-col items-center gap-2': direction === 'horizontal' }]}>
+      <div
+        class:list={[
+          'px-4 py-2.5 border rounded text-sm font-mono transition-colors',
+          {
+            'border-black bg-black text-white': node.active,
+            'border-border bg-surface text-muted': !node.active,
+          },
+        ]}
+      >
+        {node.label}
+      </div>
+      {index < nodes.length - 1 && (
+        <div class="text-muted text-xs">
+          {direction === 'vertical' ? '↓' : '→'}
+        </div>
+      )}
+    </div>
+  ))}
+</div>

@@ -1,0 +1,78 @@
+---
+import { getCollection, render } from 'astro:content';
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import ProjectHero from '../../components/projects/ProjectHero.astro';
+import ProblemStatement from '../../components/projects/ProblemStatement.astro';
+import SystemArchitecture from '../../components/projects/SystemArchitecture.astro';
+import CoreDecisions from '../../components/projects/CoreDecisions.astro';
+import TechnicalHighlights from '../../components/projects/TechnicalHighlights.astro';
+import FutureRoadmap from '../../components/projects/FutureRoadmap.astro';
+import ProjectFooter from '../../components/projects/ProjectFooter.astro';
+import SidebarNav from '../../components/projects/SidebarNav.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content, headings } = await render(project);
+const data = project.data;
+
+const sidebarSections = [
+  { id: 'problem-statement', label: '项目定位' },
+  { id: 'system-architecture', label: '系统架构' },
+  ...(data.decisions?.length
+    ? [{ id: 'core-decisions', label: '核心工程决策' }]
+    : []),
+  ...(data.highlights?.length
+    ? [{ id: 'technical-highlights', label: '技术亮点' }]
+    : []),
+  { id: 'future-roadmap', label: '未来规划' },
+];
+---
+
+<ProjectLayout title={`${data.titleEn} | 王江涛`} description={data.descriptionEn}>
+  <ProjectHero
+    title={data.title}
+    titleEn={data.titleEn}
+    description={data.description}
+    techStack={data.techStack}
+    status={data.status}
+    period={data.period}
+  />
+
+  <div class="max-w-6xl mx-auto px-6 pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-10">
+      {/* Sidebar */}
+      <aside class="hidden lg:block">
+        <div class="sticky top-20">
+          <SidebarNav sections={sidebarSections} />
+        </div>
+      </aside>
+
+      {/* Content */}
+      <div class="space-y-10 min-w-0">
+        <ProblemStatement
+          problemStatement={data.problemStatement}
+          problemStatementEn={data.problemStatementEn}
+        />
+
+        <SystemArchitecture>
+          <Content />
+        </SystemArchitecture>
+
+        <CoreDecisions decisions={data.decisions} />
+
+        <TechnicalHighlights highlights={data.highlights} />
+
+        <FutureRoadmap roadmap={data.roadmap} />
+
+        <ProjectFooter />
+      </div>
+    </div>
+  </div>
+</ProjectLayout>

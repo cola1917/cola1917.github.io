@@ -1,0 +1,25 @@
+---
+interface Props {
+  sections: Array<{
+    id: string;
+    label: string;
+  }>;
+}
+
+const { sections } = Astro.props;
+---
+
+<nav class="sidebar-nav" aria-label="Project sections">
+  <ul class="space-y-2">
+    {sections.map((section) => (
+      <li>
+        <a
+          href={`#${section.id}`}
+          class="block text-xs font-mono text-muted hover:text-black transition-colors py-1"
+        >
+          {section.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

@@ -1,0 +1,58 @@
+---
+interface Decision {
+  title: string;
+  titleEn: string;
+  context: string;
+  choice: string;
+  rationale: string;
+  tradeoffs?: string;
+}
+
+interface Props {
+  decisions?: Decision[];
+}
+
+const { decisions } = Astro.props;
+---
+
+{decisions && decisions.length > 0 && (
+  <section id="core-decisions">
+    <h2 class="text-lg font-sans font-semibold border-b border-border pb-2">
+      核心工程决策
+    </h2>
+
+    <div class="mt-4 space-y-3">
+      {decisions.map((decision) => (
+        <details class="border border-border rounded group">
+          <summary class="px-4 py-3 cursor-pointer font-sans font-medium flex items-center justify-between">
+            <div>
+              <span>{decision.title}</span>
+              <span class="ml-2 text-xs font-mono text-muted">{decision.titleEn}</span>
+            </div>
+            <span class="text-muted text-xs transition-transform group-open:rotate-90">▶</span>
+          </summary>
+          <div class="px-4 pb-4 space-y-3 border-t border-border">
+            <div>
+              <p class="text-xs font-mono text-muted uppercase tracking-wider">Context</p>
+              <p class="mt-1 text-sm text-muted leading-relaxed">{decision.context}</p>
+            </div>
+            <div>
+              <p class="text-xs font-mono text-muted uppercase tracking-wider">Choice</p>
+              <p class="mt-1 text-sm text-muted leading-relaxed">{decision.choice}</p>
+            </div>
+            <div>
+              <p class="text-xs font-mono text-muted uppercase tracking-wider">Rationale</p>
+              <p class="mt-1 text-sm text-muted leading-relaxed">{decision.rationale}</p>
+            </div>
+            {decision.tradeoffs && (
+              <div>
+                <p class="text-xs font-mono text-muted uppercase tracking-wider">Tradeoffs</p>
+                <p class="mt-1 text-sm text-muted leading-relaxed">{decision.tradeoffs}</p>
+              </div>
+            )}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+)}

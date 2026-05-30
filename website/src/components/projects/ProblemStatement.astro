@@ -1,0 +1,22 @@
+---
+interface Props {
+  problemStatement: string;
+  problemStatementEn?: string;
+}
+
+const { problemStatement, problemStatementEn } = Astro.props;
+---
+
+<section id="problem-statement">
+  <h2 class="text-lg font-sans font-semibold border-b border-border pb-2">
+    项目定位
+  </h2>
+  <p class="mt-4 text-muted leading-relaxed">
+    {problemStatement}
+  </p>
+  {problemStatementEn && (
+    <p class="mt-2 text-sm font-mono text-muted leading-relaxed">
+      {problemStatementEn}
+    </p>
+  )}
+</section>
