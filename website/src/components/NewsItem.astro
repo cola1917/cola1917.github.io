@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/content';
+
+interface Props {
+  item: CollectionEntry<'news'>;
+}
+
+const { item } = Astro.props;
+---
+
+{
+  item.data.link ? (
+    <a class="list-row" href={item.data.link}>
+      <span class="list-kicker">{formatDate(item.data.date)}</span>
+      <span>
+        <strong class="list-title">{item.data.title}</strong>
+        <span class="list-summary">{item.data.summary}</span>
+      </span>
+      <span class="status">{item.data.type}</span>
+    </a>
+  ) : (
+    <div class="list-row">
+      <span class="list-kicker">{formatDate(item.data.date)}</span>
+      <span>
+        <strong class="list-title">{item.data.title}</strong>
+        <span class="list-summary">{item.data.summary}</span>
+      </span>
+      <span class="status">{item.data.type}</span>
+    </div>
+  )
+}

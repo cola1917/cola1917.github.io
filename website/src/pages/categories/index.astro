@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import { categoryLabels } from '../../data/site';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isPublished } from '../../lib/content';
+
+const posts = (await getCollection('blog')).filter(isPublished);
+---
+
+<BaseLayout title="Categories — Jiangtao Wang" description="Browse engineering notes by category.">
+  <header class="page-hero shell">
+    <p class="eyebrow">Index</p>
+    <h1 class="page-title">Categories</h1>
+    <p class="page-description">A stable map of the subjects covered in the blog.</p>
+  </header>
+  <section class="section">
+    <div class="shell content-grid">
+      {Object.entries(categoryLabels).map(([slug, label]) => (
+        <article class="card">
+          <a class="card-link" href={`/categories/${slug}/`}>
+            <span class="card-meta">{posts.filter((post) => post.data.category === slug).length} notes</span>
+            <h2 class="card-title">{label}</h2>
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

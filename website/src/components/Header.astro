@@ -1,0 +1,36 @@
+---
+import { site } from '../data/site';
+import ThemeToggle from './ThemeToggle.astro';
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<header class="site-header" data-pagefind-ignore>
+  <div class="shell header-inner">
+    <a class="brand" href="/" aria-label={`${site.name} home`}>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>JW / SYSTEM NOTES</span>
+    </a>
+
+    <div class="header-actions">
+      <nav aria-label="Primary navigation">
+        <ul class="nav-list">
+          {site.nav.map((item) => (
+            <li>
+              <a
+                class="nav-link"
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <ThemeToggle />
+    </div>
+  </div>
+</header>

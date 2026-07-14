@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../../components/ProjectCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isPublished, sortProjects } from '../../lib/content';
+
+const projects = (await getCollection('projects')).filter(isPublished).sort(sortProjects);
+---
+
+<BaseLayout
+  title="Work — Jiangtao Wang"
+  description="Engineering case studies in simulation, system evaluation, and scenario/data mining."
+>
+  <header class="page-hero shell">
+    <p class="eyebrow">Portfolio</p>
+    <h1 class="page-title">Systems, not screenshots.</h1>
+    <p class="page-description">
+      Selected engineering work documented through the problem, role, architecture, trade-offs, and evidence.
+    </p>
+  </header>
+  <section class="section">
+    <div class="shell">
+      {projects.length > 0 ? (
+        <div class="content-grid">{projects.map((project) => <ProjectCard project={project} />)}</div>
+      ) : (
+        <div class="empty-state">Project case studies are being reviewed before publication.</div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout title="About — Jiangtao Wang" description="About Jiangtao Wang and this engineering notebook.">
+  <header class="page-hero shell">
+    <p class="eyebrow">About</p>
+    <h1 class="page-title">Building evidence for autonomous systems.</h1>
+    <p class="page-description">
+      I work around the systems layer of autonomous driving: simulation workflows, evaluation infrastructure,
+      scenario mining, replay, and data pipelines.
+    </p>
+  </header>
+
+  <section class="section">
+    <div class="narrow prose" data-pagefind-body>
+      <h2>What this site is for</h2>
+      <p>
+        This is an engineering notebook and a curated portfolio. Blog posts explain the decisions and trade-offs
+        behind systems work. Project pages collect evidence, architecture, and outcomes. News keeps smaller updates
+        out of the long-form writing.
+      </p>
+
+      <h2>Working themes</h2>
+      <ul>
+        <li>Turning long-tail driving data into structured, reusable scenario assets.</li>
+        <li>Designing replay and evaluation workflows that support repeatable regression.</li>
+        <li>Connecting system-level metrics with evidence that engineers can inspect.</li>
+        <li>Building data infrastructure that keeps simulation and evaluation loops operable.</li>
+      </ul>
+
+      <h2>Contact</h2>
+      <p>
+        The best way to reach me is <a href={`mailto:${site.email}`}>{site.email}</a>.
+        Code and public work live on <a href={site.github}>GitHub</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

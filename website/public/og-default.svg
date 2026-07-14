@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f5f3ed"/>
+  <path d="M0 110h1200M0 220h1200M0 330h1200M0 440h1200M0 550h1200M120 0v630M240 0v630M360 0v630M480 0v630M600 0v630M720 0v630M840 0v630M960 0v630M1080 0v630" stroke="#d9d7cf" stroke-width="1"/>
+  <rect x="76" y="76" width="18" height="18" rx="3" fill="#e65416"/>
+  <text x="112" y="92" fill="#171915" font-family="ui-monospace, monospace" font-size="22" font-weight="700">JW / SYSTEM NOTES</text>
+  <text x="76" y="304" fill="#171915" font-family="Arial, sans-serif" font-size="72" font-weight="700">Simulation. Evaluation.</text>
+  <text x="76" y="390" fill="#e65416" font-family="Arial, sans-serif" font-size="72" font-weight="700">Evidence.</text>
+  <text x="76" y="520" fill="#6d7168" font-family="ui-monospace, monospace" font-size="22">AUTONOMOUS DRIVING · ENGINEERING NOTES</text>
+</svg>

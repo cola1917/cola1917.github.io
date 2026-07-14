@@ -1,0 +1,44 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import PostCard from '../../components/PostCard.astro';
+import { categoryLabels, type CategorySlug } from '../../data/site';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isPublished, sortByPublished } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).filter(isPublished).sort(sortByPublished);
+  return Object.entries(categoryLabels).map(([category, label]) => ({
+    params: { category },
+    props: {
+      category: category as CategorySlug,
+      label,
+      posts: posts.filter((post) => post.data.category === category),
+    },
+  }));
+}
+
+interface Props {
+  category: CategorySlug;
+  label: string;
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { category, label, posts } = Astro.props;
+---
+
+<BaseLayout title={`${label} — Jiangtao Wang`} description={`Engineering notes filed under ${label}.`}>
+  <header class="page-hero shell">
+    <p class="eyebrow">Category / {category}</p>
+    <h1 class="page-title">{label}</h1>
+    <p class="page-description">{posts.length} published {posts.length === 1 ? 'note' : 'notes'}.</p>
+  </header>
+  <section class="section">
+    <div class="shell">
+      {posts.length > 0 ? (
+        <div class="content-grid">{posts.map((post) => <PostCard post={post} />)}</div>
+      ) : (
+        <div class="empty-state">No published notes in this category yet.</div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

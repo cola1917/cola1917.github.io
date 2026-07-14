@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isPublished, slugify } from '../../lib/content';
+
+const posts = (await getCollection('blog')).filter(isPublished);
+const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) => a.localeCompare(b));
+---
+
+<BaseLayout title="Tags — Jiangtao Wang" description="Browse engineering notes by technical tag.">
+  <header class="page-hero shell">
+    <p class="eyebrow">Index</p>
+    <h1 class="page-title">Tags</h1>
+  </header>
+  <section class="section">
+    <div class="shell filters">
+      {tags.map((tag) => (
+        <a class="filter-link" href={`/tags/${slugify(tag)}/`}>
+          #{tag} ({posts.filter((post) => post.data.tags.includes(tag)).length})
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

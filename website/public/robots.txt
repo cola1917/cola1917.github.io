@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cola1917.github.io/sitemap-index.xml

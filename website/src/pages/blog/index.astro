@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import PostCard from '../../components/PostCard.astro';
+import { categoryLabels } from '../../data/site';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isPublished, sortByPublished } from '../../lib/content';
+
+const posts = (await getCollection('blog')).filter(isPublished).sort(sortByPublished);
+---
+
+<BaseLayout
+  title="Blog — Jiangtao Wang"
+  description="Engineering notes on autonomous-driving simulation, evaluation, scenario mining, and data infrastructure."
+>
+  <header class="page-hero shell">
+    <p class="eyebrow">Blog</p>
+    <h1 class="page-title">Notes from the systems layer.</h1>
+    <p class="page-description">
+      Writing about simulation, evaluation, scenario mining, data infrastructure, and the engineering decisions between them.
+    </p>
+  </header>
+
+  <section class="section">
+    <div class="shell">
+      <nav class="filters" aria-label="Blog categories">
+        <a class="filter-link active" href="/blog/">All ({posts.length})</a>
+        {Object.entries(categoryLabels).map(([slug, label]) => {
+          const count = posts.filter((post) => post.data.category === slug).length;
+          return <a class="filter-link" href={`/categories/${slug}/`}>{label} ({count})</a>;
+        })}
+      </nav>
+
+      {posts.length > 0 ? (
+        <div class="content-grid">
+          {posts.map((post) => <PostCard post={post} />)}
+        </div>
+      ) : (
+        <div class="empty-state">No published notes yet.</div>
+      )}
+
+      <div class="button-row">
+        <a class="button secondary" href="/archive/">Browse the archive</a>
+        <a class="button secondary" href="/rss.xml">Subscribe via RSS</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
