@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import NewsItem from '../../components/NewsItem.astro';
+import PostCard from '../../components/PostCard.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isLocale, isPublished, sortByPublished, sortNews, sortProjects } from '../../lib/content';
+
+const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en')).sort(sortByPublished);
+const news = (await getCollection('news')).filter(isPublished).filter(isLocale('en')).sort(sortNews);
+const projects = (await getCollection('projects')).filter(isPublished).filter(isLocale('en')).sort(sortProjects);
+const featuredProjects = projects.filter((project) => project.data.featured).slice(0, 3);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <p class="eyebrow">Simulation · Evaluation · Data Mining</p>
+        <h1 class="display-title">
+          Engineering reliable <span class="accent">evaluation loops.</span>
+        </h1>
+        <p class="hero-copy">
+          I build and study the systems that turn driving data into reproducible scenarios,
+          measurable behavior, and regression-ready evidence.
+        </p>
+        <div class="button-row">
+          <a class="button" href="/en/blog/">Read the notes <span aria-hidden="true">→</span></a>
+          <a class="button secondary" href="/en/work/">Explore the work</a>
+        </div>
+      </div>
+
+      <aside class="focus-panel" aria-label="Current focus">
+        <h2>Current focus / 2026</h2>
+        <ol class="focus-list">
+          <li><span>01</span>Simulation systems</li>
+          <li><span>02</span>Evaluation infrastructure</li>
+          <li><span>03</span>Scenario & data mining</li>
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHeader
+        eyebrow="Writing"
+        title="Latest notes"
+        description="Long-form engineering notes, implementation decisions, and lessons from building autonomous-system workflows."
+        href="/en/blog/"
+      />
+      {posts.length > 0 ? (
+        <div class="content-grid">
+          {posts.slice(0, 3).map((post) => <PostCard post={post} />)}
+        </div>
+      ) : (
+        <div class="empty-state">No published notes yet.</div>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHeader
+        eyebrow="Portfolio"
+        title="Selected systems"
+        description="Case studies are being rewritten around the problem, architecture, trade-offs, and evidence—not a list of tools."
+        href="/en/work/"
+      />
+      {featuredProjects.length > 0 ? (
+        <div class="content-grid">
+          {featuredProjects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      ) : (
+        <div class="empty-state">No public project case studies yet.</div>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHeader
+        eyebrow="Now"
+        title="Recent news"
+        description="Small updates about writing, projects, releases, and milestones."
+        href="/en/news/"
+      />
+      <div class="list-stack">
+        {news.slice(0, 4).map((item) => <NewsItem item={item} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -6,26 +6,26 @@ export const site = {
   github: 'https://github.com/cola1917',
   title: {
     en: 'Jiangtao Wang — Autonomous Driving Simulation & Evaluation',
-    zh: '王江涛 — 自动驾驶仿真与系统评测',
+    zh: '王江涛｜自动驾驶仿真、系统评测与数据分析',
   },
   description: {
     en: 'Engineering notes, system case studies, and updates on autonomous-driving simulation, system evaluation, and scenario/data mining.',
-    zh: '关于自动驾驶仿真、系统评测、场景与数据挖掘的工程笔记、系统案例和动态。',
+    zh: '记录自动驾驶仿真、系统评测、场景挖掘与数据工程中的方法、实践和思考。',
   },
   nav: {
     en: [
-      { href: '/blog/', label: 'Blog' },
-      { href: '/work/', label: 'Work' },
-      { href: '/news/', label: 'News' },
-      { href: '/about/', label: 'About' },
-      { href: '/search/', label: 'Search' },
+      { href: '/en/blog/', label: 'Blog' },
+      { href: '/en/work/', label: 'Work' },
+      { href: '/en/news/', label: 'News' },
+      { href: '/en/about/', label: 'About' },
+      { href: '/en/search/', label: 'Search' },
     ],
     zh: [
-      { href: '/zh/blog/', label: '博客' },
-      { href: '/zh/work/', label: '作品' },
-      { href: '/zh/news/', label: '动态' },
-      { href: '/zh/about/', label: '关于' },
-      { href: '/zh/search/', label: '搜索' },
+      { href: '/blog/', label: '博客' },
+      { href: '/work/', label: '项目' },
+      { href: '/news/', label: '动态' },
+      { href: '/about/', label: '关于' },
+      { href: '/search/', label: '搜索' },
     ],
   },
 } as const;

@@ -4,26 +4,23 @@ import ProjectCard from '../../components/ProjectCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { isLocale, isPublished, sortProjects } from '../../lib/content';
 
-const projects = (await getCollection('projects')).filter(isPublished).filter(isLocale('en')).sort(sortProjects);
+const projects = (await getCollection('projects')).filter(isPublished).filter(isLocale('zh')).sort(sortProjects);
 ---
 
-<BaseLayout
-  title="Work — Jiangtao Wang"
-  description="Engineering case studies in simulation, system evaluation, and scenario/data mining."
->
+<BaseLayout locale="zh" title="项目 — 王江涛" description="自动驾驶仿真、系统评测与数据分析相关的项目案例。">
   <header class="page-hero shell">
-    <p class="eyebrow">Portfolio</p>
-    <h1 class="page-title">Systems, not screenshots.</h1>
+    <p class="eyebrow">项目</p>
+    <h1 class="page-title">项目实践</h1>
     <p class="page-description">
-      Selected engineering work documented through the problem, role, architecture, trade-offs, and evidence.
+      这里会放经过整理的项目案例，包括问题、职责、关键决策和验证结果。
     </p>
   </header>
   <section class="section">
     <div class="shell">
       {projects.length > 0 ? (
-        <div class="content-grid">{projects.map((project) => <ProjectCard project={project} />)}</div>
+        <div class="content-grid">{projects.map((project) => <ProjectCard project={project} locale="zh" />)}</div>
       ) : (
-        <div class="empty-state">Project case studies are being reviewed before publication.</div>
+        <div class="empty-state">暂时没有公开的项目案例。</div>
       )}
     </div>
   </section>

@@ -7,36 +7,35 @@ import SectionHeader from '../components/SectionHeader.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { isLocale, isPublished, sortByPublished, sortNews, sortProjects } from '../lib/content';
 
-const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en')).sort(sortByPublished);
-const news = (await getCollection('news')).filter(isPublished).filter(isLocale('en')).sort(sortNews);
-const projects = (await getCollection('projects')).filter(isPublished).filter(isLocale('en')).sort(sortProjects);
+const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('zh')).sort(sortByPublished);
+const news = (await getCollection('news')).filter(isPublished).filter(isLocale('zh')).sort(sortNews);
+const projects = (await getCollection('projects')).filter(isPublished).filter(isLocale('zh')).sort(sortProjects);
 const featuredProjects = projects.filter((project) => project.data.featured).slice(0, 3);
 ---
 
-<BaseLayout>
+<BaseLayout locale="zh">
   <section class="hero">
     <div class="shell hero-grid">
       <div>
         <p class="eyebrow">自动驾驶仿真 · 系统评测 · 数据挖掘</p>
         <h1 class="display-title">
-          Engineering reliable <span class="accent">evaluation loops.</span>
+          把复杂系统，拆成<span class="accent">可验证的问题。</span>
         </h1>
         <p class="hero-copy">
-          I build and study the systems that turn driving data into reproducible scenarios,
-          measurable behavior, and regression-ready evidence.
+          我主要做自动驾驶仿真、系统评测和数据分析：从真实数据里找问题，在仿真中复现问题，再用可重复的指标验证改动。
         </p>
         <div class="button-row">
-          <a class="button" href="/blog/">Read the notes <span aria-hidden="true">→</span></a>
-          <a class="button secondary" href="/work/">Explore the work</a>
+          <a class="button" href="/blog/">阅读文章 <span aria-hidden="true">→</span></a>
+          <a class="button secondary" href="/work/">查看项目</a>
         </div>
       </div>
 
-      <aside class="focus-panel" aria-label="Current focus">
-        <h2>Current focus / 2026</h2>
+      <aside class="focus-panel" aria-label="当前关注">
+        <h2>当前关注 / 2026</h2>
         <ol class="focus-list">
-          <li><span>01</span>Simulation systems</li>
-          <li><span>02</span>Evaluation infrastructure</li>
-          <li><span>03</span>Scenario & data mining</li>
+          <li><span>01</span>闭环仿真与场景复现</li>
+          <li><span>02</span>系统级评测与回归</li>
+          <li><span>03</span>长尾场景与数据分析</li>
         </ol>
       </aside>
     </div>
@@ -45,17 +44,18 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
   <section class="section">
     <div class="shell">
       <SectionHeader
-        eyebrow="Writing"
-        title="Latest notes"
-        description="Long-form engineering notes, implementation decisions, and lessons from building autonomous-system workflows."
+        eyebrow="文章"
+        title="最近写作"
+        description="记录问题怎么拆、方案怎么做，以及结论如何被验证。"
         href="/blog/"
+        linkLabel="查看全部 →"
       />
       {posts.length > 0 ? (
         <div class="content-grid">
-          {posts.slice(0, 3).map((post) => <PostCard post={post} />)}
+          {posts.slice(0, 3).map((post) => <PostCard post={post} locale="zh" />)}
         </div>
       ) : (
-        <div class="empty-state">The first engineering note is being prepared.</div>
+        <div class="empty-state">还没有正式发布的文章。</div>
       )}
     </div>
   </section>
@@ -63,17 +63,18 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
   <section class="section">
     <div class="shell">
       <SectionHeader
-        eyebrow="Portfolio"
-        title="Selected systems"
-        description="Case studies are being rewritten around the problem, architecture, trade-offs, and evidence—not a list of tools."
+        eyebrow="项目"
+        title="项目实践"
+        description="这里只整理能够说明问题、决策与结果的项目。"
         href="/work/"
+        linkLabel="查看全部 →"
       />
       {featuredProjects.length > 0 ? (
         <div class="content-grid">
-          {featuredProjects.map((project) => <ProjectCard project={project} />)}
+          {featuredProjects.map((project) => <ProjectCard project={project} locale="zh" />)}
         </div>
       ) : (
-        <div class="empty-state">Public project case studies are currently under review.</div>
+        <div class="empty-state">项目案例暂未公开。</div>
       )}
     </div>
   </section>
@@ -81,13 +82,14 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
   <section class="section">
     <div class="shell">
       <SectionHeader
-        eyebrow="Now"
-        title="Recent news"
-        description="Small updates about writing, projects, releases, and milestones."
+        eyebrow="动态"
+        title="最近更新"
+        description="记录站点、写作和项目的最新进展。"
         href="/news/"
+        linkLabel="查看全部 →"
       />
       <div class="list-stack">
-        {news.slice(0, 4).map((item) => <NewsItem item={item} />)}
+        {news.slice(0, 4).map((item) => <NewsItem item={item} locale="zh" />)}
       </div>
     </div>
   </section>

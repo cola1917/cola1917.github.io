@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import NewsItem from '../../../components/NewsItem.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { isLocale, isPublished, sortNews } from '../../../lib/content';
+
+const items = (await getCollection('news')).filter(isPublished).filter(isLocale('en')).sort(sortNews);
+---
+
+<BaseLayout title="News — Jiangtao Wang" description="Project, writing, release, and site updates.">
+  <header class="page-hero shell">
+    <p class="eyebrow">News</p>
+    <h1 class="page-title">Short updates, kept useful.</h1>
+    <p class="page-description">Project milestones, releases, new writing, and site changes.</p>
+  </header>
+  <section class="section" data-pagefind-body>
+    <div class="shell list-stack">
+      {items.length > 0 ? items.map((item) => <NewsItem item={item} />) : <div class="empty-state">No news yet.</div>}
+    </div>
+  </section>
+</BaseLayout>

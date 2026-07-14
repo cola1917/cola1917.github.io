@@ -2,7 +2,7 @@ export const locales = ['en', 'zh'] as const;
 
 export type Locale = (typeof locales)[number];
 
-export const defaultLocale: Locale = 'en';
+export const defaultLocale: Locale = 'zh';
 
 export const languageTags: Record<Locale, string> = {
   en: 'en',
@@ -10,20 +10,20 @@ export const languageTags: Record<Locale, string> = {
 };
 
 export const localeFromPath = (pathname: string): Locale =>
-  pathname === '/zh' || pathname.startsWith('/zh/') ? 'zh' : 'en';
+  pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'zh';
 
 export const stripLocalePrefix = (pathname: string) => {
-  if (pathname === '/zh') return '/';
-  if (pathname.startsWith('/zh/')) return pathname.slice(3) || '/';
+  if (pathname === '/en') return '/';
+  if (pathname.startsWith('/en/')) return pathname.slice(3) || '/';
   return pathname || '/';
 };
 
 export const pathForLocale = (pathname: string, locale: Locale) => {
   const basePath = stripLocalePrefix(pathname);
-  return locale === 'zh' ? `/zh${basePath}` : basePath;
+  return locale === 'en' ? `/en${basePath}` : basePath;
 };
 
-export const contentSlug = (id: string) => id.replace(/^zh\//, '');
+export const contentSlug = (id: string) => id.replace(/^en\//, '');
 
 export const localizedPath = (locale: Locale, pathname: string) =>
   pathname.startsWith('/') && !pathname.startsWith('//')

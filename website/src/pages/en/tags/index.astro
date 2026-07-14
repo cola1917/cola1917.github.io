@@ -3,20 +3,20 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { isLocale, isPublished, slugify } from '../../../lib/content';
 
-const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('zh'));
+const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en'));
 const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) => a.localeCompare(b));
 ---
 
-<BaseLayout locale="zh" title="标签 — 王江涛" description="按技术标签浏览工程笔记。">
+<BaseLayout title="Tags — Jiangtao Wang" description="Browse engineering notes by technical tag.">
   <header class="page-hero shell">
-    <p class="eyebrow">索引</p>
-    <h1 class="page-title">标签</h1>
+    <p class="eyebrow">Index</p>
+    <h1 class="page-title">Tags</h1>
   </header>
   <section class="section">
     <div class="shell filters">
       {tags.map((tag) => (
-        <a class="filter-link" href={`/zh/tags/${slugify(tag)}/`}>
-          #{tag}（{posts.filter((post) => post.data.tags.includes(tag)).length}）
+        <a class="filter-link" href={`/en/tags/${slugify(tag)}/`}>
+          #{tag} ({posts.filter((post) => post.data.tags.includes(tag)).length})
         </a>
       ))}
     </div>

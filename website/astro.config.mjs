@@ -7,8 +7,8 @@ export default defineConfig({
   site: process.env.SITE_URL ?? 'https://cola1917.github.io',
   output: 'static',
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'zh'],
+    defaultLocale: 'zh',
+    locales: ['zh', 'en'],
     routing: {
       prefixDefaultLocale: false,
     },
@@ -17,7 +17,7 @@ export default defineConfig({
     mdx(),
     sitemap({
       i18n: {
-        defaultLocale: 'en',
+        defaultLocale: 'zh',
         locales: {
           en: 'en',
           zh: 'zh-CN',

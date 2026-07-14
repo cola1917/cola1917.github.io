@@ -6,8 +6,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { isLocale, isPublished, sortByPublished } from '../../lib/content';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en')).sort(sortByPublished);
-  return Object.entries(categoryLabels.en).map(([category, label]) => ({
+  const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('zh')).sort(sortByPublished);
+  return Object.entries(categoryLabels.zh).map(([category, label]) => ({
     params: { category },
     props: {
       category: category as CategorySlug,
@@ -26,18 +26,18 @@ interface Props {
 const { category, label, posts } = Astro.props;
 ---
 
-<BaseLayout title={`${label} — Jiangtao Wang`} description={`Engineering notes filed under ${label}.`}>
+<BaseLayout locale="zh" title={`${label} — 王江涛`} description={`${label}分类下的文章。`}>
   <header class="page-hero shell">
-    <p class="eyebrow">Category / {category}</p>
+    <p class="eyebrow">分类 / {category}</p>
     <h1 class="page-title">{label}</h1>
-    <p class="page-description">{posts.length} published {posts.length === 1 ? 'note' : 'notes'}.</p>
+    <p class="page-description">已发布 {posts.length} 篇笔记。</p>
   </header>
   <section class="section">
     <div class="shell">
       {posts.length > 0 ? (
-        <div class="content-grid">{posts.map((post) => <PostCard post={post} />)}</div>
+        <div class="content-grid">{posts.map((post) => <PostCard post={post} locale="zh" />)}</div>
       ) : (
-        <div class="empty-state">No published notes in this category yet.</div>
+        <div class="empty-state">这个分类还没有文章。</div>
       )}
     </div>
   </section>

@@ -1,19 +1,18 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { statusLabels } from '../../../data/site';
 import { isLocale, isPublished } from '../../../lib/content';
 import { contentSlug, type Locale } from '../../../lib/i18n';
 
 export async function getStaticPaths() {
   const allProjects = (await getCollection('projects')).filter(isPublished);
-  const projects = allProjects.filter(isLocale('zh'));
-  const englishSlugs = new Set(allProjects.filter(isLocale('en')).map((project) => contentSlug(project.id)));
+  const projects = allProjects.filter(isLocale('en'));
+  const chineseSlugs = new Set(allProjects.filter(isLocale('zh')).map((project) => contentSlug(project.id)));
   return projects.map((project) => {
     const slug = contentSlug(project.id);
     const translationPaths = {
-      ...(englishSlugs.has(slug) ? { en: `/work/${slug}/` } : {}),
-      zh: `/zh/work/${slug}/`,
+      en: `/en/work/${slug}/`,
+      ...(chineseSlugs.has(slug) ? { zh: `/work/${slug}/` } : {}),
     };
     return { params: { id: slug }, props: { project, translationPaths } };
   });
@@ -29,30 +28,29 @@ const { Content } = await render(project);
 ---
 
 <BaseLayout
-  locale="zh"
-  title={`${project.data.title} — 王江涛`}
+  title={`${project.data.title} — Jiangtao Wang`}
   description={project.data.description}
   translationPaths={translationPaths}
 >
   <article data-pagefind-body>
     <header class="article-header shell">
       <div class="project-meta">
-        <span class="status">{statusLabels.zh[project.data.status]}</span>
+        <span class="status">{project.data.status}</span>
         <span>{project.data.year}</span>
       </div>
       <h1 class="article-title" data-pagefind-meta="title">{project.data.title}</h1>
       <p class="article-lede" data-pagefind-meta="description">{project.data.description}</p>
       <dl class="project-facts" data-pagefind-ignore>
         <div class="project-fact">
-          <dt>职责</dt>
+          <dt>Role</dt>
           <dd>{project.data.role}</dd>
         </div>
         <div class="project-fact">
-          <dt>状态</dt>
-          <dd>{statusLabels.zh[project.data.status]}</dd>
+          <dt>Status</dt>
+          <dd>{project.data.status}</dd>
         </div>
         <div class="project-fact">
-          <dt>技术栈</dt>
+          <dt>Stack</dt>
           <dd>{project.data.stack.join(' · ')}</dd>
         </div>
       </dl>

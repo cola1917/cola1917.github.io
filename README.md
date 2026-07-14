@@ -22,6 +22,10 @@ npm run dev
 
 Production builds are written to `website/dist` and deployed by GitHub Actions.
 
-English remains at the root URL. Simplified Chinese pages use the `/zh/` prefix,
-with an `EN / 中文` switcher in the site header. Pagefind builds a separate search
-index for each document language.
+Simplified Chinese is the default language at the root URL. English pages use the
+`/en/` prefix, with a `中文 / EN` switcher in the site header. Pagefind builds a
+separate search index for each document language.
+
+Chinese content lives directly under `website/src/content/<collection>/`. English
+translations use the matching `en/` subdirectory and the same filename. Categories
+are fixed; tags are free-form ASCII technical labels added in each article's frontmatter.

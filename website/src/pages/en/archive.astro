@@ -4,32 +4,32 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { formatDate, isLocale, isPublished, sortByPublished } from '../../lib/content';
 import { contentSlug } from '../../lib/i18n';
 
-const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('zh')).sort(sortByPublished);
+const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en')).sort(sortByPublished);
 const years = [...new Set(posts.map((post) => post.data.publishedAt.getUTCFullYear()))];
 ---
 
-<BaseLayout locale="zh" title="归档 — 王江涛" description="按年份浏览全部工程笔记。">
+<BaseLayout title="Archive — Jiangtao Wang" description="All published engineering notes by year.">
   <header class="page-hero shell">
-    <p class="eyebrow">博客</p>
-    <h1 class="page-title">归档</h1>
-    <p class="page-description">全部已发布笔记，按时间从新到旧排列。</p>
+    <p class="eyebrow">Blog</p>
+    <h1 class="page-title">Archive</h1>
+    <p class="page-description">Every published note, newest first.</p>
   </header>
   <section class="section">
     <div class="shell">
-      {years.map((year) => (
+      {years.length > 0 ? years.map((year) => (
         <section>
           <h2>{year}</h2>
           <div class="list-stack">
             {posts.filter((post) => post.data.publishedAt.getUTCFullYear() === year).map((post) => (
-              <a class="list-row" href={`/zh/blog/${contentSlug(post.id)}/`}>
-                <time class="list-kicker" datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt, 'zh')}</time>
+              <a class="list-row" href={`/en/blog/${contentSlug(post.id)}/`}>
+                <time class="list-kicker" datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt, 'en')}</time>
                 <span><strong class="list-title">{post.data.title}</strong><span class="list-summary">{post.data.description}</span></span>
                 <span aria-hidden="true">→</span>
               </a>
             ))}
           </div>
         </section>
-      ))}
+      )) : <div class="empty-state">No published notes yet.</div>}
     </div>
   </section>
 </BaseLayout>

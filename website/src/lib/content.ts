@@ -22,7 +22,7 @@ export const sortProjects = (
   b: CollectionEntry<'projects'>,
 ) => b.data.order - a.data.order || b.data.year - a.data.year;
 
-export const formatDate = (date: Date, locale: Locale = 'en') =>
+export const formatDate = (date: Date, locale: Locale = 'zh') =>
   new Intl.DateTimeFormat(locale === 'zh' ? 'zh-CN' : 'en', {
     year: 'numeric',
     month: locale === 'zh' ? 'long' : 'short',

@@ -19,7 +19,7 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
-    locale: z.enum(['en', 'zh']).default('en'),
+    locale: z.enum(['en', 'zh']).default('zh'),
   }),
 });
 
@@ -32,7 +32,7 @@ const news = defineCollection({
     summary: z.string(),
     link: z.string().optional(),
     draft: z.boolean().default(false),
-    locale: z.enum(['en', 'zh']).default('en'),
+    locale: z.enum(['en', 'zh']).default('zh'),
   }),
 });
 
@@ -48,7 +48,7 @@ const projects = defineCollection({
     featured: z.boolean().default(false),
     order: z.number().default(0),
     draft: z.boolean().default(false),
-    locale: z.enum(['en', 'zh']).default('en'),
+    locale: z.enum(['en', 'zh']).default('zh'),
   }),
 });
 

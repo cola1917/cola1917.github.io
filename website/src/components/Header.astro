@@ -22,7 +22,7 @@ const chinesePath = translationPaths ? translationPaths.zh : pathForLocale(langu
 
 <header class="site-header" data-pagefind-ignore>
   <div class="shell header-inner">
-    <a class="brand" href={locale === 'zh' ? '/zh/' : '/'} aria-label={`${site.name} ${copy.home}`}>
+    <a class="brand" href={pathForLocale('/', locale)} aria-label={`${site.name} ${copy.home}`}>
       <span class="brand-mark" aria-hidden="true"></span>
       <span>JW / SYSTEM NOTES</span>
     </a>
@@ -45,17 +45,6 @@ const chinesePath = translationPaths ? translationPaths.zh : pathForLocale(langu
       </nav>
       <div class="header-tools">
         <nav class="language-switcher" aria-label={copy.language}>
-          {englishPath ? (
-            <a
-              class:list={['language-option', { active: locale === 'en' }]}
-              href={englishPath}
-              lang="en"
-              hreflang="en"
-              aria-current={locale === 'en' ? 'page' : undefined}
-            >EN</a>
-          ) : (
-            <span class="language-option disabled" lang="en" aria-disabled="true">EN</span>
-          )}
           {chinesePath ? (
             <a
               class:list={['language-option', { active: locale === 'zh' }]}
@@ -66,6 +55,17 @@ const chinesePath = translationPaths ? translationPaths.zh : pathForLocale(langu
             >中文</a>
           ) : (
             <span class="language-option disabled" lang="zh-CN" aria-disabled="true">中文</span>
+          )}
+          {englishPath ? (
+            <a
+              class:list={['language-option', { active: locale === 'en' }]}
+              href={englishPath}
+              lang="en"
+              hreflang="en"
+              aria-current={locale === 'en' ? 'page' : undefined}
+            >EN</a>
+          ) : (
+            <span class="language-option disabled" lang="en" aria-disabled="true">EN</span>
           )}
         </nav>
         <ThemeToggle locale={locale} />

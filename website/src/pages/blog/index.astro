@@ -5,42 +5,43 @@ import { categoryLabels } from '../../data/site';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { isLocale, isPublished, sortByPublished } from '../../lib/content';
 
-const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en')).sort(sortByPublished);
+const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('zh')).sort(sortByPublished);
 ---
 
 <BaseLayout
-  title="Blog — Jiangtao Wang"
-  description="Engineering notes on autonomous-driving simulation, evaluation, scenario mining, and data infrastructure."
+  locale="zh"
+  title="博客 — 王江涛"
+  description="关于自动驾驶仿真、系统评测、场景挖掘和数据工程的技术文章。"
 >
   <header class="page-hero shell">
-    <p class="eyebrow">Blog</p>
-    <h1 class="page-title">Notes from the systems layer.</h1>
+    <p class="eyebrow">博客</p>
+    <h1 class="page-title">文章</h1>
     <p class="page-description">
-      Writing about simulation, evaluation, scenario mining, data infrastructure, and the engineering decisions between them.
+      记录自动驾驶仿真、系统评测和数据分析中的具体问题，尽量把背景、决策过程和验证方法讲清楚。
     </p>
   </header>
 
   <section class="section">
     <div class="shell">
-      <nav class="filters" aria-label="Blog categories">
-        <a class="filter-link active" href="/blog/">All ({posts.length})</a>
-        {Object.entries(categoryLabels.en).map(([slug, label]) => {
+      <nav class="filters" aria-label="博客分类">
+        <a class="filter-link active" href="/blog/">全部（{posts.length}）</a>
+        {Object.entries(categoryLabels.zh).map(([slug, label]) => {
           const count = posts.filter((post) => post.data.category === slug).length;
-          return <a class="filter-link" href={`/categories/${slug}/`}>{label} ({count})</a>;
+          return <a class="filter-link" href={`/categories/${slug}/`}>{label}（{count}）</a>;
         })}
       </nav>
 
       {posts.length > 0 ? (
         <div class="content-grid">
-          {posts.map((post) => <PostCard post={post} />)}
+          {posts.map((post) => <PostCard post={post} locale="zh" />)}
         </div>
       ) : (
-        <div class="empty-state">No published notes yet.</div>
+        <div class="empty-state">还没有正式发布的文章。</div>
       )}
 
       <div class="button-row">
-        <a class="button secondary" href="/archive/">Browse the archive</a>
-        <a class="button secondary" href="/rss.xml">Subscribe via RSS</a>
+        <a class="button secondary" href="/archive/">浏览归档</a>
+        <a class="button secondary" href="/rss.xml">订阅 RSS</a>
       </div>
     </div>
   </section>

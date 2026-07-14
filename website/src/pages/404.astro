@@ -2,14 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="404 — Page not found" description="The requested page could not be found." noindex languagePath="/">
+<BaseLayout locale="zh" title="404 — 页面不存在" description="没有找到请求的页面。" noindex languagePath="/">
   <section class="page-hero shell">
     <p class="eyebrow">404</p>
-    <h1 class="page-title">This route has no evidence.</h1>
-    <p class="page-description">The page may have moved during the site reset.</p>
+    <h1 class="page-title">这个页面不存在。</h1>
+    <p class="page-description">链接可能已经失效，或者页面还没有发布。</p>
     <div class="button-row">
-      <a class="button" href="/">Return home</a>
-      <a class="button secondary" href="/archive/">Browse the archive</a>
+      <a class="button" href="/">返回首页</a>
+      <a class="button secondary" href="/archive/">查看归档</a>
     </div>
   </section>
 </BaseLayout>
