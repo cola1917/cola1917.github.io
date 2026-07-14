@@ -11,6 +11,7 @@ stack:
 featured: true
 order: 30
 draft: false
+locale: en
 ---
 
 This case study is being rewritten before publication. The revised version will focus on the engineering contract rather than an outdated feature list.

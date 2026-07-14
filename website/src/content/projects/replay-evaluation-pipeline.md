@@ -11,6 +11,7 @@ stack:
 featured: true
 order: 20
 draft: false
+locale: en
 ---
 
 This case study is under review. The next version will separate implementation facts from goals and explain the system through evidence.

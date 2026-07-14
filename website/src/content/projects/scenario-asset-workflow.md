@@ -11,6 +11,7 @@ stack:
 featured: true
 order: 10
 draft: false
+locale: en
 ---
 
 The public case study is being reconstructed around a clear lifecycle: extraction, normalization, generation, validation, and regression use.

@@ -3,11 +3,11 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import PostCard from '../../components/PostCard.astro';
 import { categoryLabels, type CategorySlug } from '../../data/site';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { isPublished, sortByPublished } from '../../lib/content';
+import { isLocale, isPublished, sortByPublished } from '../../lib/content';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('blog')).filter(isPublished).sort(sortByPublished);
-  return Object.entries(categoryLabels).map(([category, label]) => ({
+  const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en')).sort(sortByPublished);
+  return Object.entries(categoryLabels.en).map(([category, label]) => ({
     params: { category },
     props: {
       category: category as CategorySlug,

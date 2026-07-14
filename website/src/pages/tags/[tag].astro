@@ -2,26 +2,41 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import PostCard from '../../components/PostCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { isPublished, slugify, sortByPublished } from '../../lib/content';
+import { isLocale, isPublished, slugify, sortByPublished } from '../../lib/content';
+import type { Locale } from '../../lib/i18n';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('blog')).filter(isPublished).sort(sortByPublished);
+  const allPosts = (await getCollection('blog')).filter(isPublished);
+  const posts = allPosts.filter(isLocale('en')).sort(sortByPublished);
+  const chineseTags = new Set(allPosts.filter(isLocale('zh')).flatMap((post) => post.data.tags));
   const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
   return tags.map((tag) => ({
     params: { tag: slugify(tag) },
-    props: { tag, posts: posts.filter((post) => post.data.tags.includes(tag)) },
+    props: {
+      tag,
+      posts: posts.filter((post) => post.data.tags.includes(tag)),
+      translationPaths: {
+        en: `/tags/${slugify(tag)}/`,
+        ...(chineseTags.has(tag) ? { zh: `/zh/tags/${slugify(tag)}/` } : {}),
+      },
+    },
   }));
 }
 
 interface Props {
   tag: string;
   posts: CollectionEntry<'blog'>[];
+  translationPaths: Partial<Record<Locale, string>>;
 }
 
-const { tag, posts } = Astro.props;
+const { tag, posts, translationPaths } = Astro.props;
 ---
 
-<BaseLayout title={`#${tag} — Jiangtao Wang`} description={`Engineering notes tagged ${tag}.`}>
+<BaseLayout
+  title={`#${tag} — Jiangtao Wang`}
+  description={`Engineering notes tagged ${tag}.`}
+  translationPaths={translationPaths}
+>
   <header class="page-hero shell">
     <p class="eyebrow">Tag</p>
     <h1 class="page-title">#{tag}</h1>

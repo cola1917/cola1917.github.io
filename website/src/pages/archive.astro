@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { formatDate, isPublished, sortByPublished } from '../lib/content';
+import { formatDate, isLocale, isPublished, sortByPublished } from '../lib/content';
 
-const posts = (await getCollection('blog')).filter(isPublished).sort(sortByPublished);
+const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en')).sort(sortByPublished);
 const years = [...new Set(posts.map((post) => post.data.publishedAt.getUTCFullYear()))];
 ---
 

@@ -2,20 +2,22 @@
 import type { CollectionEntry } from 'astro:content';
 import { categoryLabels } from '../data/site';
 import { formatDate, slugify } from '../lib/content';
+import { contentSlug, localizedPath, type Locale } from '../lib/i18n';
 
 interface Props {
   post: CollectionEntry<'blog'>;
+  locale?: Locale;
 }
 
-const { post } = Astro.props;
+const { post, locale = post.data.locale } = Astro.props;
 ---
 
 <article class="card">
-  <a class="card-link" href={`/blog/${post.id}/`}>
+  <a class="card-link" href={localizedPath(locale, `/blog/${contentSlug(post.id)}/`)}>
     <div class="card-meta">
-      <span>{formatDate(post.data.publishedAt)}</span>
+      <span>{formatDate(post.data.publishedAt, locale)}</span>
       <span aria-hidden="true">/</span>
-      <span>{categoryLabels[post.data.category]}</span>
+      <span>{categoryLabels[locale][post.data.category]}</span>
     </div>
     <h3 class="card-title">{post.data.title}</h3>
     <p class="card-copy">{post.data.description}</p>

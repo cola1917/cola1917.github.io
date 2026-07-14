@@ -1,12 +1,19 @@
 ---
 import { site } from '../data/site';
+import { localeFromPath, type Locale } from '../lib/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? localeFromPath(Astro.url.pathname);
 ---
 
 <footer class="site-footer" data-pagefind-ignore>
   <div class="shell footer-inner">
     <span>© {new Date().getFullYear()} {site.name}</span>
     <div class="footer-links">
-      <a href="/rss.xml">RSS</a>
+      <a href={locale === 'zh' ? '/zh/rss.xml' : '/rss.xml'}>RSS</a>
       <a href={site.github} rel="me noopener" target="_blank">GitHub</a>
       <a href={`mailto:${site.email}`}>Email</a>
     </div>

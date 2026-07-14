@@ -1,7 +1,11 @@
 import type { CollectionEntry } from 'astro:content';
+import type { Locale } from './i18n';
 
 export const isPublished = <T extends { data: { draft: boolean } }>(entry: T) =>
   !entry.data.draft;
+
+export const isLocale = <T extends { data: { locale: Locale } }>(locale: Locale) =>
+  (entry: T) => entry.data.locale === locale;
 
 export const sortByPublished = (
   a: CollectionEntry<'blog'>,
@@ -18,11 +22,11 @@ export const sortProjects = (
   b: CollectionEntry<'projects'>,
 ) => b.data.order - a.data.order || b.data.year - a.data.year;
 
-export const formatDate = (date: Date) =>
-  new Intl.DateTimeFormat('en', {
+export const formatDate = (date: Date, locale: Locale = 'en') =>
+  new Intl.DateTimeFormat(locale === 'zh' ? 'zh-CN' : 'en', {
     year: 'numeric',
-    month: 'short',
-    day: '2-digit',
+    month: locale === 'zh' ? 'long' : 'short',
+    day: locale === 'zh' ? 'numeric' : '2-digit',
     timeZone: 'UTC',
   }).format(date);
 

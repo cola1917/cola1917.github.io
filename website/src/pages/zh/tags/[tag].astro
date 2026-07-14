@@ -1,0 +1,49 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import PostCard from '../../../components/PostCard.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { isLocale, isPublished, slugify, sortByPublished } from '../../../lib/content';
+import type { Locale } from '../../../lib/i18n';
+
+export async function getStaticPaths() {
+  const allPosts = (await getCollection('blog')).filter(isPublished);
+  const posts = allPosts.filter(isLocale('zh')).sort(sortByPublished);
+  const englishTags = new Set(allPosts.filter(isLocale('en')).flatMap((post) => post.data.tags));
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+  return tags.map((tag) => ({
+    params: { tag: slugify(tag) },
+    props: {
+      tag,
+      posts: posts.filter((post) => post.data.tags.includes(tag)),
+      translationPaths: {
+        ...(englishTags.has(tag) ? { en: `/tags/${slugify(tag)}/` } : {}),
+        zh: `/zh/tags/${slugify(tag)}/`,
+      },
+    },
+  }));
+}
+
+interface Props {
+  tag: string;
+  posts: CollectionEntry<'blog'>[];
+  translationPaths: Partial<Record<Locale, string>>;
+}
+
+const { tag, posts, translationPaths } = Astro.props;
+---
+
+<BaseLayout
+  locale="zh"
+  title={`#${tag} — 王江涛`}
+  description={`带有 ${tag} 标签的工程笔记。`}
+  translationPaths={translationPaths}
+>
+  <header class="page-hero shell">
+    <p class="eyebrow">标签</p>
+    <h1 class="page-title">#{tag}</h1>
+    <p class="page-description">已发布 {posts.length} 篇笔记。</p>
+  </header>
+  <section class="section">
+    <div class="shell content-grid">{posts.map((post) => <PostCard post={post} locale="zh" />)}</div>
+  </section>
+</BaseLayout>

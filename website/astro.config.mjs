@@ -6,7 +6,25 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: process.env.SITE_URL ?? 'https://cola1917.github.io',
   output: 'static',
-  integrations: [mdx(), sitemap()],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'zh'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
+  integrations: [
+    mdx(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en',
+          zh: 'zh-CN',
+        },
+      },
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

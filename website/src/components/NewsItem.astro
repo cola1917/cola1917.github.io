@@ -1,32 +1,36 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { newsTypeLabels } from '../data/site';
 import { formatDate } from '../lib/content';
+import { localizedPath, type Locale } from '../lib/i18n';
 
 interface Props {
   item: CollectionEntry<'news'>;
+  locale?: Locale;
 }
 
-const { item } = Astro.props;
+const { item, locale = item.data.locale } = Astro.props;
+const link = item.data.link ? localizedPath(locale, item.data.link) : undefined;
 ---
 
 {
-  item.data.link ? (
-    <a class="list-row" href={item.data.link}>
-      <span class="list-kicker">{formatDate(item.data.date)}</span>
+  link ? (
+    <a class="list-row" href={link}>
+      <span class="list-kicker">{formatDate(item.data.date, locale)}</span>
       <span>
         <strong class="list-title">{item.data.title}</strong>
         <span class="list-summary">{item.data.summary}</span>
       </span>
-      <span class="status">{item.data.type}</span>
+      <span class="status">{newsTypeLabels[locale][item.data.type]}</span>
     </a>
   ) : (
     <div class="list-row">
-      <span class="list-kicker">{formatDate(item.data.date)}</span>
+      <span class="list-kicker">{formatDate(item.data.date, locale)}</span>
       <span>
         <strong class="list-title">{item.data.title}</strong>
         <span class="list-summary">{item.data.summary}</span>
       </span>
-      <span class="status">{item.data.type}</span>
+      <span class="status">{newsTypeLabels[locale][item.data.type]}</span>
     </div>
   )
 }

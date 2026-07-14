@@ -1,15 +1,18 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { statusLabels } from '../data/site';
+import { contentSlug, localizedPath, type Locale } from '../lib/i18n';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  locale?: Locale;
 }
 
-const { project } = Astro.props;
+const { project, locale = project.data.locale } = Astro.props;
 ---
 
 <article class="card">
-  <a class="card-link" href={`/work/${project.id}/`}>
+  <a class="card-link" href={localizedPath(locale, `/work/${contentSlug(project.id)}/`)}>
     <div class="card-meta">
       <span>{project.data.year}</span>
       <span aria-hidden="true">/</span>
@@ -18,7 +21,7 @@ const { project } = Astro.props;
     <h3 class="card-title">{project.data.title}</h3>
     <p class="card-copy">{project.data.description}</p>
     <div class="card-foot">
-      <span class="status">{project.data.status}</span>
+      <span class="status">{statusLabels[locale][project.data.status]}</span>
       {project.data.stack.slice(0, 3).map((item) => <span class="tag">{item}</span>)}
     </div>
   </a>

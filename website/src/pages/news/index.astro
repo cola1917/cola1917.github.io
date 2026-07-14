@@ -2,9 +2,9 @@
 import { getCollection } from 'astro:content';
 import NewsItem from '../../components/NewsItem.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { isPublished, sortNews } from '../../lib/content';
+import { isLocale, isPublished, sortNews } from '../../lib/content';
 
-const items = (await getCollection('news')).filter(isPublished).sort(sortNews);
+const items = (await getCollection('news')).filter(isPublished).filter(isLocale('en')).sort(sortNews);
 ---
 
 <BaseLayout title="News — Jiangtao Wang" description="Project, writing, release, and site updates.">

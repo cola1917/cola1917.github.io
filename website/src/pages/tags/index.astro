@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { isPublished, slugify } from '../../lib/content';
+import { isLocale, isPublished, slugify } from '../../lib/content';
 
-const posts = (await getCollection('blog')).filter(isPublished);
+const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en'));
 const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) => a.localeCompare(b));
 ---
 

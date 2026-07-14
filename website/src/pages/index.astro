@@ -5,11 +5,11 @@ import PostCard from '../components/PostCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { isPublished, sortByPublished, sortNews, sortProjects } from '../lib/content';
+import { isLocale, isPublished, sortByPublished, sortNews, sortProjects } from '../lib/content';
 
-const posts = (await getCollection('blog')).filter(isPublished).sort(sortByPublished);
-const news = (await getCollection('news')).filter(isPublished).sort(sortNews);
-const projects = (await getCollection('projects')).filter(isPublished).sort(sortProjects);
+const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en')).sort(sortByPublished);
+const news = (await getCollection('news')).filter(isPublished).filter(isLocale('en')).sort(sortNews);
+const projects = (await getCollection('projects')).filter(isPublished).filter(isLocale('en')).sort(sortProjects);
 const featuredProjects = projects.filter((project) => project.data.featured).slice(0, 3);
 ---
 

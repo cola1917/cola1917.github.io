@@ -1,18 +1,18 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
-import ArticleLayout from '../../layouts/ArticleLayout.astro';
-import { isLocale, isPublished } from '../../lib/content';
-import { contentSlug, type Locale } from '../../lib/i18n';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import { isLocale, isPublished } from '../../../lib/content';
+import { contentSlug, type Locale } from '../../../lib/i18n';
 
 export async function getStaticPaths() {
   const allPosts = (await getCollection('blog')).filter(isPublished);
-  const posts = allPosts.filter(isLocale('en'));
-  const chineseSlugs = new Set(allPosts.filter(isLocale('zh')).map((post) => contentSlug(post.id)));
+  const posts = allPosts.filter(isLocale('zh'));
+  const englishSlugs = new Set(allPosts.filter(isLocale('en')).map((post) => contentSlug(post.id)));
   return posts.map((post) => {
     const slug = contentSlug(post.id);
     const translationPaths = {
-      en: `/blog/${slug}/`,
-      ...(chineseSlugs.has(slug) ? { zh: `/zh/blog/${slug}/` } : {}),
+      ...(englishSlugs.has(slug) ? { en: `/blog/${slug}/` } : {}),
+      zh: `/zh/blog/${slug}/`,
     };
     return { params: { id: slug }, props: { post, translationPaths } };
   });
@@ -34,7 +34,7 @@ const { Content } = await render(post);
   updatedAt={post.data.updatedAt}
   category={post.data.category}
   tags={post.data.tags}
-  locale="en"
+  locale="zh"
   translationPaths={translationPaths}
 >
   <Content />

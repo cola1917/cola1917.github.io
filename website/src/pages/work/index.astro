@@ -2,9 +2,9 @@
 import { getCollection } from 'astro:content';
 import ProjectCard from '../../components/ProjectCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { isPublished, sortProjects } from '../../lib/content';
+import { isLocale, isPublished, sortProjects } from '../../lib/content';
 
-const projects = (await getCollection('projects')).filter(isPublished).sort(sortProjects);
+const projects = (await getCollection('projects')).filter(isPublished).filter(isLocale('en')).sort(sortProjects);
 ---
 
 <BaseLayout

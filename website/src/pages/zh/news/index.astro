@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import NewsItem from '../../../components/NewsItem.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { isLocale, isPublished, sortNews } from '../../../lib/content';
+
+const items = (await getCollection('news')).filter(isPublished).filter(isLocale('zh')).sort(sortNews);
+---
+
+<BaseLayout locale="zh" title="动态 — 王江涛" description="项目、写作、发布和网站动态。">
+  <header class="page-hero shell">
+    <p class="eyebrow">动态</p>
+    <h1 class="page-title">简短更新，也保持有用。</h1>
+    <p class="page-description">项目里程碑、版本发布、新文章和网站变化。</p>
+  </header>
+  <section class="section">
+    <div class="shell list-stack">
+      {items.length > 0 ? items.map((item) => <NewsItem item={item} locale="zh" />) : <div class="empty-state">暂时没有动态。</div>}
+    </div>
+  </section>
+</BaseLayout>

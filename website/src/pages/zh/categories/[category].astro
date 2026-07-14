@@ -1,0 +1,44 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import PostCard from '../../../components/PostCard.astro';
+import { categoryLabels, type CategorySlug } from '../../../data/site';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { isLocale, isPublished, sortByPublished } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('zh')).sort(sortByPublished);
+  return Object.entries(categoryLabels.zh).map(([category, label]) => ({
+    params: { category },
+    props: {
+      category: category as CategorySlug,
+      label,
+      posts: posts.filter((post) => post.data.category === category),
+    },
+  }));
+}
+
+interface Props {
+  category: CategorySlug;
+  label: string;
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { category, label, posts } = Astro.props;
+---
+
+<BaseLayout locale="zh" title={`${label} — 王江涛`} description={`${label}分类下的工程笔记。`}>
+  <header class="page-hero shell">
+    <p class="eyebrow">分类 / {category}</p>
+    <h1 class="page-title">{label}</h1>
+    <p class="page-description">已发布 {posts.length} 篇笔记。</p>
+  </header>
+  <section class="section">
+    <div class="shell">
+      {posts.length > 0 ? (
+        <div class="content-grid">{posts.map((post) => <PostCard post={post} locale="zh" />)}</div>
+      ) : (
+        <div class="empty-state">这个分类暂时没有已发布笔记。</div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

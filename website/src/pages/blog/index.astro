@@ -3,9 +3,9 @@ import { getCollection } from 'astro:content';
 import PostCard from '../../components/PostCard.astro';
 import { categoryLabels } from '../../data/site';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { isPublished, sortByPublished } from '../../lib/content';
+import { isLocale, isPublished, sortByPublished } from '../../lib/content';
 
-const posts = (await getCollection('blog')).filter(isPublished).sort(sortByPublished);
+const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en')).sort(sortByPublished);
 ---
 
 <BaseLayout
@@ -24,7 +24,7 @@ const posts = (await getCollection('blog')).filter(isPublished).sort(sortByPubli
     <div class="shell">
       <nav class="filters" aria-label="Blog categories">
         <a class="filter-link active" href="/blog/">All ({posts.length})</a>
-        {Object.entries(categoryLabels).map(([slug, label]) => {
+        {Object.entries(categoryLabels.en).map(([slug, label]) => {
           const count = posts.filter((post) => post.data.category === slug).length;
           return <a class="filter-link" href={`/categories/${slug}/`}>{label} ({count})</a>;
         })}

@@ -9,6 +9,7 @@ tags:
   - Systems Thinking
 featured: true
 draft: false
+locale: en
 ---
 
 The previous version of this site tried to explain too much on one page. It mixed a résumé, a system diagram, and project summaries without giving any of them enough room. The content also aged faster than the structure could support.

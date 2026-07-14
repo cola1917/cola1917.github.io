@@ -1,23 +1,36 @@
 ---
 import { site } from '../data/site';
+import { localeCopy, localeFromPath, pathForLocale, type Locale } from '../lib/i18n';
 import ThemeToggle from './ThemeToggle.astro';
 
+interface Props {
+  locale?: Locale;
+  languagePath?: string;
+  translationPaths?: Partial<Record<Locale, string>>;
+}
+
 const currentPath = Astro.url.pathname;
+const locale = Astro.props.locale ?? localeFromPath(currentPath);
+const languagePath = Astro.props.languagePath ?? currentPath;
+const copy = localeCopy[locale];
 const isActive = (href: string) =>
   href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+const translationPaths = Astro.props.translationPaths;
+const englishPath = translationPaths ? translationPaths.en : pathForLocale(languagePath, 'en');
+const chinesePath = translationPaths ? translationPaths.zh : pathForLocale(languagePath, 'zh');
 ---
 
 <header class="site-header" data-pagefind-ignore>
   <div class="shell header-inner">
-    <a class="brand" href="/" aria-label={`${site.name} home`}>
+    <a class="brand" href={locale === 'zh' ? '/zh/' : '/'} aria-label={`${site.name} ${copy.home}`}>
       <span class="brand-mark" aria-hidden="true"></span>
       <span>JW / SYSTEM NOTES</span>
     </a>
 
     <div class="header-actions">
-      <nav aria-label="Primary navigation">
+      <nav aria-label={copy.primaryNavigation}>
         <ul class="nav-list">
-          {site.nav.map((item) => (
+          {site.nav[locale].map((item) => (
             <li>
               <a
                 class="nav-link"
@@ -30,7 +43,33 @@ const isActive = (href: string) =>
           ))}
         </ul>
       </nav>
-      <ThemeToggle />
+      <div class="header-tools">
+        <nav class="language-switcher" aria-label={copy.language}>
+          {englishPath ? (
+            <a
+              class:list={['language-option', { active: locale === 'en' }]}
+              href={englishPath}
+              lang="en"
+              hreflang="en"
+              aria-current={locale === 'en' ? 'page' : undefined}
+            >EN</a>
+          ) : (
+            <span class="language-option disabled" lang="en" aria-disabled="true">EN</span>
+          )}
+          {chinesePath ? (
+            <a
+              class:list={['language-option', { active: locale === 'zh' }]}
+              href={chinesePath}
+              lang="zh-CN"
+              hreflang="zh-CN"
+              aria-current={locale === 'zh' ? 'page' : undefined}
+            >中文</a>
+          ) : (
+            <span class="language-option disabled" lang="zh-CN" aria-disabled="true">中文</span>
+          )}
+        </nav>
+        <ThemeToggle locale={locale} />
+      </div>
     </div>
   </div>
 </header>
