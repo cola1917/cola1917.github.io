@@ -310,6 +310,18 @@ main {
   color: var(--accent);
 }
 
+.display-title-zh {
+  font-size: clamp(3rem, 7vw, 6rem);
+}
+
+.display-line {
+  display: block;
+}
+
+.no-break {
+  white-space: nowrap;
+}
+
 .hero-copy {
   max-width: 650px;
   margin: 1.6rem 0 0;
@@ -920,6 +932,10 @@ a.list-row:hover {
 
   .display-title {
     font-size: clamp(2.9rem, 16vw, 4.8rem);
+  }
+
+  .display-title-zh {
+    font-size: clamp(2.9rem, 13vw, 3.25rem);
   }
 
   .list-row {
