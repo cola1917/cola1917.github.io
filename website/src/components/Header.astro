@@ -18,13 +18,19 @@ const isActive = (href: string) =>
 const translationPaths = Astro.props.translationPaths;
 const englishPath = translationPaths ? translationPaths.en : pathForLocale(languagePath, 'en');
 const chinesePath = translationPaths ? translationPaths.zh : pathForLocale(languagePath, 'zh');
+const brandName = locale === 'zh' ? '王江涛' : 'JIANGTAO WANG';
+const brandDescriptor = locale === 'zh' ? '工程笔记' : 'ENGINEERING NOTES';
 ---
 
 <header class="site-header" data-pagefind-ignore>
   <div class="shell header-inner">
     <a class="brand" href={pathForLocale('/', locale)} aria-label={`${site.name} ${copy.home}`}>
       <span class="brand-mark" aria-hidden="true"></span>
-      <span>JW / SYSTEM NOTES</span>
+      <span class="brand-lockup">
+        <span class="brand-name">{brandName}</span>
+        <span class="brand-divider" aria-hidden="true">/</span>
+        <span class="brand-descriptor">{brandDescriptor}</span>
+      </span>
     </a>
 
     <div class="header-actions">

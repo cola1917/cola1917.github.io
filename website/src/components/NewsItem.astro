@@ -17,7 +17,7 @@ const link = item.data.link ? localizedPath(locale, item.data.link) : undefined;
   link ? (
     <a class="list-row" href={link}>
       <span class="list-kicker">{formatDate(item.data.date, locale)}</span>
-      <span>
+      <span class="list-content">
         <strong class="list-title">{item.data.title}</strong>
         <span class="list-summary">{item.data.summary}</span>
       </span>
@@ -26,7 +26,7 @@ const link = item.data.link ? localizedPath(locale, item.data.link) : undefined;
   ) : (
     <div class="list-row">
       <span class="list-kicker">{formatDate(item.data.date, locale)}</span>
-      <span>
+      <span class="list-content">
         <strong class="list-title">{item.data.title}</strong>
         <span class="list-summary">{item.data.summary}</span>
       </span>

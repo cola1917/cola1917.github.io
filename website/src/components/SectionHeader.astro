@@ -1,6 +1,5 @@
 ---
 interface Props {
-  eyebrow?: string;
   title: string;
   description?: string;
   href?: string;
@@ -9,7 +8,6 @@ interface Props {
 }
 
 const {
-  eyebrow,
   title,
   description,
   href,
@@ -20,10 +18,9 @@ const Heading = level;
 ---
 
 <div class="section-heading">
-  <div>
-    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-    <Heading>{title}</Heading>
-    {description && <p>{description}</p>}
+  <Heading>{title}</Heading>
+  <div class="section-heading-aside">
+    {description && <p class="section-heading-description">{description}</p>}
+    {href && <a class="section-link" href={href}>{linkLabel}</a>}
   </div>
-  {href && <a class="section-link" href={href}>{linkLabel}</a>}
 </div>

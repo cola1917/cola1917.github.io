@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import NewsItem from '../../components/NewsItem.astro';
-import PostCard from '../../components/PostCard.astro';
+import PostListItem from '../../components/PostListItem.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -26,8 +26,12 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
           measurable behavior, and regression-ready evidence.
         </p>
         <div class="button-row">
-          <a class="button" href="/en/blog/">Read the notes <span aria-hidden="true">→</span></a>
-          <a class="button secondary" href="/en/work/">Explore the work</a>
+          {posts.length > 0 ? (
+            <a class="button" href="/en/blog/">Read the notes <span aria-hidden="true">→</span></a>
+          ) : (
+            <a class="button" href="/en/about/">Learn more <span aria-hidden="true">→</span></a>
+          )}
+          {projects.length > 0 && <a class="button secondary" href="/en/work/">Explore the work</a>}
         </div>
       </div>
 
@@ -42,53 +46,51 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
     </div>
   </section>
 
-  <section class="section">
-    <div class="shell">
-      <SectionHeader
-        eyebrow="Writing"
-        title="Latest notes"
-        description="Long-form engineering notes, implementation decisions, and lessons from building autonomous-system workflows."
-        href="/en/blog/"
-      />
-      {posts.length > 0 ? (
-        <div class="content-grid">
-          {posts.slice(0, 3).map((post) => <PostCard post={post} />)}
+  {posts.length > 0 && (
+    <section class="section">
+      <div class="shell">
+        <SectionHeader
+          title="Latest writing"
+          description="Engineering notes on simulation, system evaluation, and data analysis."
+          href="/en/blog/"
+          linkLabel="All writing →"
+        />
+        <div class="list-stack editorial-list">
+          {posts.slice(0, 3).map((post) => <PostListItem post={post} />)}
         </div>
-      ) : (
-        <div class="empty-state">No published notes yet.</div>
-      )}
-    </div>
-  </section>
+      </div>
+    </section>
+  )}
 
-  <section class="section">
-    <div class="shell">
-      <SectionHeader
-        eyebrow="Portfolio"
-        title="Selected systems"
-        description="Case studies are being rewritten around the problem, architecture, trade-offs, and evidence—not a list of tools."
-        href="/en/work/"
-      />
-      {featuredProjects.length > 0 ? (
+  {featuredProjects.length > 0 && (
+    <section class="section">
+      <div class="shell">
+        <SectionHeader
+          title="Selected work"
+          description="Problems, key decisions, and evidence from engineering practice."
+          href="/en/work/"
+          linkLabel="All work →"
+        />
         <div class="content-grid">
           {featuredProjects.map((project) => <ProjectCard project={project} />)}
         </div>
-      ) : (
-        <div class="empty-state">No public project case studies yet.</div>
-      )}
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="shell">
-      <SectionHeader
-        eyebrow="Now"
-        title="Recent news"
-        description="Small updates about writing, projects, releases, and milestones."
-        href="/en/news/"
-      />
-      <div class="list-stack">
-        {news.slice(0, 4).map((item) => <NewsItem item={item} />)}
       </div>
-    </div>
-  </section>
+    </section>
+  )}
+
+  {news.length > 0 && (
+    <section class="section section-compact">
+      <div class="shell">
+        <SectionHeader
+          title="Latest updates"
+          description="Short updates about the site, writing, and projects."
+          href="/en/news/"
+          linkLabel="All updates →"
+        />
+        <div class="list-stack">
+          {news.slice(0, 4).map((item) => <NewsItem item={item} />)}
+        </div>
+      </div>
+    </section>
+  )}
 </BaseLayout>

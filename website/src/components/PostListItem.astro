@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { categoryLabels } from '../data/site';
+import { formatDate } from '../lib/content';
+import { contentSlug, localizedPath, type Locale } from '../lib/i18n';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  locale?: Locale;
+}
+
+const { post, locale = post.data.locale } = Astro.props;
+const href = localizedPath(locale, `/blog/${contentSlug(post.id)}/`);
+---
+
+<article>
+  <a class="list-row post-list-row" href={href}>
+    <time class="list-kicker" datetime={post.data.publishedAt.toISOString()}>
+      {formatDate(post.data.publishedAt, locale)}
+    </time>
+    <span class="list-content">
+      <strong class="list-title">{post.data.title}</strong>
+      <span class="list-summary">{post.data.description}</span>
+    </span>
+    <span class="status">{categoryLabels[locale][post.data.category]}</span>
+  </a>
+</article>

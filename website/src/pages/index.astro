@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import NewsItem from '../components/NewsItem.astro';
-import PostCard from '../components/PostCard.astro';
+import PostListItem from '../components/PostListItem.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -25,8 +25,12 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
           我主要做自动驾驶仿真、系统评测和数据分析：从真实数据里找问题，在仿真中复现问题，再用可重复的指标验证改动。
         </p>
         <div class="button-row">
-          <a class="button" href="/blog/">阅读文章 <span aria-hidden="true">→</span></a>
-          <a class="button secondary" href="/work/">查看项目</a>
+          {posts.length > 0 ? (
+            <a class="button" href="/blog/">阅读文章 <span aria-hidden="true">→</span></a>
+          ) : (
+            <a class="button" href="/about/">了解更多 <span aria-hidden="true">→</span></a>
+          )}
+          {projects.length > 0 && <a class="button secondary" href="/work/">查看项目</a>}
         </div>
       </div>
 
@@ -41,56 +45,51 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
     </div>
   </section>
 
-  <section class="section">
-    <div class="shell">
-      <SectionHeader
-        eyebrow="文章"
-        title="最近写作"
-        description="记录问题怎么拆、方案怎么做，以及结论如何被验证。"
-        href="/blog/"
-        linkLabel="查看全部 →"
-      />
-      {posts.length > 0 ? (
-        <div class="content-grid">
-          {posts.slice(0, 3).map((post) => <PostCard post={post} locale="zh" />)}
+  {posts.length > 0 && (
+    <section class="section">
+      <div class="shell">
+        <SectionHeader
+          title="最新文章"
+          description="关于自动驾驶仿真、系统评测与数据分析的工程记录。"
+          href="/blog/"
+          linkLabel="全部文章 →"
+        />
+        <div class="list-stack editorial-list">
+          {posts.slice(0, 3).map((post) => <PostListItem post={post} locale="zh" />)}
         </div>
-      ) : (
-        <div class="empty-state">还没有正式发布的文章。</div>
-      )}
-    </div>
-  </section>
+      </div>
+    </section>
+  )}
 
-  <section class="section">
-    <div class="shell">
-      <SectionHeader
-        eyebrow="项目"
-        title="项目实践"
-        description="这里只整理能够说明问题、决策与结果的项目。"
-        href="/work/"
-        linkLabel="查看全部 →"
-      />
-      {featuredProjects.length > 0 ? (
+  {featuredProjects.length > 0 && (
+    <section class="section">
+      <div class="shell">
+        <SectionHeader
+          title="项目案例"
+          description="整理问题、关键决策和经过验证的结果。"
+          href="/work/"
+          linkLabel="全部项目 →"
+        />
         <div class="content-grid">
           {featuredProjects.map((project) => <ProjectCard project={project} locale="zh" />)}
         </div>
-      ) : (
-        <div class="empty-state">项目案例暂未公开。</div>
-      )}
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="shell">
-      <SectionHeader
-        eyebrow="动态"
-        title="最近更新"
-        description="记录站点、写作和项目的最新进展。"
-        href="/news/"
-        linkLabel="查看全部 →"
-      />
-      <div class="list-stack">
-        {news.slice(0, 4).map((item) => <NewsItem item={item} locale="zh" />)}
       </div>
-    </div>
-  </section>
+    </section>
+  )}
+
+  {news.length > 0 && (
+    <section class="section section-compact">
+      <div class="shell">
+        <SectionHeader
+          title="最新动态"
+          description="站点、写作和项目的简短更新。"
+          href="/news/"
+          linkLabel="全部动态 →"
+        />
+        <div class="list-stack">
+          {news.slice(0, 4).map((item) => <NewsItem item={item} locale="zh" />)}
+        </div>
+      </div>
+    </section>
+  )}
 </BaseLayout>
