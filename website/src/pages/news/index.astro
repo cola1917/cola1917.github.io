@@ -7,7 +7,7 @@ import { isLocale, isPublished, sortNews } from '../../lib/content';
 const items = (await getCollection('news')).filter(isPublished).filter(isLocale('zh')).sort(sortNews);
 ---
 
-<BaseLayout locale="zh" title="动态｜近期更新" description="网站、文章和项目的简短更新。">
+<BaseLayout locale="zh" title="动态" description="网站、文章和项目的简短更新。">
   <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">动态</h1>
   </header>

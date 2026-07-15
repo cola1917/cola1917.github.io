@@ -7,7 +7,7 @@ import { isLocale, isPublished, sortProjects } from '../../lib/content';
 const projects = (await getCollection('projects')).filter(isPublished).filter(isLocale('zh')).sort(sortProjects);
 ---
 
-<BaseLayout locale="zh" title="项目｜工程案例" description="自动驾驶仿真、系统评测与数据分析相关的项目案例。">
+<BaseLayout locale="zh" title="项目" description="自动驾驶仿真、系统评测与数据分析相关的项目案例。">
   <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">项目</h1>
   </header>

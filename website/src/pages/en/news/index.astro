@@ -7,7 +7,7 @@ import { isLocale, isPublished, sortNews } from '../../../lib/content';
 const items = (await getCollection('news')).filter(isPublished).filter(isLocale('en')).sort(sortNews);
 ---
 
-<BaseLayout title="News | Recent Updates" description="Project, writing, release, and site updates.">
+<BaseLayout title="News" description="Project, writing, release, and site updates.">
   <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">News</h1>
   </header>

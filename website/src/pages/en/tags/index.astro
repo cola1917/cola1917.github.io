@@ -7,7 +7,7 @@ const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale(
 const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) => a.localeCompare(b));
 ---
 
-<BaseLayout title="Tags | Blog" description="Browse engineering notes by technical tag.">
+<BaseLayout title="Tags" description="Browse engineering notes by technical tag.">
   <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">Tags</h1>
   </header>
