@@ -9,8 +9,6 @@ description: "用于列表、搜索和社交分享的文章摘要。"
 publishedAt: 2026-07-15
 # updatedAt 可选；文章从未更新时可删除这一行。
 updatedAt: 2026-07-15
-# category 必填且只能选一个：simulation | evaluation | scenario-mining | data-infrastructure | engineering-notes
-category: engineering-notes
 # tags 可自由添加，建议使用小写 ASCII；系统会自动生成标签页，卡片最多显示前三个。
 tags:
   - example-tag

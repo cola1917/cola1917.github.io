@@ -9,13 +9,6 @@ const blog = defineCollection({
     description: z.string(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
-    category: z.enum([
-      'simulation',
-      'evaluation',
-      'scenario-mining',
-      'data-infrastructure',
-      'engineering-notes',
-    ]),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),

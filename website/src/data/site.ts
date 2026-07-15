@@ -1,5 +1,3 @@
-import type { Locale } from '../lib/i18n';
-
 export const site = {
   name: 'Jiangtao Wang',
   email: 'colawang1997@outlook.com',
@@ -29,25 +27,6 @@ export const site = {
     ],
   },
 } as const;
-
-export const categoryLabels = {
-  en: {
-    simulation: 'Simulation',
-    evaluation: 'System Evaluation',
-    'scenario-mining': 'Scenario Mining',
-    'data-infrastructure': 'Data Infrastructure',
-    'engineering-notes': 'Engineering Notes',
-  },
-  zh: {
-    simulation: '仿真系统',
-    evaluation: '系统评测',
-    'scenario-mining': '场景挖掘',
-    'data-infrastructure': '数据基础设施',
-    'engineering-notes': '工程笔记',
-  },
-} as const satisfies Record<Locale, Record<string, string>>;
-
-export type CategorySlug = keyof typeof categoryLabels.en;
 
 export const statusLabels = {
   en: { active: 'active', completed: 'completed', revising: 'revising' },

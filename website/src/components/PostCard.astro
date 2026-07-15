@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { categoryLabels } from '../data/site';
 import { formatDate, slugify } from '../lib/content';
 import { contentSlug, localizedPath, type Locale } from '../lib/i18n';
 
@@ -18,8 +17,6 @@ const Heading = headingLevel;
   <a class="card-link" href={localizedPath(locale, `/blog/${contentSlug(post.id)}/`)}>
     <div class="card-meta">
       <span>{formatDate(post.data.publishedAt, locale)}</span>
-      <span aria-hidden="true">/</span>
-      <span>{categoryLabels[locale][post.data.category]}</span>
     </div>
     <Heading class="card-title">{post.data.title}</Heading>
     <p class="card-copy">{post.data.description}</p>

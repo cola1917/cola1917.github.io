@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { categoryLabels } from '../data/site';
 import { formatDate } from '../lib/content';
 import { contentSlug, localizedPath, type Locale } from '../lib/i18n';
 
@@ -22,6 +21,6 @@ const href = localizedPath(locale, `/blog/${contentSlug(post.id)}/`);
       <strong class="list-title">{post.data.title}</strong>
       <span class="list-summary">{post.data.description}</span>
     </span>
-    <span class="status">{categoryLabels[locale][post.data.category]}</span>
+    <span aria-hidden="true">→</span>
   </a>
 </article>

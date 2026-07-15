@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import PostCard from '../../components/PostCard.astro';
-import { categoryLabels } from '../../data/site';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { isLocale, isPublished, sortByPublished } from '../../lib/content';
 
@@ -19,14 +18,6 @@ const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale(
 
   <section class="section">
     <div class="shell">
-      <nav class="filters" aria-label="博客分类">
-        <a class="filter-link active" href="/blog/">全部（{posts.length}）</a>
-        {Object.entries(categoryLabels.zh).map(([slug, label]) => {
-          const count = posts.filter((post) => post.data.category === slug).length;
-          return <a class="filter-link" href={`/categories/${slug}/`}>{label}（{count}）</a>;
-        })}
-      </nav>
-
       {posts.length > 0 ? (
         <div class="content-grid">
           {posts.map((post) => <PostCard post={post} locale="zh" headingLevel="h2" />)}
@@ -37,6 +28,7 @@ const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale(
 
       <div class="button-row">
         <a class="button secondary" href="/archive/">浏览归档</a>
+        <a class="button secondary" href="/tags/">浏览标签</a>
         <a class="button secondary" href="/rss.xml">订阅 RSS</a>
       </div>
     </div>

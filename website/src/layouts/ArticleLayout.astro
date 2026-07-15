@@ -1,6 +1,5 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import { categoryLabels, type CategorySlug } from '../data/site';
 import { formatDate, slugify } from '../lib/content';
 import { localeCopy, localizedPath, type Locale } from '../lib/i18n';
 
@@ -9,7 +8,6 @@ interface Props {
   description: string;
   publishedAt: Date;
   updatedAt?: Date;
-  category: CategorySlug;
   tags: string[];
   locale?: Locale;
   translationPaths?: Partial<Record<Locale, string>>;
@@ -20,7 +18,6 @@ const {
   description,
   publishedAt,
   updatedAt,
-  category,
   tags,
   locale = 'zh',
   translationPaths,
@@ -37,8 +34,6 @@ const copy = localeCopy[locale];
   <article data-pagefind-body>
     <header class="article-header narrow">
       <div class="article-meta">
-        <a href={localizedPath(locale, `/categories/${category}/`)}>{categoryLabels[locale][category]}</a>
-        <span aria-hidden="true">/</span>
         <time datetime={publishedAt.toISOString()}>{formatDate(publishedAt, locale)}</time>
         {updatedAt && <span>{copy.updated} {formatDate(updatedAt, locale)}</span>}
       </div>

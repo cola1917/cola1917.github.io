@@ -14,7 +14,7 @@ const locale = Astro.props.locale ?? localeFromPath(currentPath);
 const languagePath = Astro.props.languagePath ?? currentPath;
 const copy = localeCopy[locale];
 const blogHref = pathForLocale('/blog/', locale);
-const blogRoutes = ['/blog/', '/archive/', '/categories/', '/tags/'].map((path) => pathForLocale(path, locale));
+const blogRoutes = ['/blog/', '/archive/', '/tags/'].map((path) => pathForLocale(path, locale));
 const isActive = (href: string) => {
   if (href === '/') return currentPath === '/';
   if (href === blogHref) return blogRoutes.some((path) => currentPath.startsWith(path));
