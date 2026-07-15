@@ -10,15 +10,11 @@ const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale(
 
 <BaseLayout
   locale="zh"
-  title="博客 — 王江涛"
+  title="博客｜仿真、评测与数据"
   description="关于自动驾驶仿真、系统评测、场景挖掘和数据工程的技术文章。"
 >
-  <header class="page-hero shell">
-    <p class="eyebrow">博客</p>
-    <h1 class="page-title">文章</h1>
-    <p class="page-description">
-      记录自动驾驶仿真、系统评测和数据分析中的具体问题，尽量把背景、决策过程和验证方法讲清楚。
-    </p>
+  <header class="page-hero page-hero-compact shell">
+    <h1 class="page-title">博客</h1>
   </header>
 
   <section class="section">
@@ -33,7 +29,7 @@ const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale(
 
       {posts.length > 0 ? (
         <div class="content-grid">
-          {posts.map((post) => <PostCard post={post} locale="zh" />)}
+          {posts.map((post) => <PostCard post={post} locale="zh" headingLevel="h2" />)}
         </div>
       ) : (
         <div class="empty-state">还没有正式发布的文章。</div>

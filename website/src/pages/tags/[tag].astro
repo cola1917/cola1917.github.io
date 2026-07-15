@@ -34,16 +34,15 @@ const { tag, posts, translationPaths } = Astro.props;
 
 <BaseLayout
   locale="zh"
-  title={`#${tag} — 王江涛`}
+  title={`#${tag}｜标签`}
   description={`带有 ${tag} 标签的文章。`}
   translationPaths={translationPaths}
 >
-  <header class="page-hero shell">
-    <p class="eyebrow">标签</p>
+  <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">#{tag}</h1>
-    <p class="page-description">已发布 {posts.length} 篇笔记。</p>
+    <p class="page-count">{posts.length} 篇文章</p>
   </header>
   <section class="section">
-    <div class="shell content-grid">{posts.map((post) => <PostCard post={post} locale="zh" />)}</div>
+    <div class="shell content-grid">{posts.map((post) => <PostCard post={post} locale="zh" headingLevel="h2" />)}</div>
   </section>
 </BaseLayout>

@@ -2,16 +2,15 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout locale="zh" title="搜索 — 王江涛" description="搜索本站文章、项目和页面。" noindex>
+<BaseLayout locale="zh" title="搜索｜站点" description="搜索本站文章、项目和页面。" noindex>
   <link slot="head" href="/pagefind/pagefind-component-ui.css" rel="stylesheet" />
-  <header class="page-hero shell">
-    <p class="eyebrow">搜索</p>
-    <h1 class="page-title">搜索本站</h1>
-    <p class="page-description">搜索在浏览器中完成，不会上传查询内容。</p>
+  <header class="page-hero page-hero-compact shell">
+    <h1 class="page-title">搜索</h1>
   </header>
   <section class="shell search-wrap">
     <pagefind-config bundle-path="/pagefind/" base-url="/"></pagefind-config>
     <pagefind-input autofocus></pagefind-input>
+    <p class="search-note">搜索在浏览器中完成，不会上传查询内容。</p>
     <pagefind-summary></pagefind-summary>
     <pagefind-results></pagefind-results>
     <noscript><p class="empty-state">搜索需要启用 JavaScript，也可以直接浏览博客或归档。</p></noscript>

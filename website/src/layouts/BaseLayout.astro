@@ -54,7 +54,7 @@ const copy = localeCopy[locale];
     <link
       rel="alternate"
       type="application/rss+xml"
-      title={`${site.name} RSS`}
+      title={locale === 'zh' ? '工程笔记 RSS' : 'Engineering Notes RSS'}
       href={pathForLocale('/rss.xml', locale)}
     />
     <meta property="og:type" content="website" />

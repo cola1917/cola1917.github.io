@@ -3,38 +3,72 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { site } from '../../data/site';
 ---
 
-<BaseLayout title="About — Jiangtao Wang" description="About Jiangtao Wang and this engineering notebook.">
-  <header class="page-hero shell">
-    <p class="eyebrow">About</p>
-    <h1 class="page-title">Building evidence for autonomous systems.</h1>
-    <p class="page-description">
-      I work around the systems layer of autonomous driving: simulation workflows, evaluation infrastructure,
-      scenario mining, replay, and data pipelines.
-    </p>
+<BaseLayout title="About | Professional Profile" description="A professional profile focused on autonomous-driving simulation, evaluation, and data analysis.">
+  <header class="about-hero shell">
+    <p class="about-index" aria-hidden="true">PROFILE / 01</p>
+    <div>
+      <p class="eyebrow">Professional profile</p>
+      <h1>About</h1>
+      <p class="about-lede">
+        My work sits in the validation layer of autonomous systems: turning road anomalies into replayable scenarios,
+        comparable metrics, and regression workflows that can keep running.
+      </p>
+    </div>
   </header>
 
-  <section class="section">
-    <div class="narrow prose" data-pagefind-body>
-      <h2>What this site is for</h2>
-      <p>
-        This is an engineering notebook and a curated portfolio. Blog posts explain the decisions and trade-offs
-        behind systems work. Project pages collect evidence, architecture, and outcomes. News keeps smaller updates
-        out of the long-form writing.
-      </p>
+  <section class="about-body">
+    <div class="shell about-grid" data-pagefind-body>
+      <aside class="about-rail">
+        <section>
+          <h2>Focus</h2>
+          <ul class="profile-list">
+            <li>Closed-loop simulation and scenario reproduction</li>
+            <li>System-level evaluation and regression</li>
+            <li>Long-tail scenario and data mining</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Contact</h2>
+          <div class="contact-list">
+            <a href={`mailto:${site.email}`}>Email <span aria-hidden="true">↗</span></a>
+            <a href={site.github}>GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </section>
+      </aside>
 
-      <h2>Working themes</h2>
-      <ul>
-        <li>Turning long-tail driving data into structured, reusable scenario assets.</li>
-        <li>Designing replay and evaluation workflows that support repeatable regression.</li>
-        <li>Connecting system-level metrics with evidence that engineers can inspect.</li>
-        <li>Building data infrastructure that keeps simulation and evaluation loops operable.</li>
-      </ul>
+      <div class="about-main">
+        <section class="about-section">
+          <span class="about-number" aria-hidden="true">01</span>
+          <div>
+            <h2>How I work</h2>
+            <p>
+              I usually start with anomalies or long-tail cases in driving data, define the problem boundary and
+              reproduction conditions, rebuild the behavior through replay or closed-loop simulation, and validate
+              the change with system-level metrics. The output is not only a conclusion, but reusable scenarios,
+              metrics, and regression entry points.
+            </p>
+            <ol class="method-steps" aria-label="Working method">
+              <li><span>01</span><strong>Discover</strong><small>Find a problem worth explaining</small></li>
+              <li><span>02</span><strong>Define</strong><small>Set boundaries and conditions</small></li>
+              <li><span>03</span><strong>Reproduce</strong><small>Replay or closed-loop simulation</small></li>
+              <li><span>04</span><strong>Validate</strong><small>Metrics, comparison, regression</small></li>
+            </ol>
+          </div>
+        </section>
 
-      <h2>Contact</h2>
-      <p>
-        The best way to reach me is <a href={`mailto:${site.email}`}>{site.email}</a>.
-        Code and public work live on <a href={site.github}>GitHub</a>.
-      </p>
+        <section class="about-section">
+          <span class="about-number" aria-hidden="true">02</span>
+          <div>
+            <h2>Published here</h2>
+            <p>The site separates information by maturity: long-form methods, curated case studies, and lightweight updates.</p>
+            <nav class="profile-links" aria-label="Published content">
+              <a href="/en/blog/"><strong>Blog</strong><span>Methods, technical judgment, and reproduction notes</span><b aria-hidden="true">→</b></a>
+              <a href="/en/work/"><strong>Work</strong><span>Problem boundaries, key decisions, and evidence</span><b aria-hidden="true">→</b></a>
+              <a href="/en/news/"><strong>News</strong><span>Progress, releases, and site changes</span><b aria-hidden="true">→</b></a>
+            </nav>
+          </div>
+        </section>
+      </div>
     </div>
   </section>
 </BaseLayout>

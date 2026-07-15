@@ -29,7 +29,7 @@ const copy = localeCopy[locale];
 ---
 
 <BaseLayout
-  title={`${title} — Jiangtao Wang`}
+  title={`${title}${locale === 'zh' ? '｜博客' : ' | Blog'}`}
   description={description}
   locale={locale}
   translationPaths={translationPaths}

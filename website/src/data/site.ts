@@ -5,8 +5,8 @@ export const site = {
   email: 'colawang1997@outlook.com',
   github: 'https://github.com/cola1917',
   title: {
-    en: 'Jiangtao Wang — Autonomous Driving Simulation & Evaluation',
-    zh: '王江涛｜自动驾驶仿真、系统评测与数据分析',
+    en: 'Autonomous Driving Simulation & Evaluation',
+    zh: '自动驾驶仿真、系统评测与数据分析',
   },
   description: {
     en: 'Engineering notes, system case studies, and updates on autonomous-driving simulation, system evaluation, and scenario/data mining.',

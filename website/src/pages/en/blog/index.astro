@@ -9,15 +9,11 @@ const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale(
 ---
 
 <BaseLayout
-  title="Blog — Jiangtao Wang"
+  title="Blog | Simulation, Evaluation & Data"
   description="Engineering notes on autonomous-driving simulation, evaluation, scenario mining, and data infrastructure."
 >
-  <header class="page-hero shell">
-    <p class="eyebrow">Blog</p>
-    <h1 class="page-title">Notes from the systems layer.</h1>
-    <p class="page-description">
-      Writing about simulation, evaluation, scenario mining, data infrastructure, and the engineering decisions between them.
-    </p>
+  <header class="page-hero page-hero-compact shell">
+    <h1 class="page-title">Blog</h1>
   </header>
 
   <section class="section">
@@ -32,7 +28,7 @@ const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale(
 
       {posts.length > 0 ? (
         <div class="content-grid">
-          {posts.map((post) => <PostCard post={post} />)}
+          {posts.map((post) => <PostCard post={post} headingLevel="h2" />)}
         </div>
       ) : (
         <div class="empty-state">No published notes yet.</div>

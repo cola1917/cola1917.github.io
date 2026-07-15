@@ -33,16 +33,15 @@ const { tag, posts, translationPaths } = Astro.props;
 ---
 
 <BaseLayout
-  title={`#${tag} — Jiangtao Wang`}
+  title={`#${tag} | Tag`}
   description={`Engineering notes tagged ${tag}.`}
   translationPaths={translationPaths}
 >
-  <header class="page-hero shell">
-    <p class="eyebrow">Tag</p>
+  <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">#{tag}</h1>
-    <p class="page-description">{posts.length} published {posts.length === 1 ? 'note' : 'notes'}.</p>
+    <p class="page-count">{posts.length} {posts.length === 1 ? 'article' : 'articles'}</p>
   </header>
   <section class="section">
-    <div class="shell content-grid">{posts.map((post) => <PostCard post={post} />)}</div>
+    <div class="shell content-grid">{posts.map((post) => <PostCard post={post} headingLevel="h2" />)}</div>
   </section>
 </BaseLayout>

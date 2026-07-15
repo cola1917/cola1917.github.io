@@ -16,33 +16,52 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
 <BaseLayout>
   <section class="hero">
     <div class="shell hero-grid">
-      <div>
-        <p class="eyebrow">Simulation · Evaluation · Data Mining</p>
+      <div class="hero-intro">
+        <p class="eyebrow">Autonomous-driving simulation engineer</p>
         <h1 class="display-title">
-          Engineering reliable <span class="accent">evaluation loops.</span>
+          <span class="display-line">From real-world data</span>
+          <span class="display-line">to reproducible</span>
+          <span class="display-line accent">evaluation loops.</span>
         </h1>
         <p class="hero-copy">
-          I build and study the systems that turn driving data into reproducible scenarios,
-          measurable behavior, and regression-ready evidence.
+          I focus on closed-loop simulation, system-level evaluation, and long-tail scenario mining—connecting
+          problem discovery, reproduction, and regression into <span class="no-break">one repeatable workflow.</span>
         </p>
-        <div class="button-row">
-          {posts.length > 0 ? (
-            <a class="button" href="/en/blog/">Read the notes <span aria-hidden="true">→</span></a>
-          ) : (
-            <a class="button" href="/en/about/">Learn more <span aria-hidden="true">→</span></a>
-          )}
-          {projects.length > 0 && <a class="button secondary" href="/en/work/">Explore the work</a>}
+        <div class="button-row hero-actions">
+          <a class="button" href="/en/about/">View professional profile <span aria-hidden="true">→</span></a>
         </div>
+        <ol class="hero-loop" aria-label="Engineering loop">
+          <li>
+            <span>01</span>
+            <strong>Discover</strong>
+            <small>Driving data and long-tail scenarios</small>
+          </li>
+          <li>
+            <span>02</span>
+            <strong>Reproduce</strong>
+            <small>Replay, scenarios, and closed loop</small>
+          </li>
+          <li>
+            <span>03</span>
+            <strong>Validate</strong>
+            <small>System metrics and regression</small>
+          </li>
+        </ol>
       </div>
 
-      <aside class="focus-panel" aria-label="Current focus">
-        <h2>Current focus / 2026</h2>
-        <ol class="focus-list">
-          <li><span>01</span>Simulation systems</li>
-          <li><span>02</span>Evaluation infrastructure</li>
-          <li><span>03</span>Scenario & data mining</li>
-        </ol>
-      </aside>
+      <figure class="hero-portrait">
+        <div class="portrait-media">
+          <img
+            src="/portrait.webp"
+            alt="Jiangtao Wang"
+            width="720"
+            height="720"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+        <span class="portrait-pixels" aria-hidden="true"><i></i><i></i><i></i></span>
+      </figure>
     </div>
   </section>
 
@@ -50,10 +69,9 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
     <section class="section">
       <div class="shell">
         <SectionHeader
-          title="Latest writing"
-          description="Engineering notes on simulation, system evaluation, and data analysis."
+          title="Blog"
           href="/en/blog/"
-          linkLabel="All writing →"
+          linkLabel="View all →"
         />
         <div class="list-stack editorial-list">
           {posts.slice(0, 3).map((post) => <PostListItem post={post} />)}
@@ -66,10 +84,9 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
     <section class="section">
       <div class="shell">
         <SectionHeader
-          title="Selected work"
-          description="Problems, key decisions, and evidence from engineering practice."
+          title="Work"
           href="/en/work/"
-          linkLabel="All work →"
+          linkLabel="View all →"
         />
         <div class="content-grid">
           {featuredProjects.map((project) => <ProjectCard project={project} />)}
@@ -82,10 +99,9 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
     <section class="section section-compact">
       <div class="shell">
         <SectionHeader
-          title="Latest updates"
-          description="Short updates about the site, writing, and projects."
+          title="News"
           href="/en/news/"
-          linkLabel="All updates →"
+          linkLabel="View all →"
         />
         <div class="list-stack">
           {news.slice(0, 4).map((item) => <NewsItem item={item} />)}

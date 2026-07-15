@@ -7,11 +7,9 @@ import { isLocale, isPublished, sortNews } from '../../lib/content';
 const items = (await getCollection('news')).filter(isPublished).filter(isLocale('zh')).sort(sortNews);
 ---
 
-<BaseLayout locale="zh" title="动态 — 王江涛" description="网站、文章和项目的简短更新。">
-  <header class="page-hero shell">
-    <p class="eyebrow">动态</p>
+<BaseLayout locale="zh" title="动态｜近期更新" description="网站、文章和项目的简短更新。">
+  <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">动态</h1>
-    <p class="page-description">记录网站、文章和项目的简短更新。</p>
   </header>
   <section class="section" data-pagefind-body>
     <div class="shell list-stack">

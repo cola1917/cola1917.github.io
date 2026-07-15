@@ -7,18 +7,14 @@ import { isLocale, isPublished, sortProjects } from '../../lib/content';
 const projects = (await getCollection('projects')).filter(isPublished).filter(isLocale('zh')).sort(sortProjects);
 ---
 
-<BaseLayout locale="zh" title="项目 — 王江涛" description="自动驾驶仿真、系统评测与数据分析相关的项目案例。">
-  <header class="page-hero shell">
-    <p class="eyebrow">项目</p>
-    <h1 class="page-title">项目实践</h1>
-    <p class="page-description">
-      这里会放经过整理的项目案例，包括问题、职责、关键决策和验证结果。
-    </p>
+<BaseLayout locale="zh" title="项目｜工程案例" description="自动驾驶仿真、系统评测与数据分析相关的项目案例。">
+  <header class="page-hero page-hero-compact shell">
+    <h1 class="page-title">项目</h1>
   </header>
   <section class="section">
     <div class="shell">
       {projects.length > 0 ? (
-        <div class="content-grid">{projects.map((project) => <ProjectCard project={project} locale="zh" />)}</div>
+        <div class="content-grid">{projects.map((project) => <ProjectCard project={project} locale="zh" headingLevel="h2" />)}</div>
       ) : (
         <div class="empty-state">暂时没有公开的项目案例。</div>
       )}

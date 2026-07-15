@@ -8,11 +8,9 @@ const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale(
 const years = [...new Set(posts.map((post) => post.data.publishedAt.getUTCFullYear()))];
 ---
 
-<BaseLayout locale="zh" title="归档 — 王江涛" description="按年份浏览已经发布的文章。">
-  <header class="page-hero shell">
-    <p class="eyebrow">博客</p>
+<BaseLayout locale="zh" title="归档｜博客" description="按年份浏览已经发布的文章。">
+  <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">归档</h1>
-    <p class="page-description">已经发布的文章，按时间从新到旧排列。</p>
   </header>
   <section class="section">
     <div class="shell">

@@ -7,11 +7,9 @@ import { isLocale, isPublished } from '../../../lib/content';
 const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en'));
 ---
 
-<BaseLayout title="Categories — Jiangtao Wang" description="Browse engineering notes by category.">
-  <header class="page-hero shell">
-    <p class="eyebrow">Index</p>
+<BaseLayout title="Categories | Blog" description="Browse engineering notes by category.">
+  <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">Categories</h1>
-    <p class="page-description">A stable map of the subjects covered in the blog.</p>
   </header>
   <section class="section">
     <div class="shell content-grid">

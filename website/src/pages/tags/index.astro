@@ -7,11 +7,9 @@ const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale(
 const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) => a.localeCompare(b));
 ---
 
-<BaseLayout locale="zh" title="标签 — 王江涛" description="按技术标签浏览文章。">
-  <header class="page-hero shell">
-    <p class="eyebrow">索引</p>
+<BaseLayout locale="zh" title="标签｜博客" description="按技术标签浏览文章。">
+  <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">标签</h1>
-    <p class="page-description">标签由每篇文章自行添加，用来补充分类。</p>
   </header>
   <section class="section">
     <div class="shell">

@@ -8,20 +8,16 @@ const projects = (await getCollection('projects')).filter(isPublished).filter(is
 ---
 
 <BaseLayout
-  title="Work — Jiangtao Wang"
+  title="Work | Engineering Case Studies"
   description="Engineering case studies in simulation, system evaluation, and scenario/data mining."
 >
-  <header class="page-hero shell">
-    <p class="eyebrow">Portfolio</p>
-    <h1 class="page-title">Systems, not screenshots.</h1>
-    <p class="page-description">
-      Selected engineering work documented through the problem, role, architecture, trade-offs, and evidence.
-    </p>
+  <header class="page-hero page-hero-compact shell">
+    <h1 class="page-title">Work</h1>
   </header>
   <section class="section">
     <div class="shell">
       {projects.length > 0 ? (
-        <div class="content-grid">{projects.map((project) => <ProjectCard project={project} />)}</div>
+        <div class="content-grid">{projects.map((project) => <ProjectCard project={project} headingLevel="h2" />)}</div>
       ) : (
         <div class="empty-state">Project case studies are being reviewed before publication.</div>
       )}

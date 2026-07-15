@@ -8,7 +8,7 @@ export async function GET(context: { site?: URL }) {
   const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en')).sort(sortByPublished);
 
   return rss({
-    title: `${site.name} — Engineering Notes`,
+    title: 'Engineering Notes',
     description: site.description.en,
     site: context.site ?? 'https://cola1917.github.io',
     items: posts.map((post) => ({

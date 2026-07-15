@@ -3,35 +3,68 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
 ---
 
-<BaseLayout locale="zh" title="关于 — 王江涛" description="关于我的工作方向，以及这个网站会记录什么。">
-  <header class="page-hero shell">
-    <p class="eyebrow">关于</p>
-    <h1 class="page-title">关于我与这个网站。</h1>
-    <p class="page-description">
-      我从事自动驾驶仿真、系统评测和数据分析相关工作。这个网站用来记录具体问题、工程决策和可复现的结论。
-    </p>
+<BaseLayout locale="zh" title="关于｜专业档案" description="自动驾驶仿真、系统评测与数据分析方向的专业档案。">
+  <header class="about-hero shell">
+    <p class="about-index" aria-hidden="true">PROFILE / 01</p>
+    <div>
+      <p class="eyebrow">专业档案</p>
+      <h1>关于我</h1>
+      <p class="about-lede">
+        我的工作聚焦自动驾驶系统的验证环节：把道路上的异常转化为<span class="no-break">可重放的场景</span>、可比较的指标，以及可以持续运行的回归流程。
+      </p>
+    </div>
   </header>
 
-  <section class="section">
-    <div class="narrow prose" data-pagefind-body>
-      <h2>我在做什么</h2>
-      <p>
-        我的工作通常从真实数据中的问题开始：筛选值得分析的场景，建立可重复的回放或仿真条件，再用系统级指标判断改动是否有效。
-      </p>
+  <section class="about-body">
+    <div class="shell about-grid" data-pagefind-body>
+      <aside class="about-rail">
+        <section>
+          <h2>专业方向</h2>
+          <ul class="profile-list">
+            <li>闭环仿真与场景复现</li>
+            <li>系统级评测与回归</li>
+            <li>长尾场景与数据挖掘</li>
+          </ul>
+        </section>
+        <section>
+          <h2>联系</h2>
+          <div class="contact-list">
+            <a href={`mailto:${site.email}`}>Email <span aria-hidden="true">↗</span></a>
+            <a href={site.github}>GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </section>
+      </aside>
 
-      <h2>这里会写什么</h2>
-      <ul>
-        <li>仿真、回放和场景复现中的工程问题。</li>
-        <li>系统评测、指标设计和回归验证。</li>
-        <li>长尾场景发现与驾驶数据分析。</li>
-        <li>支撑这些流程的数据工具和基础设施。</li>
-      </ul>
+      <div class="about-main">
+        <section class="about-section">
+          <span class="about-number" aria-hidden="true">01</span>
+          <div>
+            <h2>工作方法</h2>
+            <p>
+              我通常从真实驾驶数据中的异常或长尾场景开始，先明确问题边界与复现条件，再通过回放或闭环仿真重建行为，最后用系统级指标验证改动。输出不仅是一次结论，也包括可复用的场景、指标和回归入口。
+            </p>
+            <ol class="method-steps" aria-label="工作流程">
+              <li><span>01</span><strong>发现</strong><small>筛选值得分析的问题</small></li>
+              <li><span>02</span><strong>定义</strong><small>明确边界与复现条件</small></li>
+              <li><span>03</span><strong>复现</strong><small>回放或闭环仿真</small></li>
+              <li><span>04</span><strong>验证</strong><small>指标、对比与回归</small></li>
+            </ol>
+          </div>
+        </section>
 
-      <h2>联系</h2>
-      <p>
-        可以通过 <a href={`mailto:${site.email}`}>{site.email}</a> 联系我。
-        代码和公开项目位于 <a href={site.github}>GitHub</a>。
-      </p>
+        <section class="about-section">
+          <span class="about-number" aria-hidden="true">02</span>
+          <div>
+            <h2>公开内容</h2>
+            <p>这个网站按内容的成熟度组织信息：长文解释方法，项目沉淀案例，动态保留轻量更新。</p>
+            <nav class="profile-links" aria-label="公开内容">
+              <a href="/blog/"><strong>博客</strong><span>方法、技术判断与复现过程</span><b aria-hidden="true">→</b></a>
+              <a href="/work/"><strong>项目</strong><span>问题边界、关键决策与验证结果</span><b aria-hidden="true">→</b></a>
+              <a href="/news/"><strong>动态</strong><span>阶段进展、发布记录与站点变化</span><b aria-hidden="true">→</b></a>
+            </nav>
+          </div>
+        </section>
+      </div>
     </div>
   </section>
 </BaseLayout>

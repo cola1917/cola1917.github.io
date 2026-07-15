@@ -7,11 +7,9 @@ import { isLocale, isPublished } from '../../lib/content';
 const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('zh'));
 ---
 
-<BaseLayout locale="zh" title="分类 — 王江涛" description="按主题浏览文章。">
-  <header class="page-hero shell">
-    <p class="eyebrow">索引</p>
+<BaseLayout locale="zh" title="分类｜博客" description="按主题浏览文章。">
+  <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">分类</h1>
-    <p class="page-description">每篇文章选择一个主要分类，用来区分长期关注的主题。</p>
   </header>
   <section class="section">
     <div class="shell content-grid">

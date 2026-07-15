@@ -2,16 +2,15 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Search — Jiangtao Wang" description="Search the blog, project case studies, and site pages." noindex>
+<BaseLayout title="Search | Site" description="Search the blog, project case studies, and site pages." noindex>
   <link slot="head" href="/pagefind/pagefind-component-ui.css" rel="stylesheet" />
-  <header class="page-hero shell">
-    <p class="eyebrow">Search</p>
-    <h1 class="page-title">Find a note or system.</h1>
-    <p class="page-description">Static, private search powered by the local site index.</p>
+  <header class="page-hero page-hero-compact shell">
+    <h1 class="page-title">Search</h1>
   </header>
   <section class="shell search-wrap">
     <pagefind-config bundle-path="/pagefind/" base-url="/"></pagefind-config>
     <pagefind-input autofocus></pagefind-input>
+    <p class="search-note">Search runs locally in your browser. Queries are never uploaded.</p>
     <pagefind-summary></pagefind-summary>
     <pagefind-results></pagefind-results>
     <noscript><p class="empty-state">Search requires JavaScript. Browse the blog or archive instead.</p></noscript>

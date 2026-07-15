@@ -8,11 +8,9 @@ const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale(
 const years = [...new Set(posts.map((post) => post.data.publishedAt.getUTCFullYear()))];
 ---
 
-<BaseLayout title="Archive — Jiangtao Wang" description="All published engineering notes by year.">
-  <header class="page-hero shell">
-    <p class="eyebrow">Blog</p>
+<BaseLayout title="Archive | Blog" description="All published engineering notes by year.">
+  <header class="page-hero page-hero-compact shell">
     <h1 class="page-title">Archive</h1>
-    <p class="page-description">Every published note, newest first.</p>
   </header>
   <section class="section">
     <div class="shell">

@@ -16,33 +16,51 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
 <BaseLayout locale="zh">
   <section class="hero">
     <div class="shell hero-grid">
-      <div>
-        <p class="eyebrow">自动驾驶仿真 · 系统评测 · 数据挖掘</p>
+      <div class="hero-intro">
+        <p class="eyebrow">自动驾驶仿真工程师</p>
         <h1 class="display-title display-title-zh">
-          <span class="display-line">把复杂系统，<span class="no-break">拆成</span></span>
-          <span class="display-line accent">可验证的问题。</span>
+          <span class="display-line">从真实数据出发，</span>
+          <span class="display-line">构建可验证的</span>
+          <span class="display-line accent">仿真闭环。</span>
         </h1>
         <p class="hero-copy">
-          我主要做自动驾驶仿真、系统评测和数据分析：从真实数据里找问题，在仿真中复现问题，再用可重复的指标验证改动。
+          聚焦闭环仿真、系统级评测与长尾场景挖掘，让问题发现、复现和回归验证成为一条<span class="no-break">可重复的工程流程。</span>
         </p>
-        <div class="button-row">
-          {posts.length > 0 ? (
-            <a class="button" href="/blog/">阅读文章 <span aria-hidden="true">→</span></a>
-          ) : (
-            <a class="button" href="/about/">了解更多 <span aria-hidden="true">→</span></a>
-          )}
-          {projects.length > 0 && <a class="button secondary" href="/work/">查看项目</a>}
+        <div class="button-row hero-actions">
+          <a class="button" href="/about/">查看专业档案 <span aria-hidden="true">→</span></a>
         </div>
+        <ol class="hero-loop" aria-label="工作闭环">
+          <li>
+            <span>01</span>
+            <strong>发现问题</strong>
+            <small>真实数据与长尾场景</small>
+          </li>
+          <li>
+            <span>02</span>
+            <strong>仿真复现</strong>
+            <small>回放、场景与闭环系统</small>
+          </li>
+          <li>
+            <span>03</span>
+            <strong>指标验证</strong>
+            <small>系统评测与持续回归</small>
+          </li>
+        </ol>
       </div>
 
-      <aside class="focus-panel" aria-label="当前关注">
-        <h2>当前关注 / 2026</h2>
-        <ol class="focus-list">
-          <li><span>01</span>闭环仿真与场景复现</li>
-          <li><span>02</span>系统级评测与回归</li>
-          <li><span>03</span>长尾场景与数据分析</li>
-        </ol>
-      </aside>
+      <figure class="hero-portrait">
+        <div class="portrait-media">
+          <img
+            src="/portrait.webp"
+            alt="王江涛"
+            width="720"
+            height="720"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+        <span class="portrait-pixels" aria-hidden="true"><i></i><i></i><i></i></span>
+      </figure>
     </div>
   </section>
 
@@ -50,10 +68,9 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
     <section class="section">
       <div class="shell">
         <SectionHeader
-          title="最新文章"
-          description="关于自动驾驶仿真、系统评测与数据分析的工程记录。"
+          title="博客"
           href="/blog/"
-          linkLabel="全部文章 →"
+          linkLabel="查看全部 →"
         />
         <div class="list-stack editorial-list">
           {posts.slice(0, 3).map((post) => <PostListItem post={post} locale="zh" />)}
@@ -66,10 +83,9 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
     <section class="section">
       <div class="shell">
         <SectionHeader
-          title="项目案例"
-          description="整理问题、关键决策和经过验证的结果。"
+          title="项目"
           href="/work/"
-          linkLabel="全部项目 →"
+          linkLabel="查看全部 →"
         />
         <div class="content-grid">
           {featuredProjects.map((project) => <ProjectCard project={project} locale="zh" />)}
@@ -82,10 +98,9 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
     <section class="section section-compact">
       <div class="shell">
         <SectionHeader
-          title="最新动态"
-          description="站点、写作和项目的简短更新。"
+          title="动态"
           href="/news/"
-          linkLabel="全部动态 →"
+          linkLabel="查看全部 →"
         />
         <div class="list-stack">
           {news.slice(0, 4).map((item) => <NewsItem item={item} locale="zh" />)}
