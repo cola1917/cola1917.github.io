@@ -4,8 +4,8 @@
 title: "动态标题"
 # date 决定显示日期和列表排序；未来日期不会自动定时发布。
 date: 2026-07-15
-# type 必填且只能选一个：site | project | writing | open-source | milestone
-# 分别表示：站点、项目、写作、开源、里程碑。
+# type 必填且只能选一个：site | project | writing | chat | open-source | milestone
+# 分别表示：站点、项目、写作、闲谈、开源、里程碑。
 type: site
 # summary 是动态列表中显示的完整说明；动态正文不会被渲染。
 summary: "简短说明这次更新的内容和意义。"

@@ -21,7 +21,7 @@ const news = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
-    type: z.enum(['site', 'project', 'writing', 'open-source', 'milestone']),
+    type: z.enum(['site', 'project', 'writing', 'chat', 'open-source', 'milestone']),
     summary: z.string(),
     link: z.string().optional(),
     draft: z.boolean().default(false),
