@@ -15,7 +15,14 @@ export const sortByPublished = (
 export const sortNews = (
   a: CollectionEntry<'news'>,
   b: CollectionEntry<'news'>,
-) => b.data.date.valueOf() - a.data.date.valueOf();
+) => {
+  const diff = b.data.date.valueOf() - a.data.date.valueOf();
+  if (diff !== 0) return diff;
+  // Tie-break: deterministic order when dates are equal — use id descending
+  if (a.id < b.id) return 1;
+  if (a.id > b.id) return -1;
+  return 0;
+};
 
 export const sortProjects = (
   a: CollectionEntry<'projects'>,
