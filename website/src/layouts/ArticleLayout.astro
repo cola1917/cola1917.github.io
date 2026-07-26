@@ -11,6 +11,7 @@ interface Props {
   tags: string[];
   locale?: Locale;
   translationPaths?: Partial<Record<Locale, string>>;
+  structuredData?: Record<string, unknown>;
 }
 
 const {
@@ -21,6 +22,7 @@ const {
   tags,
   locale = 'zh',
   translationPaths,
+  structuredData,
 } = Astro.props;
 const copy = localeCopy[locale];
 ---
@@ -30,6 +32,7 @@ const copy = localeCopy[locale];
   description={description}
   locale={locale}
   translationPaths={translationPaths}
+  structuredData={structuredData}
 >
   <article data-pagefind-body>
     <header class="article-header narrow">

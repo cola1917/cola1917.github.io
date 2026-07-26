@@ -1,0 +1,31 @@
+---
+// 装饰性的 BEV（鸟瞰）仿真场景示意图：深色面板在浅色/深色主题下都作为视觉锚点使用。
+// 使用处的容器带 aria-hidden，这里不做无障碍标注。
+---
+
+<svg viewBox="0 0 440 280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="bev-grid" width="22" height="22" patternUnits="userSpaceOnUse">
+      <path d="M22 0H0V22" fill="none" stroke="#232a24" stroke-width="1" />
+    </pattern>
+  </defs>
+  <rect width="440" height="280" fill="#12150f" />
+  <rect width="440" height="280" fill="url(#bev-grid)" />
+  <path d="M0 196 L440 138" stroke="#1e231c" stroke-width="34" opacity="0.9" />
+  <path d="M0 196 L440 138" stroke="#39412f" stroke-width="1" stroke-dasharray="10 12" />
+  <path
+    d="M36 216 C150 202, 210 166, 288 150 S 408 128, 436 124"
+    fill="none"
+    stroke="#e65416"
+    stroke-width="2"
+    stroke-dasharray="5 5"
+  />
+  <circle cx="212" cy="164" r="50" fill="none" stroke="#2c3627" stroke-width="1" stroke-dasharray="3 5" />
+  <rect x="196" y="156" width="32" height="16" rx="3" fill="#e65416" transform="rotate(-8 212 164)" />
+  <rect x="292" y="140" width="28" height="14" rx="3" fill="#6b7280" transform="rotate(-8 306 147)" />
+  <path d="M306 140 L330 116" stroke="#8b9178" stroke-width="1" stroke-dasharray="2 3" />
+  <rect x="92" y="188" width="28" height="14" rx="3" fill="#4b5563" transform="rotate(-8 106 195)" />
+  <text x="14" y="264" fill="#7d846e" font-family="ui-monospace, monospace" font-size="10">
+    scenario #0117 · cut-in · replay → closed-loop
+  </text>
+</svg>

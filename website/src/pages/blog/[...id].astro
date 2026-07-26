@@ -25,6 +25,18 @@ interface Props {
 
 const { post, translationPaths } = Astro.props;
 const { Content } = await render(post);
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
+const postLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishedAt.toISOString(),
+  ...(post.data.updatedAt ? { dateModified: post.data.updatedAt.toISOString() } : {}),
+  inLanguage: 'zh-CN',
+  author: { '@type': 'Person', name: 'Jiangtao Wang' },
+  mainEntityOfPage: canonical,
+};
 ---
 
 <ArticleLayout
@@ -35,6 +47,7 @@ const { Content } = await render(post);
   tags={post.data.tags}
   locale="zh"
   translationPaths={translationPaths}
+  structuredData={postLd}
 >
   <Content />
 </ArticleLayout>

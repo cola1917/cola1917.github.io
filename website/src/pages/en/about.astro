@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { site } from '../../data/site';
+import { personLd } from '../../lib/person';
 ---
 
-<BaseLayout title="About" description="A professional profile focused on autonomous-driving simulation, evaluation, and data analysis.">
+<BaseLayout title="About" description="A professional profile focused on autonomous-driving simulation, evaluation, and data analysis." structuredData={personLd(Astro.site)}>
   <header class="about-hero shell">
     <p class="about-index" aria-hidden="true">PROFILE / 01</p>
     <div>
@@ -32,6 +33,8 @@ import { site } from '../../data/site';
           <div class="contact-list">
             <a href={`mailto:${site.email}`}>Email <span aria-hidden="true">↗</span></a>
             <a href={site.github}>GitHub <span aria-hidden="true">↗</span></a>
+            {site.resume.en && <a href={site.resume.en} download>Resume PDF <span aria-hidden="true">↓</span></a>}
+            {site.linkedin && <a href={site.linkedin}>LinkedIn <span aria-hidden="true">↗</span></a>}
           </div>
         </section>
       </aside>

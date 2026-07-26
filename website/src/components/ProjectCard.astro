@@ -11,17 +11,24 @@ interface Props {
 
 const { project, locale = project.data.locale, headingLevel = 'h3' } = Astro.props;
 const Heading = headingLevel;
+const timeframe = project.data.timeframe ?? String(project.data.year);
+const metrics = project.data.metrics.slice(0, 2);
 ---
 
 <article class="card">
   <a class="card-link" href={localizedPath(locale, `/work/${contentSlug(project.id)}/`)}>
     <div class="card-meta">
-      <span>{project.data.year}</span>
+      <span>{timeframe}</span>
       <span aria-hidden="true">/</span>
       <span>{project.data.role}</span>
     </div>
     <Heading class="card-title">{project.data.title}</Heading>
     <p class="card-copy">{project.data.description}</p>
+    {metrics.length > 0 && (
+      <ul class="card-metrics">
+        {metrics.map((metric) => <li>{metric}</li>)}
+      </ul>
+    )}
     <div class="card-foot">
       <span class="status">{statusLabels[locale][project.data.status]}</span>
       {project.data.stack.slice(0, 3).map((item) => <span class="tag">{item}</span>)}

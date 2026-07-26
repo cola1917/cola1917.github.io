@@ -9,7 +9,7 @@ description: "用于列表、搜索和社交分享的文章摘要。"
 publishedAt: 2026-07-15
 # updatedAt 可选；文章从未更新时可删除这一行。
 updatedAt: 2026-07-15
-# tags 可自由添加，建议使用小写 ASCII；系统会自动生成标签页，卡片最多显示前三个。
+# tags 可自由添加，支持小写 ASCII 和中文；系统会自动生成标签页，卡片最多显示前三个。
 tags:
   - example-tag
 # featured 已预留，但当前 Blog 页面尚未使用这个字段控制展示。

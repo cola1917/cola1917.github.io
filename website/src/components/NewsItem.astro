@@ -11,24 +11,37 @@ interface Props {
 
 const { item, locale = item.data.locale } = Astro.props;
 const link = item.data.link ? localizedPath(locale, item.data.link) : undefined;
+const isChat = item.data.type === 'chat';
 ---
 
 {
   link ? (
-    <a class="list-row" href={link}>
+    <a class:list={['list-row', { 'is-chat': isChat }]} href={link}>
       <span class="list-kicker">{formatDate(item.data.date, locale)}</span>
       <span class="list-content">
-        <strong class="list-title">{item.data.title}</strong>
-        <span class="list-summary">{item.data.summary}</span>
+        {isChat ? (
+          <span class="chat-text">{item.data.summary}</span>
+        ) : (
+          <>
+            <strong class="list-title">{item.data.title}</strong>
+            <span class="list-summary">{item.data.summary}</span>
+          </>
+        )}
       </span>
       <span class="status">{newsTypeLabels[locale][item.data.type]}</span>
     </a>
   ) : (
-    <div class="list-row">
+    <div class:list={['list-row', { 'is-chat': isChat }]}>
       <span class="list-kicker">{formatDate(item.data.date, locale)}</span>
       <span class="list-content">
-        <strong class="list-title">{item.data.title}</strong>
-        <span class="list-summary">{item.data.summary}</span>
+        {isChat ? (
+          <span class="chat-text">{item.data.summary}</span>
+        ) : (
+          <>
+            <strong class="list-title">{item.data.title}</strong>
+            <span class="list-summary">{item.data.summary}</span>
+          </>
+        )}
       </span>
       <span class="status">{newsTypeLabels[locale][item.data.type]}</span>
     </div>

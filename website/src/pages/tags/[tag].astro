@@ -8,16 +8,28 @@ import type { Locale } from '../../lib/i18n';
 export async function getStaticPaths() {
   const allPosts = (await getCollection('blog')).filter(isPublished);
   const posts = allPosts.filter(isLocale('zh')).sort(sortByPublished);
-  const englishTags = new Set(allPosts.filter(isLocale('en')).flatMap((post) => post.data.tags));
-  const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
-  return tags.map((tag) => ({
-    params: { tag: slugify(tag) },
+  const englishSlugs = new Set(
+    allPosts.filter(isLocale('en')).flatMap((post) => post.data.tags.map(slugify)),
+  );
+  // 按 slug 分组：不同写法但 slug 相同的 tag（如 "eval/metrics" 与 "eval metrics"）
+  // 合并成一个页面，避免 getStaticPaths 产出重复 params 后被静默丢弃。
+  const bySlug = new Map<string, { tag: string; posts: typeof posts }>();
+  for (const post of posts) {
+    for (const tag of post.data.tags) {
+      const slug = slugify(tag);
+      const group = bySlug.get(slug) ?? { tag, posts: [] };
+      if (!group.posts.includes(post)) group.posts.push(post);
+      bySlug.set(slug, group);
+    }
+  }
+  return [...bySlug.entries()].map(([slug, group]) => ({
+    params: { tag: slug },
     props: {
-      tag,
-      posts: posts.filter((post) => post.data.tags.includes(tag)),
+      tag: group.tag,
+      posts: group.posts,
       translationPaths: {
-        ...(englishTags.has(tag) ? { en: `/en/tags/${slugify(tag)}/` } : {}),
-        zh: `/tags/${slugify(tag)}/`,
+        ...(englishSlugs.has(slug) ? { en: `/en/tags/${slug}/` } : {}),
+        zh: `/tags/${slug}/`,
       },
     },
   }));

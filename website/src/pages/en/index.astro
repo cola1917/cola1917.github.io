@@ -1,11 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
+import BevScene from '../../components/BevScene.astro';
 import NewsItem from '../../components/NewsItem.astro';
 import PostListItem from '../../components/PostListItem.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
 import { isLocale, isPublished, sortByPublished, sortNews, sortProjects } from '../../lib/content';
+import { personLd } from '../../lib/person';
 
 const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('en')).sort(sortByPublished);
 const news = (await getCollection('news')).filter(isPublished).filter(isLocale('en')).sort(sortNews);
@@ -13,38 +16,47 @@ const projects = (await getCollection('projects')).filter(isPublished).filter(is
 const featuredProjects = projects.filter((project) => project.data.featured).slice(0, 3);
 ---
 
-<BaseLayout>
+<BaseLayout locale="en" structuredData={personLd(Astro.site)}>
   <section class="hero">
     <div class="shell hero-grid">
       <div class="hero-intro">
         <p class="eyebrow">Autonomous-driving simulation engineer</p>
         <h1 class="display-title">
           <span class="display-line">From real-world data</span>
-          <span class="display-line">to reproducible</span>
-          <span class="display-line accent">evaluation loops.</span>
+          <span class="display-line">to reproducible <span class="accent">evaluation loops</span>.</span>
         </h1>
         <p class="hero-copy">
           I focus on closed-loop simulation, system-level evaluation, and long-tail scenario mining—connecting
           problem discovery, reproduction, and regression into <span class="no-break">one repeatable workflow.</span>
         </p>
         <div class="button-row hero-actions">
+          {site.resume.en && (
+            <a class="button" href={site.resume.en} download>Download resume <span aria-hidden="true">↓</span></a>
+          )}
           <a class="button" href="/en/about/">View professional profile <span aria-hidden="true">→</span></a>
+          <a class="button secondary" href={site.github} rel="me noopener" target="_blank">GitHub <span aria-hidden="true">↗</span></a>
+          <a class="button secondary" href={`mailto:${site.email}`}>Email</a>
         </div>
         <ol class="hero-loop" aria-label="Engineering loop">
           <li>
             <span>01</span>
             <strong>Discover</strong>
-            <small>Driving data and long-tail scenarios</small>
+            <small>Problems worth analyzing</small>
           </li>
           <li>
             <span>02</span>
-            <strong>Reproduce</strong>
-            <small>Replay, scenarios, and closed loop</small>
+            <strong>Define</strong>
+            <small>Boundaries and repro conditions</small>
           </li>
           <li>
             <span>03</span>
+            <strong>Reproduce</strong>
+            <small>Replay or closed-loop simulation</small>
+          </li>
+          <li>
+            <span>04</span>
             <strong>Validate</strong>
-            <small>System metrics and regression</small>
+            <small>Metrics, comparison, regression</small>
           </li>
         </ol>
       </div>
@@ -65,44 +77,70 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
     </div>
   </section>
 
-  {posts.length > 0 && (
-    <section class="section">
-      <div class="shell">
-        <SectionHeader
-          title="Blog"
-          href="/en/blog/"
-          linkLabel="View all →"
-        />
-        <div class="list-stack editorial-list">
-          {posts.slice(0, 3).map((post) => <PostListItem post={post} />)}
-        </div>
+  {site.now.enabled && (
+    <div class="now-strip">
+      <div class="shell now-inner">
+        <span class="now-dot" aria-hidden="true"></span>
+        <span class="now-label">NOW</span>
+        <span class="now-building">{site.now.building.en}</span>
+        <span class="now-sep" aria-hidden="true">/</span>
+        <span class="now-open">{site.now.openTo.en}</span>
       </div>
-    </section>
+    </div>
   )}
 
-  {featuredProjects.length > 0 && (
-    <section class="section">
-      <div class="shell">
-        <SectionHeader
-          title="Work"
-          href="/en/work/"
-          linkLabel="View all →"
-        />
+  <section class="section">
+    <div class="shell">
+      <SectionHeader title="Work" href="/en/work/" locale="en" />
+      {featuredProjects.length > 0 ? (
         <div class="content-grid">
           {featuredProjects.map((project) => <ProjectCard project={project} />)}
         </div>
-      </div>
-    </section>
-  )}
+      ) : (
+        <div class="empty-state empty-state-rich has-vis">
+          <div>
+            <p class="empty-kicker">Case studies</p>
+            <p class="empty-title">Case studies in progress</p>
+            <p class="empty-copy">
+              The core project—a closed-loop simulation pipeline—is underway. Case studies will follow a
+              problem → decisions → quantified-validation structure.
+            </p>
+            <a class="section-link" href="/en/about/">Read the profile first →</a>
+          </div>
+          <div class="empty-vis" aria-hidden="true">
+            <BevScene />
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHeader title="Blog" href="/en/blog/" locale="en" />
+      {posts.length > 0 ? (
+        <div class="list-stack editorial-list">
+          {posts.slice(0, 3).map((post) => <PostListItem post={post} />)}
+        </div>
+      ) : (
+        <div class="empty-state empty-state-rich">
+          <div>
+            <p class="empty-kicker">Writing</p>
+            <p class="empty-title">Long-form posts in progress</p>
+            <p class="empty-copy">
+              In-depth posts will start with the closed-loop simulation series; progress is logged in News for now.
+            </p>
+            <a class="section-link" href="/en/news/">Check News first →</a>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
 
   {news.length > 0 && (
     <section class="section section-compact">
       <div class="shell">
-        <SectionHeader
-          title="News"
-          href="/en/news/"
-          linkLabel="View all →"
-        />
+        <SectionHeader title="News" href="/en/news/" locale="en" />
         <div class="list-stack">
           {news.slice(0, 4).map((item) => <NewsItem item={item} />)}
         </div>

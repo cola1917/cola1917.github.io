@@ -18,15 +18,19 @@ interface Props {
   locale?: Locale;
   languagePath?: string;
   translationPaths?: Partial<Record<Locale, string>>;
+  structuredData?: Record<string, unknown>;
 }
 
 const locale = Astro.props.locale ?? localeFromPath(Astro.url.pathname);
 const {
-  title = site.title[locale],
   description = site.description[locale],
   noindex = false,
   languagePath = Astro.url.pathname,
+  structuredData,
 } = Astro.props;
+const title = Astro.props.title
+  ? `${Astro.props.title} · ${site.name}`
+  : `${site.name} — ${site.title[locale]}`;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
 const translationPaths = Astro.props.translationPaths ?? {
   en: pathForLocale(languagePath, 'en'),
@@ -46,10 +50,10 @@ const copy = localeCopy[locale];
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f5f3ed" />
     {noindex && <meta name="robots" content="noindex" />}
-    <link rel="canonical" href={canonical} />
-    {englishUrl && <link rel="alternate" hreflang="en" href={englishUrl} />}
-    {chineseUrl && <link rel="alternate" hreflang="zh-CN" href={chineseUrl} />}
-    {chineseUrl && <link rel="alternate" hreflang="x-default" href={chineseUrl} />}
+    {!noindex && <link rel="canonical" href={canonical} />}
+    {!noindex && englishUrl && <link rel="alternate" hreflang="en" href={englishUrl} />}
+    {!noindex && chineseUrl && <link rel="alternate" hreflang="zh-CN" href={chineseUrl} />}
+    {!noindex && chineseUrl && <link rel="alternate" hreflang="x-default" href={chineseUrl} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
       rel="alternate"
@@ -58,19 +62,40 @@ const copy = localeCopy[locale];
       href={pathForLocale('/rss.xml', locale)}
     />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL('/og-default.svg', canonical)} />
+    <meta property="og:image" content={new URL('/og-default.png', canonical)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={site.title[locale]} />
     <meta property="og:locale" content={locale === 'zh' ? 'zh_CN' : 'en_US'} />
     <meta property="og:locale:alternate" content={locale === 'zh' ? 'en_US' : 'zh_CN'} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <title>{title}</title>
+    {structuredData && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')}
+      />
+    )}
     <script is:inline>
       (() => {
-        const saved = localStorage.getItem('theme');
+        let saved = null;
+        try {
+          saved = localStorage.getItem('theme');
+        } catch {
+          // Storage unavailable; fall back to the OS preference.
+        }
         const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        document.documentElement.dataset.theme = saved === 'dark' || saved === 'light' ? saved : preferred;
+        const theme = saved === 'dark' || saved === 'light' ? saved : preferred;
+        document.documentElement.dataset.theme = theme;
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#10120f' : '#f5f3ed');
       })();
     </script>
     <slot name="head" />

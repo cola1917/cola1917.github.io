@@ -10,7 +10,8 @@ export async function GET(context: { site?: URL }) {
   return rss({
     title: 'Engineering Notes',
     description: site.description.en,
-    site: context.site ?? 'https://cola1917.github.io',
+    // channel <link> 应指向英文首页 /en/，与中文 feed 区分归属页面。
+    site: new URL('/en/', context.site ?? 'https://cola1917.github.io'),
     items: posts.map((post) => ({
       title: post.data.title,
       description: post.data.description,

@@ -1,25 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#f5f3ed"/>
-  <path d="M0 110h1200M0 220h1200M0 330h1200M0 440h1200M0 550h1200M120 0v630M240 0v630M360 0v630M480 0v630M600 0v630M720 0v630M840 0v630M960 0v630M1080 0v630" stroke="#d9d7cf" stroke-width="1"/>
+  <path d="M0 105h1200M0 210h1200M0 315h1200M0 420h1200M0 525h1200M100 0v630M200 0v630M300 0v630M400 0v630M500 0v630M600 0v630M700 0v630M800 0v630M900 0v630M1000 0v630M1100 0v630" stroke="#e3e1d8" stroke-width="1"/>
 
-  <g transform="translate(76 66) scale(1.12)">
-    <rect width="64" height="64" rx="14" fill="#171915"/>
-    <g fill="#e65416" shape-rendering="crispEdges">
-      <rect x="6" y="25" width="4" height="4" opacity=".42"/>
-      <rect x="11" y="17" width="5" height="5" opacity=".68"/>
-      <rect x="12" y="35" width="4" height="4" opacity=".56"/>
-      <rect x="17" y="23" width="6" height="6" opacity=".88"/>
-      <rect x="18" y="34" width="5" height="5"/>
+  <!-- BEV lane + trajectory, right side -->
+  <g>
+    <path d="M660 560 L1200 360" stroke="#eae7dd" stroke-width="96"/>
+    <path d="M660 560 L1200 360" stroke="#cfccc0" stroke-width="2" stroke-dasharray="18 20"/>
+    <path d="M700 610 C 840 570, 920 480, 1010 440 S 1160 380, 1200 366" fill="none" stroke="#e65416" stroke-width="4" stroke-dasharray="10 10"/>
+    <circle cx="965" cy="458" r="86" fill="none" stroke="#c9c5b8" stroke-width="2" stroke-dasharray="5 8"/>
+    <g transform="rotate(-20 965 458)">
+      <rect x="936" y="444" width="58" height="28" rx="6" fill="#e65416"/>
     </g>
-    <path d="M21 28h6.5l5.8-9.2h12.1c3 0 5.6 1.6 7 4.2l2.8 5H58a4 4 0 0 1 4 4v8.5h-5.6a7 7 0 0 0-13.6 0h-8.5a7 7 0 0 0-13.6 0H18V32a4 4 0 0 1 3-4Z" fill="#f5f3ed"/>
-    <path d="M35.5 21.8h9.6c1.9 0 3.5.9 4.4 2.5l2 3.7H31.7l3.8-6.2Z" fill="#e65416"/>
-    <path d="M42.4 22v6" stroke="#171915" stroke-width="2"/>
-    <circle cx="27.5" cy="41" r="5.2" fill="#e65416"/><circle cx="49.7" cy="41" r="5.2" fill="#e65416"/>
-    <circle cx="27.5" cy="41" r="2.3" fill="#171915"/><circle cx="49.7" cy="41" r="2.3" fill="#171915"/>
+    <g transform="rotate(-20 1104 386)">
+      <rect x="1080" y="374" width="48" height="24" rx="5" fill="#8a8f85"/>
+    </g>
+    <path d="M1104 372 L1146 328" stroke="#8a8f85" stroke-width="2" stroke-dasharray="4 5"/>
   </g>
 
-  <text x="172" y="108" fill="#171915" font-family="ui-monospace, monospace" font-size="22" font-weight="700" letter-spacing="3">AUTONOMOUS SYSTEMS</text>
-  <text x="76" y="302" fill="#171915" font-family="Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="-3">Simulation systems.</text>
-  <text x="76" y="390" fill="#e65416" font-family="Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="-3">Evaluation evidence.</text>
-  <text x="76" y="522" fill="#6d7168" font-family="ui-monospace, monospace" font-size="22" letter-spacing="2">SIMULATION · EVALUATION · DATA MINING</text>
+  <text x="76" y="130" fill="#ba3c08" font-family="Consolas, ui-monospace, monospace" font-size="26" font-weight="700" letter-spacing="6">AUTONOMOUS DRIVING SIMULATION</text>
+
+  <text x="72" y="248" fill="#171915" font-family="Segoe UI, Arial, sans-serif" font-size="92" font-weight="700" letter-spacing="-2">Jiangtao Wang</text>
+  <text x="76" y="336" fill="#171915" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="56" font-weight="700">王江涛 · 自动驾驶仿真</text>
+
+  <text x="76" y="430" fill="#666a62" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="34">闭环仿真 · 系统评测 · 场景挖掘</text>
+
+  <text x="76" y="540" fill="#666a62" font-family="Consolas, ui-monospace, monospace" font-size="24" letter-spacing="2">cola1917.github.io</text>
+  <rect x="76" y="560" width="64" height="8" fill="#e65416"/>
 </svg>

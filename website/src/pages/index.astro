@@ -1,11 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
+import BevScene from '../components/BevScene.astro';
 import NewsItem from '../components/NewsItem.astro';
 import PostListItem from '../components/PostListItem.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
 import { isLocale, isPublished, sortByPublished, sortNews, sortProjects } from '../lib/content';
+import { personLd } from '../lib/person';
 
 const posts = (await getCollection('blog')).filter(isPublished).filter(isLocale('zh')).sort(sortByPublished);
 const news = (await getCollection('news')).filter(isPublished).filter(isLocale('zh')).sort(sortNews);
@@ -13,37 +16,46 @@ const projects = (await getCollection('projects')).filter(isPublished).filter(is
 const featuredProjects = projects.filter((project) => project.data.featured).slice(0, 3);
 ---
 
-<BaseLayout locale="zh">
+<BaseLayout locale="zh" structuredData={personLd(Astro.site)}>
   <section class="hero">
     <div class="shell hero-grid">
       <div class="hero-intro">
         <p class="eyebrow">自动驾驶仿真工程师</p>
         <h1 class="display-title display-title-zh">
           <span class="display-line">从真实数据出发，</span>
-          <span class="display-line">构建可验证的</span>
-          <span class="display-line accent">仿真闭环。</span>
+          <span class="display-line">构建可验证的<span class="accent">仿真闭环</span>。</span>
         </h1>
         <p class="hero-copy">
           聚焦闭环仿真、系统级评测与长尾场景挖掘，让问题发现、复现和回归验证成为一条<span class="no-break">可重复的工程流程。</span>
         </p>
         <div class="button-row hero-actions">
+          {site.resume.zh && (
+            <a class="button" href={site.resume.zh} download>下载简历 PDF <span aria-hidden="true">↓</span></a>
+          )}
           <a class="button" href="/about/">查看专业档案 <span aria-hidden="true">→</span></a>
+          <a class="button secondary" href={site.github} rel="me noopener" target="_blank">GitHub <span aria-hidden="true">↗</span></a>
+          <a class="button secondary" href={`mailto:${site.email}`}>Email</a>
         </div>
         <ol class="hero-loop" aria-label="工作闭环">
           <li>
             <span>01</span>
-            <strong>发现问题</strong>
-            <small>真实数据与长尾场景</small>
+            <strong>发现</strong>
+            <small>筛选值得分析的问题</small>
           </li>
           <li>
             <span>02</span>
-            <strong>仿真复现</strong>
-            <small>回放、场景与闭环系统</small>
+            <strong>定义</strong>
+            <small>明确边界与复现条件</small>
           </li>
           <li>
             <span>03</span>
-            <strong>指标验证</strong>
-            <small>系统评测与持续回归</small>
+            <strong>复现</strong>
+            <small>回放或闭环仿真</small>
+          </li>
+          <li>
+            <span>04</span>
+            <strong>验证</strong>
+            <small>指标、对比与回归</small>
           </li>
         </ol>
       </div>
@@ -64,44 +76,69 @@ const featuredProjects = projects.filter((project) => project.data.featured).sli
     </div>
   </section>
 
-  {posts.length > 0 && (
-    <section class="section">
-      <div class="shell">
-        <SectionHeader
-          title="博客"
-          href="/blog/"
-          linkLabel="查看全部 →"
-        />
-        <div class="list-stack editorial-list">
-          {posts.slice(0, 3).map((post) => <PostListItem post={post} locale="zh" />)}
-        </div>
+  {site.now.enabled && (
+    <div class="now-strip">
+      <div class="shell now-inner">
+        <span class="now-dot" aria-hidden="true"></span>
+        <span class="now-label">NOW</span>
+        <span class="now-building">{site.now.building.zh}</span>
+        <span class="now-sep" aria-hidden="true">/</span>
+        <span class="now-open">{site.now.openTo.zh}</span>
       </div>
-    </section>
+    </div>
   )}
 
-  {featuredProjects.length > 0 && (
-    <section class="section">
-      <div class="shell">
-        <SectionHeader
-          title="项目"
-          href="/work/"
-          linkLabel="查看全部 →"
-        />
+  <section class="section">
+    <div class="shell">
+      <SectionHeader title="项目" href="/work/" locale="zh" />
+      {featuredProjects.length > 0 ? (
         <div class="content-grid">
           {featuredProjects.map((project) => <ProjectCard project={project} locale="zh" />)}
         </div>
-      </div>
-    </section>
-  )}
+      ) : (
+        <div class="empty-state empty-state-rich has-vis">
+          <div>
+            <p class="empty-kicker">Case studies</p>
+            <p class="empty-title">项目案例整理中</p>
+            <p class="empty-copy">
+              核心项目——闭环仿真 pipeline 正在进行中。案例会按“问题边界 → 关键决策 → 量化验证”的结构整理后发布。
+            </p>
+            <a class="section-link" href="/about/">先看专业档案 →</a>
+          </div>
+          <div class="empty-vis" aria-hidden="true">
+            <BevScene />
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHeader title="博客" href="/blog/" locale="zh" />
+      {posts.length > 0 ? (
+        <div class="list-stack editorial-list">
+          {posts.slice(0, 3).map((post) => <PostListItem post={post} locale="zh" />)}
+        </div>
+      ) : (
+        <div class="empty-state empty-state-rich">
+          <div>
+            <p class="empty-kicker">Writing</p>
+            <p class="empty-title">技术长文写作中</p>
+            <p class="empty-copy">
+              方法、复现过程与技术判断的长文会从闭环仿真系列开始，先在动态里记录进展。
+            </p>
+            <a class="section-link" href="/news/">先看动态 →</a>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
 
   {news.length > 0 && (
     <section class="section section-compact">
       <div class="shell">
-        <SectionHeader
-          title="动态"
-          href="/news/"
-          linkLabel="查看全部 →"
-        />
+        <SectionHeader title="动态" href="/news/" locale="zh" />
         <div class="list-stack">
           {news.slice(0, 4).map((item) => <NewsItem item={item} locale="zh" />)}
         </div>

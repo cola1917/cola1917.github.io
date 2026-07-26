@@ -9,7 +9,7 @@ const { locale = 'zh' } = Astro.props;
 const label = locale === 'zh' ? '切换颜色主题' : 'Toggle color theme';
 ---
 
-<button class="theme-toggle" type="button" aria-label={label} title={label} data-theme-toggle>
+<button class="theme-toggle" type="button" aria-label={label} title={label} aria-pressed="false" data-theme-toggle>
   <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
     <circle cx="12" cy="12" r="3.5"></circle>
     <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path>
@@ -21,11 +21,27 @@ const label = locale === 'zh' ? '切换颜色主题' : 'Toggle color theme';
 
 <script>
   const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const themeColors: Record<string, string> = { light: '#f5f3ed', dark: '#10120f' };
+
+  const syncTheme = () => {
+    const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+    toggle?.setAttribute('aria-pressed', String(theme === 'dark'));
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', themeColors[theme]);
+  };
+
+  syncTheme();
 
   toggle?.addEventListener('click', () => {
     const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
     const next = current === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
-    localStorage.setItem('theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      // Storage may be unavailable (private mode, embedded contexts); the toggle still works for this page.
+    }
+    syncTheme();
   });
 </script>

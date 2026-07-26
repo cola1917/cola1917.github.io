@@ -36,7 +36,7 @@ const { Content } = await render(project);
     <header class="article-header shell">
       <div class="project-meta">
         <span class="status">{project.data.status}</span>
-        <span>{project.data.year}</span>
+        <span>{project.data.timeframe ?? project.data.year}</span>
       </div>
       <h1 class="article-title" data-pagefind-meta="title">{project.data.title}</h1>
       <p class="article-lede" data-pagefind-meta="description">{project.data.description}</p>
@@ -54,6 +54,18 @@ const { Content } = await render(project);
           <dd>{project.data.stack.join(' · ')}</dd>
         </div>
       </dl>
+      {project.data.metrics.length > 0 && (
+        <ul class="project-metrics" data-pagefind-ignore aria-label="Key results">
+          {project.data.metrics.map((metric) => <li>{metric}</li>)}
+        </ul>
+      )}
+      {project.data.links.length > 0 && (
+        <div class="project-links-row" data-pagefind-ignore>
+          {project.data.links.map((link) => (
+            <a class="tag" href={link.url} rel="noopener" target="_blank">{link.label} ↗</a>
+          ))}
+        </div>
+      )}
     </header>
     <div class="article-body">
       <div class="narrow prose"><Content /></div>
