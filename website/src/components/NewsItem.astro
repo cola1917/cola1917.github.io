@@ -19,14 +19,8 @@ const isChat = item.data.type === 'chat';
     <a class:list={['list-row', { 'is-chat': isChat }]} href={link}>
       <span class="list-kicker">{formatDate(item.data.date, locale)}</span>
       <span class="list-content">
-        {isChat ? (
-          <span class="chat-text">{item.data.summary}</span>
-        ) : (
-          <>
-            <strong class="list-title">{item.data.title}</strong>
-            <span class="list-summary">{item.data.summary}</span>
-          </>
-        )}
+        <strong class="list-title">{item.data.title}</strong>
+        <span class:list={['list-summary', { 'chat-text': isChat }]}>{item.data.summary}</span>
       </span>
       <span class="status">{newsTypeLabels[locale][item.data.type]}</span>
     </a>
@@ -34,14 +28,8 @@ const isChat = item.data.type === 'chat';
     <div class:list={['list-row', { 'is-chat': isChat }]}>
       <span class="list-kicker">{formatDate(item.data.date, locale)}</span>
       <span class="list-content">
-        {isChat ? (
-          <span class="chat-text">{item.data.summary}</span>
-        ) : (
-          <>
-            <strong class="list-title">{item.data.title}</strong>
-            <span class="list-summary">{item.data.summary}</span>
-          </>
-        )}
+        <strong class="list-title">{item.data.title}</strong>
+        <span class:list={['list-summary', { 'chat-text': isChat }]}>{item.data.summary}</span>
       </span>
       <span class="status">{newsTypeLabels[locale][item.data.type]}</span>
     </div>
