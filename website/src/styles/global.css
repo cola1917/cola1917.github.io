@@ -1150,6 +1150,105 @@ a.list-row:hover {
   border-radius: 1rem;
 }
 
+.prose .project-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: stretch;
+  margin: 2rem 0 2.4rem;
+}
+
+.project-flow-step {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  padding: 0.85rem 0.8rem;
+  background: var(--surface);
+}
+
+.project-flow-step span {
+  display: block;
+  color: var(--accent-strong);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.project-flow-step strong {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.project-flow-step small {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.project-flow-arrow {
+  display: grid;
+  place-items: center;
+  color: var(--accent-strong);
+  font-family: var(--mono);
+  font-size: 0.9rem;
+}
+
+.prose .project-evidence-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 1.8rem 0 2.4rem;
+}
+
+.prose .project-evidence-grid figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.prose .project-evidence-grid img {
+  margin: 0;
+  border-radius: 0.6rem;
+}
+
+.project-evidence-grid figcaption {
+  margin-top: 0.65rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.prose table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  margin: 1.6rem 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.prose th,
+.prose td {
+  min-width: 9rem;
+  border-bottom: 1px solid var(--line);
+  padding: 0.7rem 0.8rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .project-facts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1471,6 +1570,42 @@ a.list-row:hover {
 
   .method-steps li:nth-child(n + 3) {
     border-top: 1px solid var(--line);
+  }
+
+  .prose .project-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .project-flow-arrow {
+    min-height: 1rem;
+    transform: rotate(90deg);
+  }
+
+  .prose .project-evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prose table {
+    display: table;
+    table-layout: fixed;
+    font-size: 0.8rem;
+  }
+
+  .prose th,
+  .prose td {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    padding: 0.55rem 0.35rem;
+  }
+
+  .prose th:first-child,
+  .prose td:first-child {
+    width: 18%;
+  }
+
+  .prose th:nth-child(2),
+  .prose td:nth-child(2) {
+    width: 38%;
   }
 }
 
