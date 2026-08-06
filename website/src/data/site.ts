@@ -22,8 +22,8 @@ export const site = {
   now: {
     enabled: true,
     building: {
-      zh: '正在构建：闭环仿真 pipeline',
-      en: 'Currently building: a closed-loop simulation pipeline',
+      zh: '正在构建：开环仿真 pipeline',
+      en: 'Currently building: an open-loop simulation pipeline',
     },
     openTo: {
       zh: '开放自动驾驶仿真方向机会',
