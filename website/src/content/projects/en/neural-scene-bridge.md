@@ -63,7 +63,7 @@ runtime, and closed-loop evaluation. The full boundary is recorded in
 | V01 | Original trajectory replay, six cameras in a 3x2 grid | 20/30 FPS videos, 385 frames, zero dropped frames | Scene and sensor requests are reproducible |
 | V02 | Translate track `c1958768...` by `+0.5m` in the world frame | A/A/B request digest, RGB repeatability, target-only change | Dynamic edits reach the RGB response; non-target digest stays unchanged |
 | V03 | Bounded camera sweep: `x=0.12m`, `y=0.06m`, `yaw=1.0°` | Probe summary, pose readout, trajectory extrema | Camera pose control is measurable and replayable |
-| V04 | Original/edited RGB and LiDAR in a four-panel view | Same logical-window renderer evidence | Final v2b-style view is a diagnostic; no A/A control or physical alignment is claimed |
+| V04 | Original/edited RGB and LiDAR in a four-panel view | Same logical-window renderer evidence | Canonical v2b view is a diagnostic; no A/A control or physical alignment is claimed |
 
 ## Viewer evidence
 
@@ -128,7 +128,7 @@ The next integration step is a shared timestamp, coordinate-frame, sensor-pose, 
 - `demo/scene0061/manifest.json`: canonical USDZ/checkpoint, scene interval, target track, and runtime identity.
 - `demo/scene0061/cases/`: V01 original replay, V02 lead-vehicle edit, and V03 camera-pose sweep.
 - `scripts/render_counterfactual_video.py`: sends per-case `render_rgb` requests and builds evidence-backed six-camera videos.
-- <code>scripts/<wbr />render_multimodal_alignment_video.py</code>: captures V04 RGB/LiDAR windows and the difference overlay.
+- <code>scripts/<wbr />render_multimodal_alignment_video_v2b.py</code>: the canonical V04 RGB/LiDAR capture and difference overlay.
 - `docs/downstream_simulation_handoff.md`: reconstruction-to-simulation ownership and acceptance boundary.
 - `scripts/generate_nurec_quality_report.py`: binds artifact, case, frame, video, and quality metrics into the formal report.
 - `nurec_scene0061_final/`: local playback delivery; videos, USDZ, checkpoint, and raw data stay out of Git.

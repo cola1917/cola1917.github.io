@@ -114,7 +114,7 @@ locale: zh
 - `demo/scene0061/manifest.json`：canonical USDZ/checkpoint、scene interval、target track 和 runtime identity。
 - `demo/scene0061/cases/`：V01 original replay、V02 lead vehicle edit、V03 camera pose sweep。
 - `scripts/render_counterfactual_video.py`：按 case 发送 `render_rgb` 请求并生成带证据的六视角成片。
-- <code>scripts/<wbr />render_multimodal_alignment_video.py</code>：V04 RGB/LiDAR capture 与差异 overlay。
+- <code>scripts/<wbr />render_multimodal_alignment_video_v2b.py</code>：V04 canonical RGB/LiDAR capture 与差异 overlay。
 - `docs/downstream_simulation_handoff.md`：重建到仿真的职责划分与验收边界。
 - `scripts/generate_nurec_quality_report.py`：把 artifact、case、frame、video 和 quality metrics 绑定成正式报告。
 - `nurec_scene0061_final/`：本地 playback delivery；视频、USDZ、checkpoint 和原始数据不进入 Git。
