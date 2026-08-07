@@ -45,12 +45,12 @@ const { tag, posts, translationPaths } = Astro.props;
 ---
 
 <BaseLayout
-  title={`#${tag}`}
+  title={tag}
   description={`Engineering notes tagged ${tag}.`}
   translationPaths={translationPaths}
 >
   <header class="page-hero page-hero-compact shell">
-    <h1 class="page-title">#{tag}</h1>
+    <h1 class="page-title">{tag}</h1>
     <p class="page-count">{posts.length} {posts.length === 1 ? 'article' : 'articles'}</p>
   </header>
   <section class="section">

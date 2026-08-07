@@ -21,7 +21,7 @@ const Heading = headingLevel;
     <Heading class="card-title">{post.data.title}</Heading>
     <p class="card-copy">{post.data.description}</p>
     <div class="card-foot">
-      {post.data.tags.slice(0, 3).map((tag) => <span class="tag">#{slugify(tag)}</span>)}
+      {post.data.tags.slice(0, 3).map((tag) => <span class="tag">{slugify(tag)}</span>)}
     </div>
   </a>
 </article>

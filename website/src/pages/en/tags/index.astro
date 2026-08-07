@@ -15,7 +15,7 @@ const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) =
     <div class="shell filters">
       {tags.map((tag) => (
         <a class="filter-link" href={`/en/tags/${slugify(tag)}/`}>
-          #{tag} ({posts.filter((post) => post.data.tags.includes(tag)).length})
+          {tag} ({posts.filter((post) => post.data.tags.includes(tag)).length})
         </a>
       ))}
     </div>
