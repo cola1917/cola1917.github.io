@@ -1,21 +1,21 @@
 ---
-title: "ClosedLoopBench: turning scenario contracts into testable simulation"
-description: "A simulation-test layer that compiles Scenario IR, binds synchronized replay observations, and produces auditable open-loop evaluation evidence before the CARLA closed-loop runtime is accepted."
+title: "ClosedLoopBench: open-loop testing for real driving algorithms"
+description: "A CARLA / ROS2 test bench that runs real TransFuser++ inference on synchronized replay data, uses A/B evaluation to diagnose dynamic LiDAR editability, and defines the blocked path to closed loop."
 year: 2026
 timeframe: "2026 - present"
 status: active
-role: "Independent engineering: scenario compilation, runtime contracts, observation binding, and evaluation evidence"
+role: "Independent engineering: CARLA/ROS2 open-loop testing, real inference integration, multimodal evaluation, and failure diagnosis"
 stack:
   - Python
-  - CARLA 0.9.16
+  - CARLA
   - OpenSCENARIO / OpenDRIVE
-  - ROS2 boundary
+  - ROS2
   - TransFuser++
   - NuRec / SensorsimService
 metrics:
-  - "Current delivery: CARLA / ROS open-loop evaluation complete"
+  - "Current delivery: CARLA / ROS2 open-loop test + real TransFuser++ inference"
   - "M8: 39 scored frames x 3 routes / 68 dynamic actors"
-  - "Closed-loop status: blocked; retained routes: 0 fallback / 0 frame mismatch"
+  - "0 fallback / 0 frame mismatch; closed-loop status: blocked"
 links:
   - label: "GitHub"
     url: "https://github.com/cola1917/ClosedLoopBench"
@@ -29,39 +29,38 @@ draft: false
 locale: en
 ---
 
-## Current delivery: CARLA / ROS open loop
+## 1. Current delivery: CARLA / ROS2 open-loop testing
 
-Despite its name, the current delivered product is the **CARLA / ROS open-loop evaluation path**. It consumes `Scenario IR` from `TriggerEngine`, compiles OpenSCENARIO / OpenDRIVE / CARLA run artifacts, binds a synchronized GT replay through the ROS observation boundary, and evaluates TransFuser++ outputs against the same scene contract.
+Despite its name, the current delivered product is a **CARLA / ROS2 open-loop test bench**. It consumes `Scenario IR` from `TriggerEngine`, builds CARLA and exchange artifacts, replays a synchronized GT trajectory, runs real TransFuser++ inference through the ROS2 observation boundary, and retains auditable evaluation evidence.
 
-This CARLA/ROS open-loop path is reproducible and produces retained evidence. Model control can be logged, compared, and scored, but it does not choose the next Ego pose. It is a completed open-loop evaluation delivery, not an accepted closed-loop driving result.
+The test path is reproducible. Model control is logged, compared, and scored, but it does not choose the next Ego pose. This is a completed open-loop test delivery, not an accepted closed-loop driving result.
 
 <div class="project-flow" role="img" aria-label="ClosedLoopBench open-loop evaluation pipeline">
-  <div class="project-flow-step"><span>01</span><strong>Scenario IR</strong><small>Scene, trajectory, actors, triggers</small></div>
+  <div class="project-flow-step"><span>01</span><strong>Scenario IR</strong><small>Scene, trajectory, actors</small></div>
   <span class="project-flow-arrow" aria-hidden="true">-&gt;</span>
   <div class="project-flow-step"><span>02</span><strong>Compiler</strong><small>XOSC / XODR / run config</small></div>
   <span class="project-flow-arrow" aria-hidden="true">-&gt;</span>
-  <div class="project-flow-step"><span>03</span><strong>GT replay</strong><small>One clock, fixed poses</small></div>
+  <div class="project-flow-step"><span>03</span><strong>ROS2 + TF++</strong><small>Real algorithm inference</small></div>
   <span class="project-flow-arrow" aria-hidden="true">-&gt;</span>
   <div class="project-flow-step"><span>04</span><strong>Evidence</strong><small>Observations, inference, metrics</small></div>
 </div>
 
-## Evaluation: make the scenario auditable
+## 2. Real inference and evaluation
 
-Scenario mining output is not an evaluation result. The hard part is preserving identity, time ownership, sensor provenance, and failure semantics across several execution routes so that a low score can be attributed to the algorithm, RGB, LiDAR, calibration, or runtime rather than to an ambiguous handoff.
+This is more than a compiler or fake-runtime demo. The real algorithm stack is exercised through one reproducible evaluation path:
 
-| Layer | Responsibility | Current claim |
+| Stage | What ran | Evidence |
 | --- | --- | --- |
-| Scenario | IR schema, scene identity, actor manifest, time windows | Scenario intent remains traceable |
-| Exchange | `.xosc`, `.xodr`, CARLA run config, shared package references | Portable artifacts can be generated and checked offline |
-| Replay | Frame ids, GT Ego/actor poses, synchronized replay | The logged trajectory owns the next pose |
-| Observation | Native / NuRec / Harmonizer routes, ROS boundary, hashes | Route provenance and frame binding are auditable |
-| Evaluation | Waypoints, bbox, latency, provenance, fail-closed reports | Metrics describe the recorded trajectory, not a policy-caused future |
+| Native CARLA | CARLA RGB/LiDAR + ROS2/TransFuser++ | Real inference and intermediate traces |
+| NuRec multimodal | NuRec RGB/LiDAR at pinned GT poses | 39-frame run, zero fallback and frame mismatch |
+| M7 acceptance | Same open-loop contract over three seeds | 39/39 frames per seed |
+| M8 comparison | Native, reconstructed, and Harmonizer routes | 39 frames, 68 dynamic actors, formal bbox evaluation |
 
-`TriggerEngine` remains the source of mined events and Scenario IR. `NeuralSceneBridge` is the optional reconstruction and sensor-rendering provider. `ClosedLoopBench` owns the evaluation boundary between those artifacts and a future simulator or Ego-policy runtime.
+The evaluation holds one Scenario IR, actor manifest, and frame clock across routes. It reports waypoint ADE/FDE, latency, synchronization health, provenance hashes, and actor-aware BEV bbox metrics for the recorded trajectory.
 
-## LiDAR problem discovery and debug
+## 3. M8: find the LiDAR failure
 
-LiDAR debug is a diagnostic case produced by the evaluation pipeline, not a separate project claim. M8 compares three input routes over the same 39 scored frames and 68 dynamic actors:
+M8 compares three sensor routes over the same 39 scored frames and 68 dynamic actors:
 
 | Route | RGB | LiDAR | Result |
 | --- | --- | --- | --- |
@@ -69,11 +68,20 @@ LiDAR debug is a diagnostic case produced by the evaluation pipeline, not a sepa
 | `reconstructed` | NuRec RGB | NuRec LiDAR | 35 predictions / 0 matches, mAP50 `0.0` |
 | `harmonized` | Harmonizer RGB | Same NuRec LiDAR | 23 predictions / 1 match, mAP50 `0.0016` |
 
-The debug path is: establish native CARLA RGB/LiDAR as the reference, run reconstructed and harmonized inputs, validate the LiDAR axis matrix and sensor-height compensation, confirm that better geometry does not recover detection, swap one modality at a time, then probe the live NRE dynamic-LiDAR path after the cross-input result points to LiDAR.
+The native route is the reference. The reconstructed route completes inference and report validation, but detection collapses. That makes the result a sensor-quality finding, not a runtime failure.
 
-The cross-input experiment makes the attribution stronger: `NuRec RGB + raw LiDAR` produces 21 matches and mAP50 `0.130`; `raw RGB + NuRec LiDAR` stays at 0 matches and mAP50 `0.0`. The reconstructed RGB is not the main bottleneck. The reconstructed LiDAR is.
+## 4. A/B and scale-up debug: LiDAR is not editable
 
-## Same-frame view
+The diagnosis moves from local fixes to causal and larger-scale tests:
+
+- Correcting the LiDAR axis matrix and sensor-height compensation improves point-cloud geometry, but not detection.
+- Same-frame cross-input A/B: `NuRec RGB + raw LiDAR` produces 21 matches and mAP50 `0.130`; `raw RGB + NuRec LiDAR` produces zero matches and mAP50 `0.0`.
+- The scale-up result covers three routes, 39/39 frames, 68 dynamic actors, zero fallback, and zero frame mismatch, ruling out a one-frame accident.
+- In live NRE probes, moving an actor changes RGB, while LiDAR returns stay at stored offsets instead of following the true track pose.
+
+The conclusion is specific: the **dynamic LiDAR path is not currently track-editable**. The service does not correctly apply each track's cuboid pose during LiDAR rendering. This is an upstream NRE/SensorsimService limitation, not a ClosedLoopBench coordinate patch.
+
+## Same-frame evidence
 
 These two images are both `frame_00000018` from the M8 sequence: one raw CARLA route and one reconstructed NuRec route. They are observations at the same replay index, not consequences of Ego control in a closed loop.
 
@@ -88,9 +96,9 @@ These two images are both `frame_00000018` from the M8 sequence: one raw CARLA r
   </figure>
 </div>
 
-## Closed-loop vision: blocked
+## 5. Closed-loop vision: blocked
 
-The next stage is an interactive CARLA/ROS loop: Ego control changes the next simulator state, reactive actors respond, and the same evidence contract scores the run. The status is **blocked** by environment and sensor acceptance gates, not by a missing document-level architecture:
+The next stage is an interactive CARLA/ROS2 loop: Ego control changes the next simulator state, reactive actors respond, and the same evidence contract scores the run. The status is **blocked** by environment and sensor acceptance gates, not by a missing document-level architecture:
 
 - the reconstructed dynamic LiDAR path must place returns at the true track pose;
 - synchronous CARLA `world.tick()` must be owned by the runtime;
