@@ -67,20 +67,24 @@ runtime, and closed-loop evaluation. The full boundary is recorded in
 
 ## Viewer evidence
 
-These images are stills extracted from the final playback videos. The camera labels, case labels, and V03 pose readout are retained so the request-to-render-to-evidence relationship is visible in one glance.
+These images are stills extracted from the final playback videos. All four
+stills use playback frame `360/385` from the same 20 FPS sequence, so the scene
+state is directly comparable across V01, V02, V03, and V04. The camera labels,
+case labels, and V03 pose readout are retained so the request-to-render-to-
+evidence relationship is visible in one glance.
 
 <div class="project-evidence-grid">
   <figure>
     <img src="/projects/neural-scene-bridge/v01-original.jpg" alt="V01 six-camera original NuRec replay in a 3x2 layout" width="1600" height="600" loading="lazy" />
-    <figcaption>V01 original replay: six cameras are stitched in a fixed 3x2 order as the playback baseline for edits and probes.</figcaption>
+    <figcaption>V01 original replay, frame 360/385: six cameras are stitched in a fixed 3x2 order as the playback baseline for edits and probes.</figcaption>
   </figure>
   <figure>
     <img src="/projects/neural-scene-bridge/v02-edit.jpg" alt="V02 lead vehicle edit in the six-camera NuRec viewer" width="1600" height="600" loading="lazy" />
-    <figcaption>V02 lead-vehicle edit: a world-frame `+0.5m` target change reaches `render_rgb`; the front-camera view and case identity stay inspectable.</figcaption>
+    <figcaption>V02 lead-vehicle edit, frame 360/385: a world-frame `+0.5m` target change reaches `render_rgb`; the front-camera view and case identity stay inspectable.</figcaption>
   </figure>
   <figure>
     <img src="/projects/neural-scene-bridge/v03-camera-sweep.jpg" alt="V03 six-camera bounded camera pose sweep with translation and yaw readout" width="1600" height="600" loading="lazy" />
-    <figcaption>V03 camera pose sweep: `dx / dy / yaw / progress` is printed in the viewer, showing that pose control reaches the RPC request.</figcaption>
+    <figcaption>V03 camera pose sweep, frame 360/385: `dx / dy / yaw / progress` is printed in the viewer, showing that pose control reaches the RPC request.</figcaption>
   </figure>
 </div>
 
@@ -89,7 +93,7 @@ These images are stills extracted from the final playback videos. The camera lab
 <div class="project-evidence-grid">
   <figure>
     <img src="/projects/neural-scene-bridge/v04-alignment-diagnostic.jpg" alt="V04 four-panel RGB and LiDAR multimodal alignment diagnostic with added and removed points" width="1600" height="900" loading="lazy" />
-    <figcaption>V04 multimodal attempt: original RGB/LiDAR are above, edited RGB and the LiDAR overlay are below. Blue/yellow points show response differences; they are not actor-owned point labels.</figcaption>
+    <figcaption>V04 multimodal diagnostic, frame 360/385: original RGB/LiDAR are above, edited RGB and the LiDAR overlay are below. Blue/yellow points show response differences; they are not actor-owned point labels.</figcaption>
   </figure>
 </div>
 

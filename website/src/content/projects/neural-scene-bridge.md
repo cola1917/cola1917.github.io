@@ -60,20 +60,20 @@ locale: zh
 
 ## Viewer 结果
 
-以下图片均从最终 playback video 抽帧，保留了 viewer 的 camera label、case 标识和 V03 的参数读数。大图用于面试时快速说明“请求 -> 画面 -> 证据”的对应关系。
+以下图片均从最终 playback video 抽帧，四张图统一使用同一段 20 FPS 序列的 `360/385` 帧，因此 V01、V02、V03、V04 可以直接横向对比。图片保留了 viewer 的 camera label、case 标识和 V03 的参数读数，方便面试时说明“请求 -> 画面 -> 证据”的对应关系。
 
 <div class="project-evidence-grid">
   <figure>
     <img src="/projects/neural-scene-bridge/v01-original.jpg" alt="V01 six-camera original NuRec replay in a 3x2 layout" width="1600" height="600" loading="lazy" />
-    <figcaption>V01 original replay：六路相机按固定顺序拼成 3x2 视图，作为后续 edit 和 pose probe 的回放基线。</figcaption>
+    <figcaption>V01 original replay，frame 360/385：六路相机按固定顺序拼成 3x2 视图，作为后续 edit 和 pose probe 的回放基线。</figcaption>
   </figure>
   <figure>
     <img src="/projects/neural-scene-bridge/v02-edit.jpg" alt="V02 lead vehicle edit in the six-camera NuRec viewer" width="1600" height="600" loading="lazy" />
-    <figcaption>V02 lead-vehicle edit：同一目标的 world-frame `+0.5m` edit 进入 `render_rgb`，图中保留 front camera 和 case 标识。</figcaption>
+    <figcaption>V02 lead-vehicle edit，frame 360/385：同一目标的 world-frame `+0.5m` edit 进入 `render_rgb`，图中保留 front camera 和 case 标识。</figcaption>
   </figure>
   <figure>
     <img src="/projects/neural-scene-bridge/v03-camera-sweep.jpg" alt="V03 six-camera bounded camera pose sweep with translation and yaw readout" width="1600" height="600" loading="lazy" />
-    <figcaption>V03 camera pose sweep：底部读数展示了当前 `dx / dy / yaw / progress`，证明相机 pose 不是只写进配置而是进入了 RPC 请求。</figcaption>
+    <figcaption>V03 camera pose sweep，frame 360/385：底部读数展示了当前 `dx / dy / yaw / progress`，证明相机 pose 不是只写进配置而是进入了 RPC 请求。</figcaption>
   </figure>
 </div>
 
@@ -82,7 +82,7 @@ locale: zh
 <div class="project-evidence-grid">
   <figure>
     <img src="/projects/neural-scene-bridge/v04-alignment-diagnostic.jpg" alt="V04 four-panel RGB and LiDAR multimodal alignment diagnostic with added and removed points" width="1600" height="900" loading="lazy" />
-    <figcaption>V04 multimodal attempt：上排是 original RGB/LiDAR，下排是 lead-vehicle edit RGB 与 LiDAR overlay；蓝/黄点只表示响应差异，不能直接当作目标 actor 的点云标签。</figcaption>
+    <figcaption>V04 multimodal diagnostic，frame 360/385：上排是 original RGB/LiDAR，下排是 lead-vehicle edit RGB 与 LiDAR overlay；蓝/黄点只表示响应差异，不能直接当作目标 actor 的点云标签。</figcaption>
   </figure>
 </div>
 
