@@ -1,10 +1,10 @@
 ---
-title: "NeuralSceneBridge：可编辑 NuRec 场景的多模态渲染诊断"
-description: "基于 NVIDIA SensorsimService 的 scene-0061 可复现回放、动态目标编辑、相机位姿扫描与 RGB/LiDAR 对齐诊断。"
+title: "NeuralSceneBridge：面向下游仿真的神经场景重建桥接"
+description: "基于 NVIDIA SensorsimService 的 scene-0061 NuRec 重建产物、渲染器交接、动态目标编辑与 RGB/LiDAR 诊断。"
 year: 2026
 timeframe: "2026 - present"
 status: active
-role: "独立开发：NuRec 运行时、证据链与诊断工具"
+role: "独立开发：重建产物、NuRec 运行时与下游证据链"
 stack:
   - Python
   - NVIDIA NuRec / NRE
@@ -12,8 +12,8 @@ stack:
   - USDZ
   - PANDAR128 LiDAR
 metrics:
-  - "scene-0061 / 39 frames / 6 cameras"
-  - "V01-V03 reproducible / V04 unresolved"
+  - "scene-0061 / 223 tracks / 6 cameras"
+  - "V01-V03 回放与编辑 / V04 LiDAR 诊断"
 links:
   - label: "GitHub"
     url: "https://github.com/cola1917/NeuralSceneBridge"
@@ -27,11 +27,17 @@ locale: zh
 
 ## 项目定位
 
-`NeuralSceneBridge` 是一个独立的 NuRec/NRE neural-scene reconstruction 与 editable rendering demo。它把已训练的 USDZ 场景交给 NVIDIA `SensorsimService`，通过 gRPC 重放六路相机、编辑一个动态目标，再把每个 case 的请求、响应、哈希和视频固化成可审阅的证据。
+`NeuralSceneBridge` 是面向下游仿真的重建桥接项目。它把场景、传感器数据和动态 actor 轨迹固化为有身份约束的 NuRec/USDZ 产物，再通过 NVIDIA `SensorsimService` 提供可复现的 RGB/LiDAR 观测和受控编辑。
 
-当前交付是 **open-loop**：输入是固定场景和轨迹，输出是可复现的渲染结果与诊断报告；它不启动 CARLA，也不拥有 Ego 控制、刹车、TTC 或碰撞闭环。`ClosedLoopBench` 后续负责 CARLA 同步时钟、控制和评估接入。
+当前交付是 **open-loop**：输入是固定场景和轨迹，输出是可复现的渲染结果与诊断报告。它是整个仿真系统的重建与渲染侧，不启动 CARLA，也不拥有 Ego 控制、actor 执行或闭环评估；这些由 `ClosedLoopBench` 接收交接后负责。
 
 > **结论先说：最终 RGB/LiDAR 还没有完成物理对齐。** V04 的 `status: passed` 只表示 385 个渲染窗口和证据捕获 gate 完成，不能解释成“世界坐标和 actor ownership 已对齐”。
+
+## 重建交接
+
+项目对下游输出三类稳定边界：有版本和哈希的 USDZ 场景、包含逻辑时间窗口与坐标系的传感器 RPC contract，以及可复核的帧/视频证据。当前产物可以用于 RGB 回放、actor 编辑、相机 probe 和集成联调；重建 LiDAR 仍作为诊断输入，直到通过下游 actor-aware gate。
+
+`NeuralSceneBridge` 负责重建、artifact identity 和渲染证据；`ClosedLoopBench` 负责 observation boundary、CARLA 时钟、agent runtime 和闭环评估。完整边界见仓库中的 [`docs/downstream_simulation_handoff.md`](https://github.com/cola1917/NeuralSceneBridge/blob/main/docs/downstream_simulation_handoff.md)。
 
 <div class="project-flow" role="img" aria-label="NeuralSceneBridge pipeline">
   <div class="project-flow-step"><span>01</span><strong>Manifest gate</strong><small>USDZ、checkpoint、track inventory</small></div>
@@ -50,7 +56,7 @@ locale: zh
 | V01 | 原始轨迹回放，六路相机 3x2 | 20/30 FPS 成片、385 帧、无丢帧 | 场景和传感器请求可复现 |
 | V02 | track `c1958768...` 在 world frame 平移 `+0.5m` | A/A/B request digest、RGB repeatability、target-only change | 动态目标编辑会进入 RGB 响应，非目标 digest 不变 |
 | V03 | 相机 `x=0.12m`、`y=0.06m`、`yaw=1.0°` 的 bounded sweep | probe summary、底部 pose readout、轨迹极值 | 相机位姿控制边界可测量、可回放 |
-| V04 | 原始/编辑 RGB 与 LiDAR 投影四分屏 | 同一逻辑窗口的 capture evidence | 发现并展示对齐问题；不证明物理对齐 |
+| V04 | 原始/编辑 RGB 与 LiDAR 投影四分屏 | 同一逻辑窗口的 renderer evidence | 最终 v2b 视图是诊断，不含 A/A control，也不证明物理对齐 |
 
 ## Viewer 结果
 
@@ -91,9 +97,13 @@ locale: zh
 
 更具体地说，live probe 观察到：RGB 会跟随目标 pose；LiDAR 中多数车辆在真实位置没有回波，孤立 vehicle render 反而落在固定散点，约偏前 12m。ClosedLoopBench 的诊断将其归因于 NRE 26.04 server-side dynamic LiDAR renderer，或 checkpoint/runtime convention mismatch：动态高斯看起来被放在 `canonical_position + lidar_extra_signal`，而不是应用每条 track 的 cuboid transform 后再 raycast。这个结论足以阻止错误的多模态质量宣称，但在 NVIDIA 外部确认前，页面把它称为“服务端路径诊断/上游限制”，不冒充已修复的产品 bug。
 
+完整证据保留在 [`ClosedLoopBench/docs/open_loop_m8_debug_log.md`](https://github.com/cola1917/ClosedLoopBench/blob/main/docs/open_loop_m8_debug_log.md) 与论坛版报告 [`nurec_lidar_dynamic_bug_report.md`](https://github.com/cola1917/ClosedLoopBench/blob/main/docs/nurec_lidar_dynamic_bug_report.md)。
+
+对下游仿真而言，当前重建场景可以作为 renderer 使用，但还不能作为 perception-ready 的一致 RGB/LiDAR 传感器流。`NRE RGB + raw LiDAR` 只用于因果归因实验，不能被包装成生产路线。
+
 ## 工程边界
 
-- **已完成**：canonical artifact/checkpoint identity gate、223-track inventory 校验、V01/V02/V03 渲染、V02 A/A/B repeatability、V03 bounded camera probe、V04 capture evidence。
+- **已完成**：重建 artifact identity gate、223-track inventory 校验、V01/V02/V03 渲染、V02 A/A/B repeatability、V03 bounded camera probe、V04 renderer evidence。
 - **未完成**：source-timestamp-faithful full-dynamic replay、真实 RGB/LiDAR actor ownership、可用于感知模型的重建 LiDAR 质量、CARLA closed-loop score。
 - **明确不声称**：NeuralSceneBridge 不拥有 CARLA `world.tick()`，也不声称 Ego 会根据渲染结果刹车、避让或改变下一帧轨迹。
 
@@ -105,5 +115,6 @@ locale: zh
 - `demo/scene0061/cases/`：V01 original replay、V02 lead vehicle edit、V03 camera pose sweep。
 - `scripts/render_counterfactual_video.py`：按 case 发送 `render_rgb` 请求并生成带证据的六视角成片。
 - <code>scripts/<wbr />render_multimodal_alignment_video.py</code>：V04 RGB/LiDAR capture 与差异 overlay。
+- `docs/downstream_simulation_handoff.md`：重建到仿真的职责划分与验收边界。
 - `scripts/generate_nurec_quality_report.py`：把 artifact、case、frame、video 和 quality metrics 绑定成正式报告。
 - `nurec_scene0061_final/`：本地 playback delivery；视频、USDZ、checkpoint 和原始数据不进入 Git。
