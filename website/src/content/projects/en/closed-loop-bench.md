@@ -70,16 +70,11 @@ M8 compares three sensor routes over the same 39 scored frames and 68 dynamic ac
 
 The native route is the reference. The reconstructed route completes inference and report validation, but detection collapses. That makes the result a sensor-quality finding, not a runtime failure.
 
-## 4. A/B and scale-up debug: LiDAR is not editable
+## 4. LiDAR diagnosis summary
 
-The diagnosis moves from local fixes to causal and larger-scale tests:
+With the frame clock, actor manifest, model, and scorer held fixed, M8 continued through controlled variables, several local correction rounds, cross-input A/B, a 39-frame scale-up evaluation, and live NRE probes. `NuRec RGB + raw LiDAR` recovers part of the detection result, while `raw RGB + NuRec LiDAR` remains at zero. Moving an actor changes RGB, but LiDAR returns do not follow the true track pose.
 
-- Correcting the LiDAR axis matrix and sensor-height compensation improves point-cloud geometry, but not detection.
-- Same-frame cross-input A/B: `NuRec RGB + raw LiDAR` produces 21 matches and mAP50 `0.130`; `raw RGB + NuRec LiDAR` produces zero matches and mAP50 `0.0`.
-- The scale-up result covers three routes, 39/39 frames, 68 dynamic actors, zero fallback, and zero frame mismatch, ruling out a one-frame accident.
-- In live NRE probes, moving an actor changes RGB, while LiDAR returns stay at stored offsets instead of following the true track pose.
-
-The conclusion is specific: the **dynamic LiDAR path is not currently track-editable**. The service does not correctly apply each track's cuboid pose during LiDAR rendering. This is an upstream NRE/SensorsimService limitation, not a ClosedLoopBench coordinate patch.
+The conclusion is therefore not simply “LiDAR scores are low”: the **dynamic LiDAR path is not currently editable**. Upstream NRE/SensorsimService does not correctly apply each track's cuboid pose during LiDAR rendering. The full failure sequence, controlled variables, and evidence chain are documented in [the detailed LiDAR debugging post](/en/blog/closed-loop-lidar-debug/) and the repository reproduction log [`open_loop_m8_debug_log.md`](https://github.com/cola1917/ClosedLoopBench/blob/main/docs/open_loop_m8_debug_log.md).
 
 ## Same-frame evidence
 

@@ -70,16 +70,11 @@ M8 在同一份 Scenario IR、同一个 39 帧窗口和 68 个动态 actor 上�
 
 raw route 是 reference。reconstructed route 能完成 39 帧推理和报告校验，但检测结果接近归零，说明问题不是运行失败，而是传感器输入质量问题。
 
-## 4. A/B 与规模化验证：确认 LiDAR 不可编辑
+## 4. LiDAR 诊断摘要
 
-debug 从局部修正走向因果验证：
+M8 后续在固定 frame clock、actor manifest、模型和 scorer 的前提下，继续做了控制变量、多轮局部修正、cross-input A/B、39 帧规模化评测和 live NRE probe。`NuRec RGB + raw LiDAR` 可以恢复部分检测，而 `raw RGB + NuRec LiDAR` 仍然为 0；移动 actor 会改变 RGB，但 LiDAR 回波不跟随真实 track pose。
 
-- 修正 LiDAR axis matrix 和 sensor-height compensation 后，点云几何有所改善，但检测没有恢复。
-- 同一 39 帧做 cross-input A/B：`NuRec RGB + raw LiDAR` 有 21 个匹配、mAP50 `0.130`；`raw RGB + NuRec LiDAR` 仍然 0 匹配、mAP50 `0.0`。
-- 规模化结果覆盖 3 条路线、39/39 帧、68 个动态 actor，且 0 fallback / 0 frame mismatch，排除了偶发单帧问题。
-- live NRE probe 中，移动 actor 会改变 RGB，但 LiDAR 回波不跟随真实 track pose，而停留在 stored offset 位置。
-
-结论不是“LiDAR 分数低”这么笼统，而是 **dynamic LiDAR path 当前不可编辑**：服务端没有把 per-track cuboid pose 正确应用到 LiDAR 渲染。问题位于上游 NRE/SensorsimService 路径，不是 ClosedLoopBench 的坐标补丁问题。
+因此当前结论不是“LiDAR 分数低”，而是 **dynamic LiDAR path 当前不可编辑**：上游 NRE/SensorsimService 没有正确把 per-track cuboid pose 应用到 LiDAR 渲染。完整的失败轮次、控制变量和证据链见[《从检测崩溃到根因：动态 LiDAR 可编辑性的完整 debug》](/blog/closed-loop-lidar-debug/)，仓库复现记录见 [`open_loop_m8_debug_log.md`](https://github.com/cola1917/ClosedLoopBench/blob/main/docs/open_loop_m8_debug_log.md)。
 
 ## 同一帧证据
 
